@@ -1,0 +1,66 @@
+{
+  "common": {
+    "action": {
+      "search": "Rechercher"
+    }
+  },
+  "language": {
+    "fr": "Français",
+    "en": "Anglais"
+  },
+  "footer": {
+    "allRightReserved": "Tous droits réservés",
+    "privacy": "Politique de confidentialité",
+    "terms": "Conditions Générales d’Utilisation (CGU)",
+    "legalNotice": "Mentions légales"
+  },
+  "header": {
+    "login": "Se connecter",
+    "getStarted": "Commencer",
+    "links": {
+      "loans": "Prêts",
+      "simulationCenter": "Simulations"
+    }
+  },
+  "home": {
+    "hero": {
+      "title": {
+        "text": "Votre {highlight} {break} financier personnel",
+        "highlighted": "coach"
+      },
+      "subtitle": "Prenez le contrôle de vos prêts avec CreditMate. Visualisez votre parcours de remboursement, simulez des paiements anticipés et découvrez des opportunités d'économies en temps réel.",
+      "cta": {
+        "startTracking": "Commencer le suivi",
+        "addYourFirstLoan": "Ajouter votre premier prêt"
+      }
+    },
+    "features": {
+      "title": "Tout ce dont vous avez besoin pour maîtriser vos prêts",
+      "subtitle": "De la visualisation à la simulation, CreditMate fournit tous les outils pour prendre des décisions financières éclairées.",
+      "items": {
+        "interactiveTimeline": {
+          "title": "Chronologie Interactive",
+          "text": "Visualisez votre parcours de remboursement complet avec une chronologie interactive"
+        },
+        "paymentSimulator": {
+          "title": "Simulateur de Paiements",
+          "text": "Voyez l'impact des paiements anticipés et différents scénarios en temps réel"
+        },
+        "savingsOpportunities": {
+          "title": "Opportunités d'Économies",
+          "text": "Découvrez des opportunités d'économiser sur les intérêts et les frais"
+        }
+      }
+    }
+  },
+  "loan": {
+    "type": {
+      "personal": "Prêt Personnel",
+      "mortgage": "Prêt Immobilier",
+      "auto": "Prêt Automobile",
+      "student": "Prêt Étudiant",
+      "business": "Prêt Professionnel",
+      "other": "Autre"
+    }
+  }
+}

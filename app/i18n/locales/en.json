@@ -1,0 +1,56 @@
+{
+  "common": {
+    "action": {
+      "search": "Search"
+    }
+  },
+  "language": {
+    "fr": "French",
+    "en": "English"
+  },
+  "footer": {
+    "allRightReserved": "All rights reserved",
+    "privacy": "Privacy Policy",
+    "terms": "Terms of Services",
+    "legalNotice": "Legal Notice"
+  },
+  "header": {
+    "login": "Login",
+    "getStarted": "Get Started",
+    "links": {
+      "loans": "Loans",
+      "simulationCenter": "Simulation Center"
+    }
+  },
+  "home": {
+    "hero": {
+      "title": {
+        "text": "Your {highlight} {break} Financial Coach",
+        "highlighted": "Personal"
+      },
+      "subtitle": "Take control of your loans with Credit Mate. Visualize your repayment journey, simulate early payments, and discover savings opportunities in real-time.",
+      "cta": {
+        "startTracking": "Start Tracking",
+        "addYourFirstLoan": "Add Your First Loan"
+      }
+    },
+    "features": {
+      "title": "Everything you need to master your loans",
+      "subtitle": "From visualization to simulation, Credit Mate provides all the tools to make informed financial decisions.",
+      "items": {
+        "interactiveTimeline": {
+          "title": "Interactive Timeline",
+          "text": "Visualize your complete repayment journey with an interactive timeline"
+        },
+        "paymentSimulator": {
+          "title": "Payment Simulator",
+          "text": "See the impact of early payments and different scenarios in real-time"
+        },
+        "savingsOpportunities": {
+          "title": "Savings Opportunities",
+          "text": "Discover opportunities to save money on interest and fees"
+        }
+      }
+    }
+  }
+}
