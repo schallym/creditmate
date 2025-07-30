@@ -8,6 +8,8 @@ This application helps users track and manage their loans with an intuitive inte
 ## Features
 
 - 📊 Loan calculation and tracking
+- ⏭️ Simulation of loan repayments
+- 🐖 Saving opportunities analysis
 - 🇪🇺 Multilingual support (English and French)
 - 🎨 Modern UI with Nuxt UI components
 
