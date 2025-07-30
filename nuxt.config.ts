@@ -25,6 +25,9 @@ export default defineNuxtConfig({
     }
   },
   i18n: {
+    experimental: {
+      localeDetector: 'localeDetector.ts'
+    },
     strategy: 'no_prefix',
     defaultLocale: 'fr',
     restructureDir: 'app/i18n',

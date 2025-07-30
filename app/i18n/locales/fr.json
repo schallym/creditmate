@@ -1,7 +1,11 @@
 {
   "common": {
+    "optional": "optionnel",
+    "missingInformation": "Informations manquantes",
     "action": {
-      "search": "Rechercher"
+      "search": "Rechercher",
+      "cancel": "Annuler",
+      "calculate": "Calculer"
     }
   },
   "language": {
@@ -61,6 +65,83 @@
       "student": "Prêt Étudiant",
       "business": "Prêt Professionnel",
       "other": "Autre"
+    },
+    "add": {
+      "title": "Ajouter un Prêt",
+      "description": "Saisissez les détails de votre prêt pour commencer à suivre votre parcours financier avec CreditMate."
+    },
+    "form": {
+      "title": "Informations sur le prêt",
+      "description": "Renseignez les informations ci-dessous pour ajouter votre prêt au tableau de bord.",
+      "fields": {
+        "amount": {
+          "label": "Montant",
+          "help": "Montant total du prêt",
+          "validation": {
+            "required": "Le montant du prêt est requis",
+            "mustBePositive": "Le montant doit être supérieur à 0"
+          }
+        },
+        "interestRate": {
+          "label": "Taux d'Intérêt",
+          "help": "Taux d'intérêt annuel du prêt",
+          "validation": {
+            "required": "Le taux d'intérêt est requis",
+            "mustBePositive": "Le taux d'intérêt doit être supérieur à 0",
+            "maxValue": "Le taux d'intérêt ne peut pas dépasser 100%"
+          }
+        },
+        "term": {
+          "label": "Durée (en mois)",
+          "help": "Durée totale du prêt en mois",
+          "validation": {
+            "required": "La durée du prêt est requise",
+            "minValue": "La durée doit être supérieure à 1"
+          }
+        },
+        "type": {
+          "label": "Type",
+          "placeholder": "Sélectionnez le type de prêt",
+          "validation": {
+            "required": "Le type de prêt est requis"
+          }
+        },
+        "startDate": {
+          "label": "Date de Début",
+          "help": "Date à laquelle le prêt a été contracté",
+          "validation": {
+            "required": "La date de début est requise"
+          }
+        },
+        "monthlyPayment": {
+          "label": "Paiement Mensuel",
+          "placeholder": "Entrez le montant du paiement mensuel",
+          "help": "Montant que vous payez chaque mois pour ce prêt, laissez vide pour calcul automatique",
+          "calculate": {
+            "missingFieldsMessage": "Veuillez remplir tous le montant, le taux d'interêt et le durée du prêt pour calculer le paiement mensuel.",
+            "success": {
+              "title": "Paiement mensuel calculé",
+              "message": "Paiement mensuel: {amount} €"
+            }
+          }
+        },
+        "lenderName": {
+          "label": "Nom du Prêteur",
+          "placeholder": "Boursorama, BNP, Codifis, etc...",
+          "validation": {
+            "required": "Le nom du prêteur est requis"
+          }
+        },
+        "description": {
+          "label": "Description",
+          "placeholder": "Prêt pour la voiture, prêt étudiant, etc...",
+          "help": "Ajoutez une description facultative pour ce prêt pour vous aider à l'identifier"
+        }
+      },
+      "action": {
+        "addLoan": "Ajouter le Prêt",
+        "cancel": "Annuler"
+      }
     }
   }
 }

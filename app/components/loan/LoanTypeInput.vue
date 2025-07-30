@@ -24,7 +24,7 @@ const loanTypeIcon = computed(() => loanTypes.value.find(item => item.value === 
   <USelect
     v-model="selectedLoanType"
     :items="loanTypes"
-    placeholder="Select loan type"
+    :placeholder="$t('loan.form.fields.type.placeholder')"
     size="lg"
     :icon="loanTypeIcon"
     class="w-full"

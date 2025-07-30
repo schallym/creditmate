@@ -1,12 +1,12 @@
 <script setup lang="ts">
 import { getLocalTimeZone, today, parseDate } from '@internationalized/date';
 
-const props = defineProps<{ modelValue?: string | null }>();
+const props = defineProps<{ modelValue?: Date | null }>();
 const emit = defineEmits<{
-  (e: 'update:modelValue', value: string): void;
+  (e: 'update:modelValue', value: Date): void;
 }>();
 
-const selectedDate = shallowRef(props.modelValue ? parseDate(props.modelValue) : today(getLocalTimeZone()));
+const selectedDate = shallowRef(props.modelValue ? parseDate(props.modelValue.toISOString().substring(0, 10)) : today(getLocalTimeZone()));
 const inputDate = computed({
   get: () => selectedDate.value?.toString(),
   set: (val: string) => {
@@ -15,7 +15,7 @@ const inputDate = computed({
 });
 
 watch(selectedDate, (newDate) => {
-  emit('update:modelValue', newDate.toString());
+  emit('update:modelValue', newDate.toDate(getLocalTimeZone()));
 });
 </script>
 
@@ -27,7 +27,6 @@ watch(selectedDate, (newDate) => {
       size="lg"
       class="w-full"
     />
-
     <template #content>
       <UCalendar
         v-model="selectedDate"
