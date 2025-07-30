@@ -1,75 +1,88 @@
-# Nuxt Minimal Starter
+<div align="center">
+  <img src="/public/img/logo.png" alt="Credit Mate Logo" width="350">
+</div>
 
-Look at the [Nuxt documentation](https://nuxt.com/docs/getting-started/introduction) to learn more.
+A modern loan management dashboard.  
+This application helps users track and manage their loans with an intuitive interface.
 
-## Setup
+## Features
 
-Make sure to install dependencies:
+- 📊 Loan calculation and tracking
+- 🇪🇺 Multilingual support (English and French)
+- 🎨 Modern UI with Nuxt UI components
 
+## Tech Stack
+
+- **Framework**: Nuxt 3
+- **Frontend**: Vue 3 with Composition API
+- **Language**: TypeScript
+- **Styling**: Tailwind CSS
+- **UI Components**: Nuxt UI
+- **Package Manager**: npm
+
+## Getting Started
+
+### Prerequisites
+
+- Node.js (version 16 or higher)
+- npm
+
+### Installation
+
+1. Clone the repository:
 ```bash
-# npm
+git clone <repository-url>
+cd loan-dashboard
+```
+
+2. Install dependencies:
+```bash
 npm install
-
-# pnpm
-pnpm install
-
-# yarn
-yarn install
-
-# bun
-bun install
 ```
 
-## Development Server
-
-Start the development server on `http://localhost:3000`:
-
+3. Start the development server:
 ```bash
-# npm
 npm run dev
-
-# pnpm
-pnpm dev
-
-# yarn
-yarn dev
-
-# bun
-bun run dev
 ```
 
-## Production
+4. Open your browser and navigate to `http://localhost:3000`
 
-Build the application for production:
+## Available Scripts
 
-```bash
-# npm
-npm run build
+- `npm run dev` - Start development server
+- `npm run build` - Build for production
+- `npm run preview` - Preview production build
+- `npm run generate` - Generate static site
 
-# pnpm
-pnpm build
+## Project Structure
 
-# yarn
-yarn build
-
-# bun
-bun run build
+```
+app/
+├── assets/          # Static assets and icons
+├── components/      # Vue components
+├── pages/          # Application pages
+├── types/          # TypeScript type definitions
+└── nuxt.config.ts  # Nuxt configuration
 ```
 
-Locally preview production build:
+## Configuration
 
-```bash
-# npm
-npm run preview
+The theme can be customized in `nuxt.config.ts`:
 
-# pnpm
-pnpm preview
-
-# yarn
-yarn preview
-
-# bun
-bun run preview
+```typescript
+ui: {
+  primary: 'blue',
+  darkMode: 'class'
+}
 ```
 
-Check out the [deployment documentation](https://nuxt.com/docs/getting-started/deployment) for more information.
+## Contributing
+
+This project is primarily a personal/learning project and is not actively seeking contributions at this time. 
+However, it remains open source under the MIT License, so you're welcome to fork the repository and adapt it for your own needs.
+
+If you find any bugs or have suggestions, feel free to open an issue for discussion.
+
+## License
+
+This project is licensed under the MIT License.
