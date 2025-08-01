@@ -1,7 +1,6 @@
 <script setup lang="ts">
-import type { LoanType, Loan } from '~~/server/interfaces';
-import { calculateMonthlyPayment, createLoanValidationSchema } from '~~/server/services';
-import LoanMonthlyPaymentInput from '~/components/loan/LoanMonthlyPaymentInput.vue';
+import { createLoanValidationSchema } from '~~/server/services';
+import type { LoanType, Loan } from '~~/server/types';
 
 const { t } = useI18n();
 const loanValidationSchema = computed(() => createLoanValidationSchema(t));
@@ -31,14 +30,23 @@ const onSubmit = async () => {
   loading.value = true;
 
   try {
-    if (!loan.monthlyPayment || loan.monthlyPayment <= 0) {
-      loan.monthlyPayment = calculateMonthlyPayment(loan.amount, loan.interestRate, loan.termMonths);
+    if (!loan.monthlyPayment || Number(loan.monthlyPayment) <= 0) {
+      const res = await $fetch('/api/calculate-monthly-payment', {
+        method: 'POST',
+        body: {
+          amount: loan.amount,
+          interestRate: loan.interestRate,
+          termMonths: loan.termMonths
+        }
+      });
+
+      loan.monthlyPayment = res.monthlyPayment;
     }
 
-    // Simulate API call
-    await new Promise(resolve => setTimeout(resolve, 1000));
-
-    console.log('Loan data:', loan);
+    const res = await $fetch('/api/loan', {
+      method: 'POST',
+      body: { ...loan }
+    });
 
     emit('update:modelValue', loan);
 
@@ -47,6 +55,8 @@ const onSubmit = async () => {
       description: 'Your loan has been added to your dashboard.',
       color: 'success'
     });
+
+    navigateTo(`/loans/${res.data.id}`);
   } catch (error) {
     console.error(error);
     useToast().add({

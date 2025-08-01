@@ -1,6 +1,7 @@
 {
   "common": {
     "optional": "optionnel",
+    "with": "avec",
     "missingInformation": "Informations manquantes",
     "action": {
       "search": "Rechercher",
@@ -15,7 +16,7 @@
   "footer": {
     "allRightReserved": "Tous droits réservés",
     "privacy": "Politique de confidentialité",
-    "terms": "Conditions Générales d’Utilisation (CGU)",
+    "terms": "Conditions Générales d'Utilisation (CGU)",
     "legalNotice": "Mentions légales"
   },
   "header": {
@@ -58,6 +59,7 @@
     }
   },
   "loan": {
+    "label": "Prêt",
     "type": {
       "personal": "Prêt Personnel",
       "mortgage": "Prêt Immobilier",
@@ -69,6 +71,60 @@
     "add": {
       "title": "Ajouter un Prêt",
       "description": "Saisissez les détails de votre prêt pour commencer à suivre votre parcours financier avec CreditMate."
+    },
+    "view": {
+      "earlyRepaymentCalculator": {
+        "button": "Calculateur de Remboursement Anticipé"
+      },
+      "remainingBalance": {
+        "title": "Solde Restant",
+        "subTitle": "{percent} remboursé"
+      },
+      "monthlyPayment": {
+        "title": "Paiement Mensuel",
+        "subTitle": "Prochain : {date}"
+      },
+      "interestRate": {
+        "title": "Taux d'Intérêt",
+        "subTitle": "Taux fixe"
+      },
+      "repaymentDate": {
+        "title": "Date de Remboursement",
+        "subTitle": "{number} paiements restants"
+      },
+      "progress": {
+        "title": "Progression du Prêt",
+        "description": "Suivez votre chemin vers la liberté financière",
+        "principalPaid": {
+          "label": "Capital Remboursé",
+          "completePercent": "{percent} terminé"
+        },
+        "originalAmount": {
+          "label": "Montant Initial"
+        },
+        "totalPaid": {
+          "label": "Total Payé"
+        },
+        "totalInterest": {
+          "label": "Total des Intérêts Payés"
+        },
+        "totalInterestPaid": {
+          "label": "Total des Intérêts Payés"
+        }
+      },
+      "nextPayment": {
+        "title": "Répartition du Paiement",
+        "description": "Répartition de votre prochain paiement",
+        "principal": {
+          "label": "Capital"
+        },
+        "interest": {
+          "label": "Intérêts"
+        },
+        "totalPayment": {
+          "label": "Paiement Total"
+        }
+      }
     },
     "form": {
       "title": "Informations sur le prêt",
@@ -118,10 +174,10 @@
           "placeholder": "Entrez le montant du paiement mensuel",
           "help": "Montant que vous payez chaque mois pour ce prêt, laissez vide pour calcul automatique",
           "calculate": {
-            "missingFieldsMessage": "Veuillez remplir tous le montant, le taux d'interêt et le durée du prêt pour calculer le paiement mensuel.",
+            "missingFieldsMessage": "Veuillez remplir tous le montant, le taux d'intérêt et la durée du prêt pour calculer le paiement mensuel.",
             "success": {
               "title": "Paiement mensuel calculé",
-              "message": "Paiement mensuel: {amount} €"
+              "message": "Paiement mensuel : {amount}"
             }
           }
         },

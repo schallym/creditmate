@@ -1,6 +1,5 @@
 <script setup lang="ts">
-import type { Loan } from '~~/server/interfaces';
-import { calculateMonthlyPayment } from '~~/server/services';
+import type { Loan } from '~~/server/types';
 
 const props = defineProps<{
   modelValue?: number | undefined;
@@ -18,7 +17,7 @@ watch(() => props.modelValue, (newValue) => {
   }
 }, { immediate: true });
 
-const calculatePayment = () => {
+const calculatePayment = async () => {
   if (!props.loan.amount || !props.loan.interestRate || !props.loan.termMonths) {
     useToast().add({
       title: $t('common.missingInformation'),
@@ -28,7 +27,16 @@ const calculatePayment = () => {
     return;
   }
 
-  monthlyPayment.value = calculateMonthlyPayment(props.loan.amount, props.loan.interestRate, props.loan.termMonths);
+  const res = await $fetch('/api/calculate-monthly-payment', {
+    method: 'POST',
+    body: {
+      amount: props.loan.amount,
+      interestRate: props.loan.interestRate,
+      termMonths: props.loan.termMonths
+    }
+  });
+
+  monthlyPayment.value = res.monthlyPayment;
 
   emit('update:modelValue', monthlyPayment.value);
 

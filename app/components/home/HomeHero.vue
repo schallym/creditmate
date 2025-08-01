@@ -45,7 +45,7 @@ const colorMode = useColorMode();
       <div class="relative w-full">
         <ClientOnly>
           <img
-            :src="colorMode.value === 'dark' ? '/img/hero-dark.png' : '/img/hero.png'"
+            :src="colorMode.value === 'dark' ? '/img/hero.png' : '/img/hero-dark.png'"
             alt="Loan Dashboard"
             class="rounded-xl shadow-xl w-full"
           >

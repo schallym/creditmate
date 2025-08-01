@@ -6,6 +6,6 @@ import '@vue/runtime-core';
 // This file is primarily for type declarations in order to avoid IDE errors related to the `$t` method.
 declare module '@vue/runtime-core' {
   interface ComponentCustomProperties {
-    $t: (key: string) => string;
+    $t: (key: string, params?: Record<string, string | number>) => string;
   }
 }

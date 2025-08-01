@@ -1,7 +1,12 @@
 {
   "common": {
+    "optional": "optional",
+    "with": "with",
+    "missingInformation": "Missing information",
     "action": {
-      "search": "Search"
+      "search": "Search",
+      "cancel": "Cancel",
+      "calculate": "Calculate"
     }
   },
   "language": {
@@ -50,6 +55,148 @@
           "title": "Savings Opportunities",
           "text": "Discover opportunities to save money on interest and fees"
         }
+      }
+    }
+  },
+  "loan": {
+    "label": "Loan",
+    "type": {
+      "personal": "Personal Loan",
+      "mortgage": "Mortgage",
+      "auto": "Auto Loan",
+      "student": "Student Loan",
+      "business": "Business Loan",
+      "other": "Other"
+    },
+    "add": {
+      "title": "Add a Loan",
+      "description": "Enter your loan details to start tracking your financial journey with CreditMate."
+    },
+    "view": {
+      "earlyRepaymentCalculator": {
+        "button": "Early Repayment Calculator"
+      },
+      "remainingBalance": {
+        "title": "Remaining Balance",
+        "subTitle": "{percent} paid off"
+      },
+      "monthlyPayment": {
+        "title": "Monthly Payment",
+        "subTitle": "Next: {date}"
+      },
+      "interestRate": {
+        "title": "Interest Rate",
+        "subTitle": "Fixed rate"
+      },
+      "repaymentDate": {
+        "title": "Repayment Date",
+        "subTitle": "{number} payments left"
+      },
+      "progress": {
+        "title": "Loan Progress",
+        "description": "Track your journey to financial freedom",
+        "principalPaid": {
+          "label": "Principal Paid",
+          "completePercent": "{percent} complete"
+        },
+        "originalAmount": {
+          "label": "Original Amount"
+        },
+        "totalPaid": {
+          "label": "Total Paid"
+        },
+        "totalInterest": {
+          "label": "Total Interest Paid"
+        },
+        "totalInterestPaid": {
+          "label": "Total Interest Paid"
+        }
+      },
+      "nextPayment": {
+        "title": "Payment Breakdown",
+        "description": "Your next payment allocation",
+        "principal": {
+          "label": "Principal"
+        },
+        "interest": {
+          "label": "Interest"
+        },
+        "totalPayment": {
+          "label": "Total Payment"
+        }
+      }
+    },
+    "form": {
+      "title": "Loan Information",
+      "description": "Fill in the information below to add your loan to the dashboard.",
+      "fields": {
+        "amount": {
+          "label": "Amount",
+          "help": "Total loan amount",
+          "validation": {
+            "required": "Loan amount is required",
+            "mustBePositive": "Amount must be greater than 0"
+          }
+        },
+        "interestRate": {
+          "label": "Interest Rate",
+          "help": "Annual interest rate of the loan",
+          "validation": {
+            "required": "Interest rate is required",
+            "mustBePositive": "Interest rate must be greater than 0",
+            "maxValue": "Interest rate cannot exceed 100%"
+          }
+        },
+        "term": {
+          "label": "Term (in months)",
+          "help": "Total loan term in months",
+          "validation": {
+            "required": "Loan term is required",
+            "minValue": "Term must be greater than 1"
+          }
+        },
+        "type": {
+          "label": "Type",
+          "placeholder": "Select loan type",
+          "validation": {
+            "required": "Loan type is required"
+          }
+        },
+        "startDate": {
+          "label": "Start Date",
+          "help": "Date when the loan was taken",
+          "validation": {
+            "required": "Start date is required"
+          }
+        },
+        "monthlyPayment": {
+          "label": "Monthly Payment",
+          "placeholder": "Enter monthly payment amount",
+          "help": "Amount you pay each month for this loan, leave blank for automatic calculation",
+          "calculate": {
+            "missingFieldsMessage": "Please fill in all the amount, interest rate and loan term to calculate the monthly payment.",
+            "success": {
+              "title": "Monthly payment calculated",
+              "message": "Monthly payment: ${amount}"
+            }
+          }
+        },
+        "lenderName": {
+          "label": "Lender Name",
+          "placeholder": "Bank of America, Wells Fargo, etc...",
+          "validation": {
+            "required": "Lender name is required"
+          }
+        },
+        "description": {
+          "label": "Description",
+          "placeholder": "Car loan, student loan, etc...",
+          "help": "Add an optional description for this loan to help you identify it"
+        }
+      },
+      "action": {
+        "addLoan": "Add Loan",
+        "cancel": "Cancel"
       }
     }
   }

@@ -1,9 +1,9 @@
 <template>
-  <div>
+  <div class="min-h-screen flex flex-col">
     <AppHeader />
-    <div class="container mx-4 md:mx-auto max-w-9xl mt-4">
+    <main class="flex-1 container mx-4 md:mx-auto max-w-9xl mt-4">
       <slot />
-    </div>
+    </main>
     <AppFooter />
   </div>
 </template>

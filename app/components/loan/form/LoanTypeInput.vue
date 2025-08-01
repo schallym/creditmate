@@ -1,6 +1,6 @@
 <script setup lang="ts">
-import { LoanType } from '~~/server/interfaces';
 import { ref, computed } from 'vue';
+import { LoanType } from '~~/server/types';
 
 const props = defineProps<{ modelValue?: LoanType | null | undefined }>();
 const emit = defineEmits<{

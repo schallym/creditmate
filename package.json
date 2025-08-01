@@ -4,10 +4,13 @@
   "type": "module",
   "scripts": {
     "build": "nuxt build",
+    "predev": "prisma generate",
     "dev": "nuxt dev",
     "generate": "nuxt generate",
     "preview": "nuxt preview",
     "postinstall": "nuxt prepare",
+    "db:push": "prisma db push",
+    "db:migrate": "prisma migrate dev",
     "lint": "eslint --ext .js,.ts,.vue ."
   },
   "dependencies": {
@@ -16,6 +19,7 @@
     "@nuxt/test-utils": "^3.19.2",
     "@nuxt/ui": "^3.3.0",
     "@nuxtjs/i18n": "^10.0.3",
+    "@prisma/client": "^6.13.0",
     "eslint": "^9.31.0",
     "nuxt": "^4.0.1",
     "typescript": "^5.8.3",
@@ -24,6 +28,7 @@
     "zod": "^4.0.10"
   },
   "devDependencies": {
-    "eslint-plugin-vue": "^10.3.0"
+    "eslint-plugin-vue": "^10.3.0",
+    "prisma": "^6.13.0"
   }
 }
