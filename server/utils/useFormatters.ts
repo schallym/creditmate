@@ -1,7 +1,7 @@
 export const useFormatters = (locale: string) => {
   const getCurrency = (locale: string): string => {
     const currencyMap: Record<string, string> = {
-      en: 'GBP',
+      en: 'EUR',
       fr: 'EUR'
     };
     return currencyMap[locale] || 'EUR';

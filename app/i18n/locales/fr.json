@@ -124,6 +124,13 @@
         "totalPayment": {
           "label": "Paiement Total"
         }
+      },
+      "remainingBalanceProjection": {
+        "title": "Projection du solde restant",
+        "description": "Visualisez l'évolution de votre solde restant au fil du temps",
+        "tooltip": {
+          "month": "Mois {month}"
+        }
       }
     },
     "form": {

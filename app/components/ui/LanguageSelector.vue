@@ -13,6 +13,12 @@ const currentLocale = computed(() => {
   const currentLocale = locale.value;
   return items.value.find(item => item.id === currentLocale) || items.value[0];
 });
+
+const handleLocaleChange = async (selectedItem: { id: string }) => {
+  await setLocale(selectedItem.id as LocaleCode);
+  // Reload the page to apply the new locale and reload localised data that might be generated on the server side.
+  window.location.reload();
+};
 </script>
 
 <template>
@@ -25,7 +31,7 @@ const currentLocale = computed(() => {
       }"
       :model-value="currentLocale"
       class="w-35"
-      @update:model-value="setLocale($event.id as LocaleCode)"
+      @update:model-value="handleLocaleChange"
     />
   </div>
 </template>

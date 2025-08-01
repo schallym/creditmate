@@ -27,6 +27,10 @@ export type LoanWithCalculations = Loan & {
   totalPaidOff: number;
   nextMonthInterest: number;
   nextMonthAmount: number;
+  remainingBalanceProjectionData: {
+    x: number; // Month index (0 = current month, 1 = next month, etc.)
+    y: number; // Remaining balance for that month
+  }[];
   formatted: {
     amount: string;
     monthlyPayment: string;

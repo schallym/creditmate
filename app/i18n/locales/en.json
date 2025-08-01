@@ -124,6 +124,13 @@
         "totalPayment": {
           "label": "Total Payment"
         }
+      },
+      "remainingBalanceProjection": {
+        "title": "Remaining Balance Projection",
+        "description": "Visualize your remaining balance over time",
+        "tooltip": {
+          "month": "Month {month}"
+        }
       }
     },
     "form": {

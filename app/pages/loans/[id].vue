@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import LoanViewTopCards from '~/components/loan/view/LoanViewTopCards.vue';
-import type { LoanWithCalculations } from '~~/server/types';
+import { LoanType, type LoanWithCalculations } from '~~/server/types';
 
 const route = useRoute();
 
@@ -13,6 +13,23 @@ if (error.value) {
     statusMessage: error.value.statusMessage || 'Loan not found'
   });
 }
+
+const loanTypeIcon = computed(() => {
+  switch (loan.value?.type) {
+    case LoanType.MORTGAGE:
+      return 'i-lucide-house';
+    case LoanType.AUTO:
+      return 'i-lucide-car';
+    case LoanType.PERSONAL:
+      return 'i-lucide-credit-card';
+    case LoanType.STUDENT:
+      return 'i-lucide-book';
+    case LoanType.BUSINESS:
+      return 'i-lucide-building-2';
+    default:
+      return '';
+  }
+});
 </script>
 
 <template>
@@ -24,7 +41,7 @@ if (error.value) {
       <div class="flex items-center gap-4">
         <div>
           <h1 class="text-3xl font-bold text-gray-900 dark:text-white">
-            {{ $t('loan.label') }} <span class="text-sm font-normal text-gray-500 dark:text-gray-400"> {{ $t('common.with') }} {{ loan.lenderName }} </span>
+            {{ $t(`loan.type.${loan.type}`) }} <span class="text-sm font-normal text-gray-500 dark:text-gray-400"> {{ $t('common.with') }} {{ loan.lenderName }} </span>
           </h1>
           <p
             v-if="loan.description"
@@ -34,12 +51,21 @@ if (error.value) {
           </p>
         </div>
       </div>
-      <UBadge
-        :label="$t(`loan.type.${loan.type}`)"
-        variant="subtle"
-        color="primary"
-        size="lg"
-      />
+      <div class="flex gap-2">
+        <UBadge
+          :label="$t(`loan.type.${loan.type}`)"
+          variant="subtle"
+          color="primary"
+          size="lg"
+          :icon="loanTypeIcon"
+        />
+        <UButton
+          color="primary"
+          variant="solid"
+        >
+          {{ $t('loan.view.earlyRepaymentCalculator.button') }}
+        </UButton>
+      </div>
     </div>
     <LoanViewTopCards :loan="loan" />
 
@@ -48,13 +74,8 @@ if (error.value) {
       <LoanViewNextPayment :loan="loan" />
     </div>
 
-    <div class="flex flex-wrap gap-3 pt-4">
-      <UButton
-        color="primary"
-        variant="solid"
-      >
-        {{ $t('loan.view.earlyRepaymentCalculator.button') }}
-      </UButton>
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-4">
+      <LoanViewRemainingBalanceProjection :loan="loan" />
     </div>
   </div>
 </template>

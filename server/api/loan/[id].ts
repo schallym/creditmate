@@ -33,6 +33,7 @@ export default defineEventHandler(async (event) => {
       totalPaidOff: loanService.calculateTotalPaidOff(loan),
       nextMonthInterest: loanService.calculateNextPaymentInterestAmount(loan),
       nextMonthAmount: loanService.calculateNextPaymentAmount(loan),
+      remainingBalanceProjectionData: loanService.calculateRemainingBalanceProjectionData(loan),
       formatted: {
         amount: formatters.formatMoney(loan.amount.toNumber()),
         monthlyPayment: formatters.formatMoney(loan.monthlyPayment?.toNumber() || 0),

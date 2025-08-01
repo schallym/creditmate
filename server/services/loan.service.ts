@@ -72,9 +72,7 @@ class LoanService {
   calculateInterestPaidOff(loan: Loan): number {
     const diffMonths = Math.max(0, loan.termMonths - this.calculateNumberOfPaymentsLeft(loan));
     const monthlyRate = this.calculateMonthlyRate(loan);
-    const duration = loan.termMonths;
-    const pow = Math.pow(1 + monthlyRate, duration);
-    const monthly = (loan.amount as number * monthlyRate * pow) / (pow - 1);
+    const monthly = loan.monthlyPayment as number || this.getMonthlyPayment(loan);
     let balance = loan.amount as number;
     let interestPaid = 0;
 
@@ -102,14 +100,7 @@ class LoanService {
   }
 
   calculateRemainingBalance(loan: Loan): number {
-    const startDate = new Date(loan.startDate);
-    const now = new Date();
-    const yearDiff = now.getFullYear() - startDate.getFullYear();
-    const monthDiff = now.getMonth() - startDate.getMonth();
-
-    const totalPaid = this.getMonthlyPayment(loan) * (yearDiff * 12 + monthDiff);
-
-    return loan.amount as number - totalPaid;
+    return loan.amount as number - this.calculateAmountPaidOff(loan);
   }
 
   calculatePaidOffPercentage(loan: Loan): number {
@@ -142,6 +133,29 @@ class LoanService {
 
   calculateNextPaymentAmount(loan: Loan): number {
     return this.getMonthlyPayment(loan) - this.calculateNextPaymentInterestAmount(loan);
+  }
+
+  calculateRemainingBalanceProjectionData(loan: Loan): { x: number; y: number }[] {
+    const projectionData: { x: number; y: number }[] = [
+      { x: 0, y: parseFloat((loan.amount as number).toFixed(2)) }
+    ];
+    const monthlyPayment = this.getMonthlyPayment(loan);
+    const monthlyRate = this.calculateMonthlyRate(loan);
+    let balance = loan.amount as number;
+    const totalMonths = loan.termMonths;
+
+    for (let month = 1; month <= totalMonths; month++) {
+      const interest = balance * monthlyRate;
+      const principalPaid = monthlyPayment - interest;
+      balance -= principalPaid;
+
+      projectionData.push({
+        x: month,
+        y: Math.max(0, parseFloat(balance.toFixed(2)))
+      });
+    }
+
+    return projectionData;
   }
 
   private getMonthlyPayment(loan: Loan): number {
