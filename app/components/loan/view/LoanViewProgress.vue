@@ -1,9 +1,7 @@
 <script setup lang="ts">
 import type { LoanWithCalculations } from '~~/server/types';
 
-const props = defineProps<{
-  loan: LoanWithCalculations;
-}>();
+const props = defineProps<{ loan: LoanWithCalculations }>();
 </script>
 
 <template>

@@ -11,10 +11,10 @@ model Loan {
   id             Int      @id @default(autoincrement())
   type           LoanType
   lenderName     String   @map("lender_name")
-  amount         Decimal  @db.Decimal(12, 2)
-  interestRate   Decimal  @map("interest_rate") @db.Decimal(5, 2)
+  amount         Float
+  interestRate   Float    @map("interest_rate")
   termMonths     Int      @map("term_months")
-  monthlyPayment Decimal? @map("monthly_payment") @db.Decimal(12, 2)
+  monthlyPayment Float?   @map("monthly_payment")
   startDate      DateTime @map("start_date") @db.Date
   description    String?
   createdAt      DateTime @default(now()) @map("created_at")

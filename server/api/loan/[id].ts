@@ -33,11 +33,25 @@ export default defineEventHandler(async (event) => {
       totalPaidOff: loanService.calculateTotalPaidOff(loan),
       nextMonthInterest: loanService.calculateNextPaymentInterestAmount(loan),
       nextMonthAmount: loanService.calculateNextPaymentAmount(loan),
-      remainingBalanceProjectionData: loanService.calculateRemainingBalanceProjectionData(loan),
+      remainingBalanceProjectionData: loanService.calculateRemainingBalanceProjectionData(loan).map(
+        (data) => {
+          const startDate = new Date(loan.startDate);
+          const targetDate = new Date(startDate);
+          targetDate.setMonth(startDate.getMonth() + data.month);
+
+          return {
+            month: data.month,
+            remainingBalance: data.remainingBalance,
+            formatted: {
+              month: formatters.formatMonthYear(targetDate),
+              remainingBalance: formatters.formatMoney(data.remainingBalance)
+            }
+          };
+        }),
       formatted: {
-        amount: formatters.formatMoney(loan.amount.toNumber()),
-        monthlyPayment: formatters.formatMoney(loan.monthlyPayment?.toNumber() || 0),
-        interestRate: formatters.formatPercent(loan.interestRate.toNumber()),
+        amount: formatters.formatMoney(loan.amount),
+        monthlyPayment: formatters.formatMoney(loan.monthlyPayment || 0),
+        interestRate: formatters.formatPercent(loan.interestRate),
         remainingBalance: formatters.formatMoney(loanService.calculateRemainingBalance(loan)),
         paidOffPercentage: formatters.formatPercent(loanService.calculatePaidOffPercentage(loan)),
         totalInterest: formatters.formatMoney(loanService.calculateTotalInterest(loan)),
@@ -66,4 +80,6 @@ export default defineEventHandler(async (event) => {
   } finally {
     await prisma.$disconnect();
   }
-});
+}
+)
+;

@@ -1,15 +1,14 @@
 import type { LoanType as PrismaLoanType } from '@prisma/client';
-import type { Decimal } from '@prisma/client/runtime/library';
 
 export type Loan = {
   id?: number;
   type: LoanType | PrismaLoanType;
   lenderName: string;
-  amount: number | Decimal;
-  interestRate: number | Decimal;
+  amount: number;
+  interestRate: number;
   termMonths: number;
   startDate: Date;
-  monthlyPayment?: number | Decimal | null;
+  monthlyPayment?: number | null;
   description?: string | null;
   createdAt?: Date;
   updatedAt?: Date;
@@ -28,8 +27,12 @@ export type LoanWithCalculations = Loan & {
   nextMonthInterest: number;
   nextMonthAmount: number;
   remainingBalanceProjectionData: {
-    x: number; // Month index (0 = current month, 1 = next month, etc.)
-    y: number; // Remaining balance for that month
+    month: number;
+    remainingBalance: number;
+    formatted: {
+      month: string;
+      remainingBalance: string;
+    };
   }[];
   formatted: {
     amount: string;

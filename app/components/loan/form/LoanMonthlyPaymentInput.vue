@@ -2,7 +2,7 @@
 import type { Loan } from '~~/server/types';
 
 const props = defineProps<{
-  modelValue?: number | undefined;
+  modelValue?: number | undefined | null;
   loan: Loan;
 }>();
 const emit = defineEmits<{

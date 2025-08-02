@@ -72,8 +72,8 @@ class LoanService {
   calculateInterestPaidOff(loan: Loan): number {
     const diffMonths = Math.max(0, loan.termMonths - this.calculateNumberOfPaymentsLeft(loan));
     const monthlyRate = this.calculateMonthlyRate(loan);
-    const monthly = loan.monthlyPayment as number || this.getMonthlyPayment(loan);
-    let balance = loan.amount as number;
+    const monthly = loan.monthlyPayment || this.getMonthlyPayment(loan);
+    let balance = loan.amount;
     let interestPaid = 0;
 
     for (let m = 1; m <= diffMonths && m <= loan.termMonths; m++) {
@@ -100,15 +100,11 @@ class LoanService {
   }
 
   calculateRemainingBalance(loan: Loan): number {
-    return loan.amount as number - this.calculateAmountPaidOff(loan);
+    return loan.amount - this.calculateAmountPaidOff(loan);
   }
 
   calculatePaidOffPercentage(loan: Loan): number {
-    return ((
-      loan.amount as number
-      - this.calculateRemainingBalance(loan)
-      - this.calculateInterestPaidOff(loan)
-    ) / (loan.amount as number)) * 100;
+    return ((loan.amount - this.calculateRemainingBalance(loan)) / (loan.amount)) * 100;
   }
 
   calculateNextPaymentDate(loan: Loan): Date {
@@ -124,7 +120,7 @@ class LoanService {
   }
 
   calculateTotalInterest(loan: Loan): number {
-    return this.getMonthlyPayment(loan) * loan.termMonths - (loan.amount as number);
+    return this.getMonthlyPayment(loan) * loan.termMonths - (loan.amount);
   }
 
   calculateNextPaymentInterestAmount(loan: Loan): number {
@@ -135,13 +131,13 @@ class LoanService {
     return this.getMonthlyPayment(loan) - this.calculateNextPaymentInterestAmount(loan);
   }
 
-  calculateRemainingBalanceProjectionData(loan: Loan): { x: number; y: number }[] {
-    const projectionData: { x: number; y: number }[] = [
-      { x: 0, y: parseFloat((loan.amount as number).toFixed(2)) }
+  calculateRemainingBalanceProjectionData(loan: Loan): { month: number; remainingBalance: number }[] {
+    const projectionData: { month: number; remainingBalance: number }[] = [
+      { month: 0, remainingBalance: parseFloat((loan.amount).toFixed(2)) }
     ];
     const monthlyPayment = this.getMonthlyPayment(loan);
     const monthlyRate = this.calculateMonthlyRate(loan);
-    let balance = loan.amount as number;
+    let balance = loan.amount;
     const totalMonths = loan.termMonths;
 
     for (let month = 1; month <= totalMonths; month++) {
@@ -150,8 +146,8 @@ class LoanService {
       balance -= principalPaid;
 
       projectionData.push({
-        x: month,
-        y: Math.max(0, parseFloat(balance.toFixed(2)))
+        month: month,
+        remainingBalance: Math.max(0, parseFloat(balance.toFixed(2)))
       });
     }
 
@@ -159,16 +155,16 @@ class LoanService {
   }
 
   private getMonthlyPayment(loan: Loan): number {
-    if (!loan.monthlyPayment || loan.monthlyPayment as number <= 0) {
-      return this.calculateMonthlyPayment(loan.amount as number, loan.interestRate as number, loan.termMonths);
+    if (!loan.monthlyPayment || loan.monthlyPayment <= 0) {
+      return this.calculateMonthlyPayment(loan.amount, loan.interestRate, loan.termMonths);
     }
-    return loan.monthlyPayment as number;
+    return loan.monthlyPayment;
   }
 
   private calculateMonthlyRate(loan: Loan): number {
     if (!loan.interestRate || !loan.interestRate) return 0;
 
-    const monthlyRate = Math.pow(1 + (loan.interestRate as number) / 100, 1 / 12) - 1;
+    const monthlyRate = loan.interestRate / 12 / 100;
 
     return parseFloat(monthlyRate.toFixed(5));
   }

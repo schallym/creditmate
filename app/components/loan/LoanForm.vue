@@ -73,7 +73,7 @@ const onSubmit = async () => {
 <template>
   <UForm
     :schema="loanValidationSchema"
-    :state="loan"
+    :state="loan as any"
     @submit="onSubmit"
   >
     <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
@@ -83,7 +83,7 @@ const onSubmit = async () => {
         class="col-span-1"
       >
         <LoanTypeInput
-          v-model="loan.type"
+          v-model="loan.type as LoanType"
           class="col-span-1"
         />
       </UFormField>
