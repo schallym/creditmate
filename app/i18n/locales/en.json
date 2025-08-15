@@ -131,6 +131,12 @@
         "tooltip": {
           "month": "Month {month}"
         }
+      },
+      "paymentBreakdown": {
+        "title": "Global Payment Breakdown",
+        "description": "Global breakdown of your payments",
+        "amount": "Amount",
+        "interest": "Interest"
       }
     },
     "form": {

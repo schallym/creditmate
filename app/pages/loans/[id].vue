@@ -76,6 +76,7 @@ const loanTypeIcon = computed(() => {
 
     <div class="grid grid-cols-1 lg:grid-cols-2 gap-4">
       <LoanViewRemainingBalanceProjection :loan="loan" />
+      <LoanViewPaymentsBreakdown :loan="loan" />
     </div>
   </div>
 </template>

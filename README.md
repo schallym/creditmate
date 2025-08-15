@@ -42,12 +42,17 @@ cd loan-dashboard
 npm install
 ```
 
-3. Start the development server:
+3. Start the database (with docker for example):
+```bash
+docker run --name creditmate-postgres -e POSTGRES_PASSWORD=password -e POSTGRES_DB=creditmate -p 5432:5432 -d postgres:15
+```
+
+4. Start the development server:
 ```bash
 npm run dev
 ```
 
-4. Open your browser and navigate to `http://localhost:3000`
+5. Open your browser and navigate to `http://localhost:3000`
 
 ## Available Scripts
 

@@ -131,6 +131,12 @@
         "tooltip": {
           "month": "Mois {month}"
         }
+      },
+      "paymentBreakdown": {
+        "title": "Répartition des Paiements",
+        "description": "Visualisez comment vos paiements sont répartis entre le capital et les intérêts",
+        "amount": "Montant",
+        "interest": "Intérêt"
       }
     },
     "form": {
