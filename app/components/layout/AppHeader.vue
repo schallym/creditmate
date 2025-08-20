@@ -2,8 +2,12 @@
 import { computed } from 'vue';
 import { useRoute } from 'vue-router';
 import type { NavigationMenuItem } from '@nuxt/ui';
+import type { FilteredUser } from '~~/server/types';
 
 const route = useRoute();
+const { loggedIn, user, fetch: refreshSession } = useUserSession();
+const loggedUser = computed(() => user.value as FilteredUser | null);
+
 const navItems = computed<NavigationMenuItem[]>(() => [
   {
     label: $t('header.links.loans'),
@@ -15,6 +19,27 @@ const navItems = computed<NavigationMenuItem[]>(() => [
     to: '/simulation-center',
     active: route.path.startsWith('/simulation-center')
   }
+]);
+
+const userMenuItems = computed(() => [
+  [
+    {
+      label: $t('auth.header.loggedInAs', { name: loggedUser?.value?.fullName }),
+      icon: 'i-heroicons-user'
+    }
+  ],
+  [
+    {
+      label: $t('auth.logout.title'),
+      icon: 'i-heroicons-arrow-right-on-rectangle',
+      class: 'cursor-pointer',
+      onClick: async () => {
+        await $fetch('/api/auth/logout', { method: 'POST' });
+        await refreshSession();
+        await navigateTo('/');
+      }
+    }
+  ]
 ]);
 </script>
 
@@ -44,23 +69,39 @@ const navItems = computed<NavigationMenuItem[]>(() => [
         active-class="bg-blue-200 text-blue-800"
       />
       <ColorModeSelector class="mr-1" />
-      <UButton
-        color="neutral"
-        class="hidden md:inline-flex"
-        to="/get-started"
-        size="lg"
+
+      <UDropdownMenu
+        v-if="loggedIn"
+        :items="userMenuItems"
       >
-        {{ $t('header.login') }}
-      </UButton>
-      <UButton
-        color="primary"
-        class="hidden md:inline-flex"
-        to="/get-started"
-        size="lg"
-        trailing-icon="lucide:arrow-right"
+        <UAvatar
+          :alt="loggedUser?.fullName"
+          size="lg"
+          class="cursor-pointer"
+        />
+      </UDropdownMenu>
+      <div
+        v-else
+        class="flex items-center space-x-2"
       >
-        {{ $t('header.getStarted') }}
-      </UButton>
+        <UButton
+          color="neutral"
+          class="hidden md:inline-flex"
+          to="/auth/login"
+          size="lg"
+        >
+          {{ $t('header.login') }}
+        </UButton>
+        <UButton
+          color="primary"
+          class="hidden md:inline-flex"
+          to="/auth/signup"
+          size="lg"
+          trailing-icon="lucide:arrow-right"
+        >
+          {{ $t('header.getStarted') }}
+        </UButton>
+      </div>
     </div>
   </header>
 </template>

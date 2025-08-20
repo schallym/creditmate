@@ -1,9 +1,9 @@
 import { z } from 'zod';
-import enLocale from '~/i18n/locales/en.json';
 import { type Loan, LoanType } from '~~/server/types';
 import type { CreateLoanDto } from '~~/server/dtos';
 import { PrismaClient } from '@prisma/client';
 import type { Loan as PrismaLoan } from '@prisma/client';
+import { useTranslations } from '~~/server/utils';
 
 export const createLoanValidationSchema = (t: (key: string) => string) => {
   return z.object({
@@ -22,14 +22,9 @@ export const createLoanValidationSchema = (t: (key: string) => string) => {
   });
 };
 
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-function getTranslations(key: string, translations: any): string {
-  return key.split('.').reduce((obj, k) => obj?.[k], translations) || key;
-}
-
 // Default schema using English translations from locale file
 export const loanValidationSchema = createLoanValidationSchema((key: string) => {
-  return getTranslations(key, enLocale);
+  return useTranslations(key);
 });
 
 class LoanService {

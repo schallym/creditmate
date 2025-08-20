@@ -5,7 +5,8 @@ export default defineNuxtConfig({
     '@nuxt/test-utils',
     '@nuxt/image',
     '@nuxt/eslint',
-    '@nuxtjs/i18n'
+    '@nuxtjs/i18n',
+    'nuxt-auth-utils'
   ],
   components: [
     { path: '~/components', pathPrefix: false }

@@ -1,8 +1,8 @@
 <script setup lang="ts">
-import type { LoanType, Loan } from '~~/server/interfaces';
+import { type Loan, LoanType } from '~~/server/types';
 
 const loan = ref<Loan>({
-  type: '' as LoanType,
+  type: LoanType.MORTGAGE,
   lenderName: '',
   amount: 0,
   interestRate: 0,

@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ref, computed } from 'vue';
+import { computed, ref } from 'vue';
 import { LoanType } from '~~/server/types';
 
 const props = defineProps<{ modelValue?: LoanType | null | undefined }>();

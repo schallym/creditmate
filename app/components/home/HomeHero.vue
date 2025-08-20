@@ -30,6 +30,7 @@ const colorMode = useColorMode();
             size="xl"
             variant="solid"
             trailing-icon="lucide:arrow-right"
+            to="/auth/signup"
           >
             {{ $t('home.hero.cta.startTracking') }}
           </UButton>
@@ -45,7 +46,7 @@ const colorMode = useColorMode();
       <div class="relative w-full">
         <ClientOnly>
           <img
-            :src="colorMode.value === 'dark' ? '/img/hero.png' : '/img/hero-dark.png'"
+            :src="colorMode.value === 'dark' ? '/img/hero-dark.png' : '/img/hero.png'"
             alt="Loan Dashboard"
             class="rounded-xl shadow-xl w-full"
           >
