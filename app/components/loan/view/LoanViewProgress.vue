@@ -20,7 +20,7 @@ const props = defineProps<{ loan: LoanWithCalculations }>();
           <span>{{ $t('loan.view.progress.principalPaid.label') }}</span>
           <span>{{ props.loan.formatted.amountPaidOff }}</span>
         </div>
-        <div class="w-full bg-gray-200 rounded-full h-2 mt-1">
+        <div class="w-full bg-gray-200 dark:bg-gray-800 rounded-full h-2 mt-1">
           <UProgress :model-value="loan.paidOffPercentage" />
         </div>
         <div class="flex justify-between text-xs text-gray-400 dark:text-gray-500 mt-1">

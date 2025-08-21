@@ -10,6 +10,7 @@ export type Loan = {
   startDate: Date;
   monthlyPayment?: number | null;
   description?: string | null;
+  userId?: number | null;
   createdAt?: Date;
   updatedAt?: Date;
 };
@@ -26,6 +27,7 @@ export type LoanWithCalculations = Loan & {
   totalPaidOff: number;
   nextMonthInterest: number;
   nextMonthAmount: number;
+  status: LoanStatus;
   remainingBalanceProjectionData: {
     month: number;
     remainingBalance: number;
@@ -58,4 +60,9 @@ export enum LoanType {
   AUTO = 'auto',
   STUDENT = 'student',
   OTHER = 'other'
+}
+
+export enum LoanStatus {
+  ACTIVE = 'active',
+  COMPLETED = 'completed'
 }

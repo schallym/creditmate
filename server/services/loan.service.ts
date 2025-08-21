@@ -1,9 +1,9 @@
 import { z } from 'zod';
-import { type Loan, LoanType } from '~~/server/types';
+import { type Loan, LoanStatus, LoanType, type LoanWithCalculations } from '~~/server/types';
 import type { CreateLoanDto } from '~~/server/dtos';
 import { PrismaClient } from '@prisma/client';
 import type { Loan as PrismaLoan } from '@prisma/client';
-import { useTranslations } from '~~/server/utils';
+import { useFormatters, useTranslations } from '~~/server/utils';
 
 export const createLoanValidationSchema = (t: (key: string) => string) => {
   return z.object({
@@ -49,14 +49,89 @@ class LoanService {
     return this.prisma.loan.create({ data });
   }
 
-  calculateRepaymentDate(loan: Loan): Date {
+  async listLoansByUserId(userId: number): Promise<LoanWithCalculations[]> {
+    const loans = await this.prisma.loan.findMany({
+      where: { userId },
+      orderBy: { createdAt: 'desc' },
+      // We assume a maximum of 1000 loans per users.
+      take: 1000
+    });
+
+    return loans.map(loan => this.calculateFormattedLoan(loan, 'en')); // Default locale is 'en'
+  }
+
+  calculateFormattedTotalRemainingBalance(loans: LoanWithCalculations[], locale: string = 'en'): string {
+    const totalRemainingBalance = loans.reduce((sum, loan) => sum + loan.remainingBalance, 0);
+    const formatters = useFormatters(locale);
+
+    return formatters.formatMoney(totalRemainingBalance);
+  }
+
+  calculateFormattedTotalMonthlyPayment(loans: LoanWithCalculations[], locale: string = 'en'): string {
+    const totalMonthlyPayment = loans.reduce((sum, loan) => sum + (loan.monthlyPayment || 0), 0);
+    const formatters = useFormatters(locale);
+
+    return formatters.formatMoney(totalMonthlyPayment);
+  }
+
+  calculateFormattedLoan(loan: Loan, locale: string): LoanWithCalculations {
+    const formatters = useFormatters(locale);
+
+    return {
+      ...loan,
+      repaymentDate: this.calculateRepaymentDate(loan),
+      remainingBalance: this.calculateRemainingBalance(loan),
+      paidOffPercentage: this.calculatePaidOffPercentage(loan),
+      numberOfPaymentsLeft: this.calculateNumberOfPaymentsLeft(loan),
+      nextPaymentDate: this.calculateNextPaymentDate(loan),
+      amountPaidOff: this.calculateAmountPaidOff(loan),
+      totalInterest: this.calculateTotalInterest(loan),
+      totalInterestPaidOff: this.calculateInterestPaidOff(loan),
+      totalPaidOff: this.calculateTotalPaidOff(loan),
+      nextMonthInterest: this.calculateNextPaymentInterestAmount(loan),
+      nextMonthAmount: this.calculateNextPaymentAmount(loan),
+      status: this.calculateStatus(loan),
+      remainingBalanceProjectionData: this.calculateRemainingBalanceProjectionData(loan).map(
+        (data) => {
+          const startDate = new Date(loan.startDate);
+          const targetDate = new Date(startDate);
+          targetDate.setMonth(startDate.getMonth() + data.month);
+
+          return {
+            month: data.month,
+            remainingBalance: data.remainingBalance,
+            formatted: {
+              month: formatters.formatMonthYear(targetDate),
+              remainingBalance: formatters.formatMoney(data.remainingBalance)
+            }
+          };
+        }),
+      formatted: {
+        amount: formatters.formatMoney(loan.amount),
+        monthlyPayment: formatters.formatMoney(loan.monthlyPayment || 0),
+        interestRate: formatters.formatPercent(loan.interestRate),
+        remainingBalance: formatters.formatMoney(this.calculateRemainingBalance(loan)),
+        paidOffPercentage: formatters.formatPercent(this.calculatePaidOffPercentage(loan)),
+        totalInterest: formatters.formatMoney(this.calculateTotalInterest(loan)),
+        nextMonthInterest: formatters.formatMoney(this.calculateNextPaymentInterestAmount(loan)),
+        nextMonthAmount: formatters.formatMoney(this.calculateNextPaymentAmount(loan)),
+        repaymentDate: formatters.formatMonthYear(this.calculateRepaymentDate(loan)),
+        nextPaymentDate: formatters.formatDate(this.calculateNextPaymentDate(loan)),
+        totalPaidOff: formatters.formatMoney(this.calculateTotalPaidOff(loan)),
+        totalInterestPaidOff: formatters.formatMoney(this.calculateInterestPaidOff(loan)),
+        amountPaidOff: formatters.formatMoney(this.calculateAmountPaidOff(loan))
+      }
+    } as LoanWithCalculations;
+  }
+
+  private calculateRepaymentDate(loan: Loan): Date {
     const repaymentDate = new Date(loan.startDate);
     repaymentDate.setMonth(repaymentDate.getMonth() + loan.termMonths);
 
     return repaymentDate;
   }
 
-  calculateNumberOfPaymentsLeft(loan: Loan): number {
+  private calculateNumberOfPaymentsLeft(loan: Loan): number {
     const startDate = new Date(loan.startDate);
     const now = new Date();
     const monthsDiff = (now.getFullYear() - startDate.getFullYear()) * 12 + (now.getMonth() - startDate.getMonth());
@@ -64,7 +139,7 @@ class LoanService {
     return Math.max(0, loan.termMonths - monthsDiff);
   }
 
-  calculateInterestPaidOff(loan: Loan): number {
+  private calculateInterestPaidOff(loan: Loan): number {
     const diffMonths = Math.max(0, loan.termMonths - this.calculateNumberOfPaymentsLeft(loan));
     const monthlyRate = this.calculateMonthlyRate(loan);
     const monthly = loan.monthlyPayment || this.getMonthlyPayment(loan);
@@ -81,7 +156,7 @@ class LoanService {
     return interestPaid;
   }
 
-  calculateAmountPaidOff(loan: Loan): number {
+  private calculateAmountPaidOff(loan: Loan): number {
     const startDate = new Date(loan.startDate);
     const now = new Date();
     const yearDiff = now.getFullYear() - startDate.getFullYear();
@@ -90,7 +165,7 @@ class LoanService {
     return this.getMonthlyPayment(loan) * (yearDiff * 12 + monthDiff) - this.calculateInterestPaidOff(loan);
   }
 
-  calculateTotalPaidOff(loan: Loan): number {
+  private calculateTotalPaidOff(loan: Loan): number {
     return this.calculateAmountPaidOff(loan) + this.calculateInterestPaidOff(loan);
   }
 
@@ -98,11 +173,11 @@ class LoanService {
     return loan.amount - this.calculateAmountPaidOff(loan);
   }
 
-  calculatePaidOffPercentage(loan: Loan): number {
+  private calculatePaidOffPercentage(loan: Loan): number {
     return ((loan.amount - this.calculateRemainingBalance(loan)) / (loan.amount)) * 100;
   }
 
-  calculateNextPaymentDate(loan: Loan): Date {
+  private calculateNextPaymentDate(loan: Loan): Date {
     const startDate = new Date(loan.startDate);
     const now = new Date();
     const yearDiff = now.getFullYear() - startDate.getFullYear();
@@ -114,19 +189,19 @@ class LoanService {
     return nextPaymentDate;
   }
 
-  calculateTotalInterest(loan: Loan): number {
+  private calculateTotalInterest(loan: Loan): number {
     return this.getMonthlyPayment(loan) * loan.termMonths - (loan.amount);
   }
 
-  calculateNextPaymentInterestAmount(loan: Loan): number {
+  private calculateNextPaymentInterestAmount(loan: Loan): number {
     return this.calculateRemainingBalance(loan) * this.calculateMonthlyRate(loan);
   }
 
-  calculateNextPaymentAmount(loan: Loan): number {
+  private calculateNextPaymentAmount(loan: Loan): number {
     return this.getMonthlyPayment(loan) - this.calculateNextPaymentInterestAmount(loan);
   }
 
-  calculateRemainingBalanceProjectionData(loan: Loan): { month: number; remainingBalance: number }[] {
+  private calculateRemainingBalanceProjectionData(loan: Loan): { month: number; remainingBalance: number }[] {
     const projectionData: { month: number; remainingBalance: number }[] = [
       { month: 0, remainingBalance: parseFloat((loan.amount).toFixed(2)) }
     ];
@@ -162,6 +237,19 @@ class LoanService {
     const monthlyRate = loan.interestRate / 12 / 100;
 
     return parseFloat(monthlyRate.toFixed(5));
+  }
+
+  private calculateStatus(loan: Loan): LoanStatus {
+    const remainingBalance = this.calculateRemainingBalance(loan);
+    const numberOfPaymentsLeft = this.calculateNumberOfPaymentsLeft(loan);
+
+    if (remainingBalance <= 0) {
+      return LoanStatus.COMPLETED;
+    } else if (numberOfPaymentsLeft === 0) {
+      return LoanStatus.COMPLETED;
+    } else {
+      return LoanStatus.ACTIVE;
+    }
   }
 }
 

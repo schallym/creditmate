@@ -1,7 +1,7 @@
 <script setup lang="ts">
 const props = defineProps<{
   title: string;
-  mainValue: string;
+  mainValue: string | number;
   subValue?: string;
   icon?: string;
 }>();
@@ -22,7 +22,7 @@ const props = defineProps<{
       </div>
     </template>
     <div>
-      <p class="text-2xl font-bold text-blue-600">
+      <p class="text-2xl font-bold text-blue-600 dark:text-blue-400">
         {{ props.mainValue }}
       </p>
       <p

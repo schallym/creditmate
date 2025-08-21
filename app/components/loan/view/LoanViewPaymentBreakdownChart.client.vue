@@ -26,7 +26,7 @@ const tooltipTriggers = {
     const pct = total ? ((d.value / total) * 100).toFixed(1) : '0.0';
     return `
       <div class="font-semibold text-gray-800">${labels[d.index]}</div>
-      <div class="font-medium text-blue-600">${formattedValues[d.index]}</div>
+      <div class="font-medium text-blue-600 dark:text-blue-400">${formattedValues[d.index]}</div>
       <div class="text-xs text-gray-500">${pct}%</div>
     `;
   }

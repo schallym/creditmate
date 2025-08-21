@@ -17,6 +17,8 @@ model Loan {
   monthlyPayment Float?   @map("monthly_payment")
   startDate      DateTime @map("start_date") @db.Date
   description    String?
+  userId         Int?
+  User           User?    @relation(fields: [userId], references: [id])
   createdAt      DateTime @default(now()) @map("created_at")
   updatedAt      DateTime @updatedAt @map("updated_at")
 

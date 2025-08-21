@@ -224,11 +224,11 @@ async function onSubmit() {
       </UForm>
 
       <template #footer>
-        <p class="text-center text-sm text-gray-600">
+        <p class="text-center text-sm text-gray-600 dark:text-gray-400">
           {{ $t('auth.signup.login.text') }}
           <NuxtLink
             to="/auth/login"
-            class="text-primary-600 hover:underline"
+            class="text-primary-600 dark:text-gray-400 hover:underline"
           >
             {{ $t('auth.signup.login.link') }}
           </NuxtLink>

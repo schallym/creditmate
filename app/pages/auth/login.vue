@@ -25,7 +25,7 @@ async function onSubmit() {
       color: 'success'
     });
     await refreshSession();
-    await navigateTo('/');
+    await navigateTo('/loans');
   } catch (error: any) { // eslint-disable-line @typescript-eslint/no-explicit-any
     useToast().add({
       title: $t('auth.login.toast.error.title'),
@@ -155,11 +155,11 @@ async function onSubmit() {
       </UForm>
 
       <template #footer>
-        <p class="text-center text-sm text-gray-600">
+        <p class="text-center text-sm text-gray-600 dark:text-gray-400">
           {{ $t('auth.login.signup.text') }}
           <NuxtLink
             to="/auth/signup"
-            class="text-primary-600 hover:underline"
+            class="text-primary-600 dark:text-gray-400 hover:underline"
           >
             {{ $t('auth.login.signup.link') }}
           </NuxtLink>

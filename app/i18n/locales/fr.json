@@ -3,6 +3,7 @@
     "optional": "optionnel",
     "with": "avec",
     "missingInformation": "Informations manquantes",
+    "welcomeOn": "Bienvenue sur",
     "action": {
       "search": "Rechercher",
       "cancel": "Annuler",
@@ -210,6 +211,40 @@
       "action": {
         "addLoan": "Ajouter le Prêt",
         "cancel": "Annuler"
+      }
+    },
+    "anonym": {
+      "title": {
+        "highlight": "Accédez à vos prêts",
+        "text": "en toute sécurité"
+      },
+      "description": "Créez votre compte gratuit pour gérer tous vos prêts, suivre vos remboursements et découvrir des opportunités d'économies personnalisées.",
+      "cta": {
+        "signup": "Créer mon compte gratuit",
+        "login": "J'ai déjà un compte"
+      }
+    },
+    "list": {
+      "noLoans": {
+        "description": "Félicitations ! Votre compte est maintenant actif. Il est temps de commencer à gérer vos prêts plus intelligemment.",
+        "featureOne": {
+          "title": "Calculez vos économies",
+          "description": "Découvrez combien vous pourriez économiser avec un remboursement anticipé."
+        },
+        "featureTwo": {
+          "title": "Suivez vos progrès",
+          "description": "Visualisez l'évolution de vos remboursements et votre progression."
+        },
+        "featureThree": {
+          "title": "Planifiez vos paiements",
+          "description": "Ne manquez jamais un paiement."
+        },
+        "cta": {
+          "addFirstLoan": "Ajouter mon premier prêt"
+        },
+        "footer": {
+          "text": "Cela ne prend que 2 minutes et c'est entièrement sécurisé"
+        }
       }
     }
   },

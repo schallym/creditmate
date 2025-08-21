@@ -13,6 +13,13 @@ export default defineNuxtConfig({
   ],
   devtools: { enabled: true },
   css: ['@/assets/css/main.css'],
+  runtimeConfig: {
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+    // @ts-ignore
+    session: {
+      maxAge: 60 * 60 * 24 // 1 day
+    }
+  },
   srcDir: 'app',
   serverDir: 'server',
   compatibilityDate: '2025-07-24',

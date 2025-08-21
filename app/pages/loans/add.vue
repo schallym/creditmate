@@ -21,7 +21,7 @@ const updateLoan = (updatedLoan: Loan) => {
   <div class="min-h-screen py-8">
     <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
       <div class="text-center mb-8">
-        <h1 class="text-4xl font-bold text-blue-500 mb-4">
+        <h1 class="text-4xl font-bold bg-gradient-to-r from-blue-500 to-teal-400 bg-clip-text text-transparent mb-4">
           {{ $t('loan.add.title') }}
         </h1>
         <p class="text-gray-600 dark:text-gray-300 text-lg">

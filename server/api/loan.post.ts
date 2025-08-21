@@ -3,21 +3,26 @@ import { PrismaClient } from '@prisma/client';
 import { loanValidationSchema } from '~~/server/services';
 import loanService from '~~/server/services/loan.service';
 import type { CreateLoanDto } from '~~/server/dtos';
+import type { Loan, User } from '~~/server/types';
 
 const prisma = new PrismaClient();
 
 export default defineEventHandler(async (event) => {
   try {
     const body = await readBody<CreateLoanDto>(event);
-    const validatedData = loanValidationSchema.parse(body);
+    const validatedData: Loan = loanValidationSchema.parse(body);
+
+    const { user } = await getUserSession(event);
+    if (user) {
+      validatedData.userId = (user as User).id;
+    }
 
     const loan = await loanService.createLoan(validatedData);
 
     setResponseStatus(event, 201);
 
     return { data: loan };
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  } catch (error: any) {
+  } catch (error: any) { // eslint-disable-line @typescript-eslint/no-explicit-any
     console.log(error);
     if (error instanceof z.ZodError) {
       throw createError({
