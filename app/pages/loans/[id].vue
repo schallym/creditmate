@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import LoanViewTopCards from '~/components/loan/view/LoanViewTopCards.vue';
-import { LoanType, type LoanWithCalculations } from '~~/server/types';
+import { LoanStatus, LoanType, type LoanWithCalculations } from '~~/server/types';
 
 const route = useRoute();
 
@@ -60,6 +60,7 @@ const loanTypeIcon = computed(() => {
           :icon="loanTypeIcon"
         />
         <UButton
+          v-if="loan.status === LoanStatus.ACTIVE"
           color="primary"
           variant="solid"
         >
