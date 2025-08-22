@@ -37,7 +37,9 @@
       "subtitle": "Prenez le contrôle de vos prêts avec CreditMate. Visualisez votre parcours de remboursement, simulez des paiements anticipés et découvrez des opportunités d'économies en temps réel.",
       "cta": {
         "startTracking": "Commencer le suivi",
-        "addYourFirstLoan": "Ajouter votre premier prêt"
+        "addYourFirstLoan": "Ajouter un premier prêt",
+        "addLoan": "Ajouter un prêt",
+        "seeLoans": "Voir mes prêts"
       }
     },
     "features": {
@@ -244,6 +246,47 @@
         },
         "footer": {
           "text": "Cela ne prend que 2 minutes et c'est entièrement sécurisé"
+        }
+      },
+      "dashboard": {
+        "title": "Tous mes Prêts",
+        "description": "Gérez tous vos prêts en un seul endroit",
+        "cta": {
+          "addLoan": "Ajouter un Prêt"
+        },
+        "activeLoans": {
+          "title": "Prêts Actifs",
+          "description": "Nombre total de prêts en cours de remboursement"
+        },
+        "totalRemainingBalance": {
+          "title": "Total Restant",
+          "description": "Solde total à rembourser"
+        },
+        "totalMonthlyPayment": {
+          "title": "Mensualités Totales",
+          "description": "Paiements mensuels combinés"
+        },
+        "card": {
+          "status": {
+            "active": "Actif",
+            "completed": "Remboursé"
+          },
+          "remainingBalance": {
+            "title": "Solde Restant"
+          },
+          "monthlyPayment": {
+            "title": "Mensualité"
+          },
+          "rate": {
+            "title": "Taux"
+          },
+          "remainingMonthNumber": {
+            "title": "Mois Restants"
+          },
+          "cta": {
+            "viewDetails": "Voir les Détails",
+            "calculate": "Calculer"
+          }
         }
       }
     }

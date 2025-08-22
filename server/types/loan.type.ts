@@ -20,7 +20,7 @@ export type LoanWithCalculations = Loan & {
   remainingBalance: number;
   paidOffPercentage: number;
   numberOfPaymentsLeft: number;
-  nextPaymentDate: Date;
+  nextPaymentDate: Date | null;
   amountPaidOff: number;
   totalInterest: number;
   totalInterestPaidOff: number;
@@ -46,7 +46,7 @@ export type LoanWithCalculations = Loan & {
     nextMonthInterest: string;
     nextMonthAmount: string;
     repaymentDate: string;
-    nextPaymentDate: string;
+    nextPaymentDate: string | null;
     totalPaidOff: string;
     totalInterestPaidOff: string;
     amountPaidOff: string;

@@ -1,9 +1,18 @@
 <script setup lang="ts">
-import type { LoanWithCalculations } from '~~/server/types';
+import { LoanStatus, type LoanWithCalculations } from '~~/server/types';
 
 const props = defineProps<{
   loan: LoanWithCalculations;
 }>();
+
+const statusColor = computed(() => {
+  switch (props.loan.status) {
+    case LoanStatus.ACTIVE:
+      return 'success';
+    default:
+      return 'neutral';
+  }
+});
 </script>
 
 <template>
@@ -29,10 +38,10 @@ const props = defineProps<{
         </div>
       </div>
       <UBadge
-        color="success"
+        :color="statusColor"
         variant="soft"
       >
-        Actif <!-- TODO -->
+        {{ $t(`loan.list.dashboard.card.status.${props.loan.status}`) }}
       </UBadge>
     </div>
 
@@ -49,7 +58,7 @@ const props = defineProps<{
     <div class="grid grid-cols-2 gap-4 mb-4">
       <div>
         <p class="text-sm text-gray-600 dark:text-gray-400">
-          Solde restant
+          {{ $t("loan.list.dashboard.card.remainingBalance.title") }}
         </p>
         <p class="font-semibold text-blue-600 dark:text-blue-400">
           {{ props.loan.formatted.remainingBalance }}
@@ -57,7 +66,7 @@ const props = defineProps<{
       </div>
       <div>
         <p class="text-sm text-gray-600 dark:text-gray-400">
-          Mensualité
+          {{ $t("loan.list.dashboard.card.monthlyPayment.title") }}
         </p>
         <p class="font-semibold">
           {{ props.loan.formatted.monthlyPayment }}
@@ -65,7 +74,7 @@ const props = defineProps<{
       </div>
       <div>
         <p class="text-sm text-gray-600 dark:text-gray-400">
-          Taux
+          {{ $t("loan.list.dashboard.card.rate.title") }}
         </p>
         <p class="font-semibold">
           {{ props.loan.formatted.interestRate }}
@@ -73,7 +82,7 @@ const props = defineProps<{
       </div>
       <div>
         <p class="text-sm text-gray-600 dark:text-gray-400">
-          Mois restants
+          {{ $t("loan.list.dashboard.card.remainingMonthNumber.title") }}
         </p>
         <p class="font-semibold">
           {{ props.loan.numberOfPaymentsLeft }}
@@ -91,9 +100,10 @@ const props = defineProps<{
         <template #leading>
           <UIcon name="i-heroicons-eye" />
         </template>
-        Détails
+        {{ $t("loan.list.dashboard.card.cta.viewDetails") }}
       </UButton>
       <UButton
+        v-if="props.loan.status === LoanStatus.ACTIVE"
         size="lg"
         color="neutral"
         class="flex-1 w-full justify-center"
@@ -101,7 +111,7 @@ const props = defineProps<{
         <template #leading>
           <UIcon name="i-heroicons-calculator" />
         </template>
-        Calculer
+        {{ $t("loan.list.dashboard.card.cta.calculate") }}
       </UButton>
     </div>
   </ucard>

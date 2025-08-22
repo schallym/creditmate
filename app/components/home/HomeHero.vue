@@ -1,5 +1,6 @@
 <script setup lang="ts">
 const colorMode = useColorMode();
+const { loggedIn } = useUserSession();
 </script>
 
 <template>
@@ -26,6 +27,7 @@ const colorMode = useColorMode();
         </p>
         <div class="flex flex-col sm:flex-row justify-center lg:justify-start gap-4">
           <UButton
+            v-if="!loggedIn"
             color="primary"
             size="xl"
             variant="solid"
@@ -35,11 +37,21 @@ const colorMode = useColorMode();
             {{ $t('home.hero.cta.startTracking') }}
           </UButton>
           <UButton
+            v-if="loggedIn"
+            color="primary"
+            size="xl"
+            variant="solid"
+            trailing-icon="lucide:arrow-right"
+            to="/loans"
+          >
+            {{ $t('home.hero.cta.seeLoans') }}
+          </UButton>
+          <UButton
             color="neutral"
             size="xl"
             to="/loans/add"
           >
-            {{ $t('home.hero.cta.addYourFirstLoan') }}
+            {{ loggedIn ? $t('home.hero.cta.addLoan') : $t('home.hero.cta.addYourFirstLoan') }}
           </UButton>
         </div>
       </div>

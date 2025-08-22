@@ -14,21 +14,22 @@ const props = defineProps<{
     <div class="flex justify-between items-start mb-8">
       <div>
         <h1 class="text-3xl font-bold bg-gradient-to-r from-blue-500 to-teal-400 bg-clip-text text-transparent">
-          Tous mes Prêts
+          {{ $t('loan.list.dashboard.title') }}
         </h1>
         <p class="text-gray-600 dark:text-gray-400 mt-1">
-          Gérez tous vos prêts en un seul endroit
+          {{ $t('loan.list.dashboard.description') }}
         </p>
       </div>
       <UButton
         color="primary"
         size="lg"
         to="/loans/add"
+        variant="solid"
       >
         <template #leading>
           <UIcon name="i-heroicons-plus" />
         </template>
-        Nouveau Prêt
+        {{ $t('loan.list.dashboard.cta.addLoan') }}
       </UButton>
     </div>
 

@@ -17,11 +17,12 @@ export default defineEventHandler(async (event) => {
   }
 
   const { locale } = useLocale(event);
+  const loansWithCalculations = loans.map(loan => LoanService.calculateFormattedLoan(loan, locale));
 
   return {
-    numberOfActiveLoans: loans.filter(loan => loan.status === LoanStatus.ACTIVE).length,
-    formattedTotalRemainingBalance: LoanService.calculateFormattedTotalRemainingBalance(loans, locale),
-    formattedTotalMonthlyPayment: LoanService.calculateFormattedTotalMonthlyPayment(loans, locale),
+    numberOfActiveLoans: loansWithCalculations.filter(loan => loan.status === LoanStatus.ACTIVE).length,
+    formattedTotalRemainingBalance: LoanService.calculateFormattedTotalRemainingBalance(loansWithCalculations, locale),
+    formattedTotalMonthlyPayment: LoanService.calculateFormattedTotalMonthlyPayment(loansWithCalculations, locale),
     loans: loans.map(loan => LoanService.calculateFormattedLoan(loan, locale))
   } as ListLoansResponse;
 });

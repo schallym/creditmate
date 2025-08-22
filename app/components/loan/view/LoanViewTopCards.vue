@@ -15,7 +15,7 @@ const props = defineProps<{ loan: LoanWithCalculations }>();
     <LoanTopCard
       :title="$t('loan.view.monthlyPayment.title')"
       :main-value="props.loan.formatted.monthlyPayment"
-      :sub-value="$t('loan.view.monthlyPayment.subTitle', { date: props.loan.formatted.nextPaymentDate })"
+      :sub-value="$t('loan.view.monthlyPayment.subTitle', { date: props.loan.formatted.nextPaymentDate ?? '-' })"
       icon="i-lucide-calendar"
     />
     <LoanTopCard

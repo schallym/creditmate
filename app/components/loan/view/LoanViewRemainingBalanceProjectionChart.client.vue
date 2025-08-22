@@ -50,7 +50,7 @@ const template = (d: DataRecord) => {
     :data="props.loan.remainingBalanceProjectionData"
   >
     <VisLine
-      v-if="todayMonth > 0"
+      v-if="todayMonth > 0 && todayMonth < loan.termMonths"
       :x="todayMonth"
       :y="y"
       color="#6a7282"

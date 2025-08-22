@@ -49,15 +49,13 @@ class LoanService {
     return this.prisma.loan.create({ data });
   }
 
-  async listLoansByUserId(userId: number): Promise<LoanWithCalculations[]> {
-    const loans = await this.prisma.loan.findMany({
+  async listLoansByUserId(userId: number): Promise<Loan[]> {
+    return this.prisma.loan.findMany({
       where: { userId },
       orderBy: { createdAt: 'desc' },
       // We assume a maximum of 1000 loans per users.
       take: 1000
     });
-
-    return loans.map(loan => this.calculateFormattedLoan(loan, 'en')); // Default locale is 'en'
   }
 
   calculateFormattedTotalRemainingBalance(loans: LoanWithCalculations[], locale: string = 'en'): string {
@@ -68,7 +66,10 @@ class LoanService {
   }
 
   calculateFormattedTotalMonthlyPayment(loans: LoanWithCalculations[], locale: string = 'en'): string {
-    const totalMonthlyPayment = loans.reduce((sum, loan) => sum + (loan.monthlyPayment || 0), 0);
+    const totalMonthlyPayment = loans.reduce(
+      (sum, loan) => sum + (loan.remainingBalance > 0 ? (loan.monthlyPayment || 0) : 0),
+      0
+    );
     const formatters = useFormatters(locale);
 
     return formatters.formatMoney(totalMonthlyPayment);
@@ -77,13 +78,18 @@ class LoanService {
   calculateFormattedLoan(loan: Loan, locale: string): LoanWithCalculations {
     const formatters = useFormatters(locale);
 
+    const nextPaymentDate = this.calculateNextPaymentDate(loan);
+    const remainingBalance = this.calculateRemainingBalance(loan);
+    const monthlyPayment = remainingBalance > 0 ? (loan.monthlyPayment || this.getMonthlyPayment(loan)) : 0;
+
     return {
       ...loan,
+      monthlyPayment: monthlyPayment,
       repaymentDate: this.calculateRepaymentDate(loan),
-      remainingBalance: this.calculateRemainingBalance(loan),
+      remainingBalance: remainingBalance,
       paidOffPercentage: this.calculatePaidOffPercentage(loan),
       numberOfPaymentsLeft: this.calculateNumberOfPaymentsLeft(loan),
-      nextPaymentDate: this.calculateNextPaymentDate(loan),
+      nextPaymentDate: nextPaymentDate,
       amountPaidOff: this.calculateAmountPaidOff(loan),
       totalInterest: this.calculateTotalInterest(loan),
       totalInterestPaidOff: this.calculateInterestPaidOff(loan),
@@ -108,15 +114,15 @@ class LoanService {
         }),
       formatted: {
         amount: formatters.formatMoney(loan.amount),
-        monthlyPayment: formatters.formatMoney(loan.monthlyPayment || 0),
+        monthlyPayment: formatters.formatMoney(monthlyPayment),
         interestRate: formatters.formatPercent(loan.interestRate),
-        remainingBalance: formatters.formatMoney(this.calculateRemainingBalance(loan)),
+        remainingBalance: formatters.formatMoney(remainingBalance),
         paidOffPercentage: formatters.formatPercent(this.calculatePaidOffPercentage(loan)),
         totalInterest: formatters.formatMoney(this.calculateTotalInterest(loan)),
         nextMonthInterest: formatters.formatMoney(this.calculateNextPaymentInterestAmount(loan)),
         nextMonthAmount: formatters.formatMoney(this.calculateNextPaymentAmount(loan)),
         repaymentDate: formatters.formatMonthYear(this.calculateRepaymentDate(loan)),
-        nextPaymentDate: formatters.formatDate(this.calculateNextPaymentDate(loan)),
+        nextPaymentDate: nextPaymentDate ? formatters.formatDate(nextPaymentDate) : null,
         totalPaidOff: formatters.formatMoney(this.calculateTotalPaidOff(loan)),
         totalInterestPaidOff: formatters.formatMoney(this.calculateInterestPaidOff(loan)),
         amountPaidOff: formatters.formatMoney(this.calculateAmountPaidOff(loan))
@@ -162,22 +168,22 @@ class LoanService {
     const yearDiff = now.getFullYear() - startDate.getFullYear();
     const monthDiff = now.getMonth() - startDate.getMonth();
 
-    return this.getMonthlyPayment(loan) * (yearDiff * 12 + monthDiff) - this.calculateInterestPaidOff(loan);
+    return Math.min(loan.amount, this.getMonthlyPayment(loan) * (yearDiff * 12 + monthDiff) - this.calculateInterestPaidOff(loan));
   }
 
   private calculateTotalPaidOff(loan: Loan): number {
-    return this.calculateAmountPaidOff(loan) + this.calculateInterestPaidOff(loan);
+    return Math.min(loan.amount, this.calculateAmountPaidOff(loan) + this.calculateInterestPaidOff(loan));
   }
 
-  calculateRemainingBalance(loan: Loan): number {
-    return loan.amount - this.calculateAmountPaidOff(loan);
+  private calculateRemainingBalance(loan: Loan): number {
+    return Math.max(0, loan.amount - this.calculateAmountPaidOff(loan));
   }
 
   private calculatePaidOffPercentage(loan: Loan): number {
-    return ((loan.amount - this.calculateRemainingBalance(loan)) / (loan.amount)) * 100;
+    return Math.min(100, ((loan.amount - this.calculateRemainingBalance(loan)) / (loan.amount)) * 100);
   }
 
-  private calculateNextPaymentDate(loan: Loan): Date {
+  private calculateNextPaymentDate(loan: Loan): Date | null {
     const startDate = new Date(loan.startDate);
     const now = new Date();
     const yearDiff = now.getFullYear() - startDate.getFullYear();
@@ -185,6 +191,10 @@ class LoanService {
     const monthsPassed = yearDiff * 12 + monthDiff;
     const nextPaymentDate = new Date(startDate);
     nextPaymentDate.setMonth(nextPaymentDate.getMonth() + monthsPassed + 1);
+
+    if (monthsPassed >= loan.termMonths) {
+      return null;
+    }
 
     return nextPaymentDate;
   }
@@ -198,6 +208,10 @@ class LoanService {
   }
 
   private calculateNextPaymentAmount(loan: Loan): number {
+    if (this.calculateRemainingBalance(loan) <= 0) {
+      return 0;
+    }
+
     return this.getMonthlyPayment(loan) - this.calculateNextPaymentInterestAmount(loan);
   }
 
@@ -215,6 +229,10 @@ class LoanService {
       const principalPaid = monthlyPayment - interest;
       balance -= principalPaid;
 
+      if (month === totalMonths && balance > 0) {
+        balance = 0;
+      }
+
       projectionData.push({
         month: month,
         remainingBalance: Math.max(0, parseFloat(balance.toFixed(2)))
@@ -228,6 +246,7 @@ class LoanService {
     if (!loan.monthlyPayment || loan.monthlyPayment <= 0) {
       return this.calculateMonthlyPayment(loan.amount, loan.interestRate, loan.termMonths);
     }
+
     return loan.monthlyPayment;
   }
 
