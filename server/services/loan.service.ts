@@ -1,5 +1,5 @@
 import { z } from 'zod';
-import { type Loan, LoanStatus, LoanType, type LoanWithCalculations } from '~~/server/types';
+import { type EarlyRepaymentData, type Loan, LoanStatus, LoanType, type LoanWithCalculations } from '~~/server/types';
 import type { CreateLoanDto } from '~~/server/dtos';
 import { PrismaClient } from '@prisma/client';
 import type { Loan as PrismaLoan } from '@prisma/client';
@@ -128,6 +128,90 @@ class LoanService {
         amountPaidOff: formatters.formatMoney(this.calculateAmountPaidOff(loan))
       }
     } as LoanWithCalculations;
+  }
+
+  async calculateEarlyRepayment(loanId: number, additionalMonthlyPayment?: number, oneTimePayment?: number, locale: string = 'en'): Promise<EarlyRepaymentData> {
+    const loan = await this.prisma.loan.findUnique({ where: { id: loanId } });
+
+    if (!loan) {
+      throw new Error('Loan not found');
+    }
+
+    const originalMonthlyPayment = this.getMonthlyPayment(loan);
+    const monthlyRate = loan.interestRate / 100 / 12;
+
+    // Get current remaining balance based on payments made so far
+    const currentBalance = this.calculateRemainingBalance(loan);
+    const originalPaymentsLeft = this.calculateNumberOfPaymentsLeft(loan);
+
+    // Calculate original scenario (without extra payments)
+    const originalTotalInterest = this.calculateRemainingInterest(currentBalance, originalMonthlyPayment, monthlyRate);
+
+    // Apply one-time payment first
+    const oneTime = oneTimePayment && oneTimePayment > 0 ? oneTimePayment : 0;
+    let newBalance = currentBalance - oneTime;
+    if (newBalance < 0) newBalance = 0;
+
+    // Calculate with additional monthly payments
+    const additionalPayment = additionalMonthlyPayment && additionalMonthlyPayment > 0 ? additionalMonthlyPayment : 0;
+    const totalMonthlyPayment = originalMonthlyPayment + additionalPayment;
+
+    if (newBalance === 0) {
+      const formatters = useFormatters(locale);
+      return {
+        newDuration: 0,
+        timeSaved: formatters.formatDuration(originalPaymentsLeft),
+        formattedInterestSavings: formatters.formatMoney(originalTotalInterest),
+        newPayoffDate: formatters.formatMonthYear(new Date()),
+        newPaidOffPercentage: 100,
+        formattedNewMonthlyPayment: formatters.formatMoney(totalMonthlyPayment),
+        formattedNewBalance: formatters.formatMoney(0)
+      };
+    }
+
+    let months = 0;
+    let totalInterestPaid = 0;
+    let balance = newBalance;
+
+    // Simulate monthly payments
+    while (balance > 0) {
+      const interestPayment = balance * monthlyRate;
+      let principalPayment = totalMonthlyPayment - interestPayment;
+
+      // Handle final payment
+      if (principalPayment >= balance) {
+        principalPayment = balance;
+        totalInterestPaid += (balance * monthlyRate);
+        balance = 0;
+      } else {
+        balance -= principalPayment;
+        totalInterestPaid += interestPayment;
+      }
+
+      months++;
+    }
+
+    const interestSavings = originalTotalInterest - totalInterestPaid;
+    const monthsSaved = originalPaymentsLeft - months;
+
+    // Calculate new paid off percentage
+    const currentAmountPaidOff = this.calculateAmountPaidOff(loan);
+    const totalAmountThatWillBePaidOff = currentAmountPaidOff + oneTime;
+    const newPaidOffPercentage = Math.min(100, (totalAmountThatWillBePaidOff / loan.amount) * 100);
+
+    const formatters = useFormatters(locale);
+    const newPayoffDate = new Date();
+    newPayoffDate.setMonth(newPayoffDate.getMonth() + months);
+
+    return {
+      newDuration: loan.termMonths - Math.max(0, monthsSaved),
+      timeSaved: formatters.formatDuration(Math.max(0, monthsSaved)),
+      formattedInterestSavings: formatters.formatMoney(Math.max(0, interestSavings)),
+      formattedNewMonthlyPayment: formatters.formatMoney(totalMonthlyPayment),
+      formattedNewBalance: formatters.formatMoney(Math.max(0, newBalance)),
+      newPayoffDate: formatters.formatMonthYear(newPayoffDate),
+      newPaidOffPercentage: Math.round(newPaidOffPercentage * 100) / 100
+    };
   }
 
   private calculateRepaymentDate(loan: Loan): Date {
@@ -269,6 +353,28 @@ class LoanService {
     } else {
       return LoanStatus.ACTIVE;
     }
+  }
+
+  private calculateRemainingInterest(balance: number, monthlyPayment: number, monthlyRate: number): number {
+    let totalInterest = 0;
+    let currentBalance = balance;
+    let months = 0;
+
+    while (currentBalance > 0.01 && months < 600) {
+      const interestPayment = currentBalance * monthlyRate;
+      const principalPayment = monthlyPayment - interestPayment;
+
+      if (principalPayment >= currentBalance) {
+        totalInterest += (currentBalance * monthlyRate);
+        break;
+      }
+
+      totalInterest += interestPayment;
+      currentBalance -= principalPayment;
+      months++;
+    }
+
+    return totalInterest;
   }
 }
 

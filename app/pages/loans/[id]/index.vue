@@ -1,5 +1,4 @@
 <script setup lang="ts">
-import LoanViewTopCards from '~/components/loan/view/LoanViewTopCards.vue';
 import { LoanStatus, LoanType, type LoanWithCalculations } from '~~/server/types';
 
 const route = useRoute();
@@ -63,6 +62,7 @@ const loanTypeIcon = computed(() => {
           v-if="loan.status === LoanStatus.ACTIVE"
           color="primary"
           variant="solid"
+          :to="`/loans/${loan.id}/early-repayment`"
         >
           {{ $t('loan.view.earlyRepaymentCalculator.button') }}
         </UButton>

@@ -107,6 +107,7 @@ const statusColor = computed(() => {
         size="lg"
         color="neutral"
         class="flex-1 w-full justify-center"
+        :to="`loans/${props.loan.id}/early-repayment`"
       >
         <template #leading>
           <UIcon name="i-heroicons-calculator" />

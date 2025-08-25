@@ -24,6 +24,7 @@
     "@unovis/vue": "^1.5.2",
     "bcryptjs": "^3.0.2",
     "eslint": "^9.31.0",
+    "lodash": "^4.17.21",
     "nuxt": "^4.0.1",
     "nuxt-auth-utils": "^0.5.23",
     "typescript": "^5.8.3",
@@ -32,6 +33,7 @@
     "zod": "^4.0.10"
   },
   "devDependencies": {
+    "@types/lodash": "^4.17.20",
     "eslint-plugin-vue": "^10.3.0",
     "prisma": "^6.13.0"
   }

@@ -4,6 +4,7 @@
     "with": "avec",
     "missingInformation": "Informations manquantes",
     "welcomeOn": "Bienvenue sur",
+    "month": "mois",
     "action": {
       "search": "Rechercher",
       "cancel": "Annuler",
@@ -287,6 +288,53 @@
             "viewDetails": "Voir les Détails",
             "calculate": "Calculer"
           }
+        }
+      }
+    },
+    "earlyRepaymentCalculator": {
+      "title": "Calculateur de Remboursement Anticipé",
+      "description": "Découvrez comment un paiement anticipé peut accélérer votre remboursement et réduire les intérêts",
+      "parameters": {
+        "title": "Paramètres de Paiement",
+        "description": "Ajustez les paramètres ci-dessous pour voir l'impact d'un paiement anticipé sur votre prêt",
+        "summary": {
+          "title": "Prêt Actuel",
+          "remainingBalance": "Solde restant",
+          "monthlyPayment": "Paiement mensuel",
+          "remainingMonths": "Mois restants"
+        },
+        "fields": {
+          "monthlyExtraPayment": {
+            "label": "Paiement Mensuel Supplémentaire",
+            "perMonth": "/ mois",
+            "help": "Indiquez un montant supplémentaire que vous pouvez payer chaque mois."
+          },
+          "oneTimeExtraPayment": {
+            "label": "Paiement Unique Supplémentaire",
+            "help": "Indiquez un montant unique que vous pouvez payer immédiatement.",
+            "remaining": "restant"
+          }
+        }
+      },
+      "impact": {
+        "title": "Économies Potentielles",
+        "description": "Impact de vos paiements supplémentaires",
+        "calculating": "Calcul en cours...",
+        "savedInterests": {
+          "title": " Intérêts Économisés",
+          "description": "Sur la durée totale du prêt"
+        },
+        "savedTime": {
+          "title": "Temps Économisé",
+          "description": "Mois de remboursement en moins"
+        },
+        "progression": {
+          "title": "Comparaison du Progrès",
+          "actual": "Avec paiements actuels",
+          "withExtraPayments": "Avec paiements supplémentaires"
+        },
+        "newPaymentDate": {
+          "title": "Nouvelle Date de Paiement"
         }
       }
     }

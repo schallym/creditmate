@@ -66,3 +66,13 @@ export enum LoanStatus {
   ACTIVE = 'active',
   COMPLETED = 'completed'
 }
+
+export type EarlyRepaymentData = {
+  newPayoffDate: string;
+  newDuration: number;
+  newPaidOffPercentage: number;
+  formattedInterestSavings: string;
+  formattedNewMonthlyPayment: string;
+  formattedNewBalance: string;
+  timeSaved: string;
+};
