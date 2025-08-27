@@ -23,18 +23,18 @@ export default defineEventHandler(async (event) => {
 
     return { data: loan };
   } catch (error: any) { // eslint-disable-line @typescript-eslint/no-explicit-any
-    console.log(error);
+    const t = await useTranslation(event);
     if (error instanceof z.ZodError) {
       throw createError({
         statusCode: 400,
-        statusMessage: 'Validation Error',
+        message: t('errors.validation.message'),
         data: error
       });
     }
 
     throw createError({
       statusCode: 500,
-      statusMessage: 'Internal Server Error'
+      message: t('errors.internalServerError.message')
     });
   } finally {
     await prisma.$disconnect();

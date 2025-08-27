@@ -5,6 +5,8 @@ import { useLocale } from '~~/server/utils';
 import type { User } from '~~/server/types';
 
 export default defineEventHandler(async (event: H3Event) => {
+  const t = await useTranslation(event);
+
   try {
     const { locale } = useLocale(event);
     const id: number = Number(getRouterParam(event, 'id'));
@@ -14,7 +16,7 @@ export default defineEventHandler(async (event: H3Event) => {
     if (!loan) {
       throw createError({
         statusCode: 404,
-        statusMessage: 'Loan not found'
+        statusMessage: t('errors.notFound.message')
       });
     }
 
@@ -23,7 +25,8 @@ export default defineEventHandler(async (event: H3Event) => {
       if (!user || (user as User).id !== loan.userId) {
         throw createError({
           statusCode: 403,
-          statusMessage: 'Forbidden'
+          statusMessage: 'Forbidden',
+          message: t('errors.notFound.message')
         });
       }
     }
@@ -40,7 +43,7 @@ export default defineEventHandler(async (event: H3Event) => {
     console.error('Loan fetch error:', error);
     throw createError({
       statusCode: 500,
-      statusMessage: 'Internal Server Error'
+      message: t('errors.internalServerError.message')
     });
   } finally {
     await prisma.$disconnect();

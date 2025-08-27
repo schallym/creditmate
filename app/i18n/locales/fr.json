@@ -361,6 +361,9 @@
           "title": "Connexion réussie",
           "description": "Bienvenue sur CreditMate ! Vous êtes maintenant connecté."
         }
+      },
+      "badCredentials": {
+        "message": "Email ou mot de passe incorrect"
       }
     },
     "signup": {
@@ -380,6 +383,11 @@
         "success": {
           "title": "Compte créé avec succès",
           "description": "Bienvenue sur CreditMate ! Vous pouvez maintenant vous connecter."
+        }
+      },
+      "validation": {
+        "emailExists": {
+          "message": "Un compte avec cet email existe déjà"
         }
       }
     },
@@ -437,6 +445,18 @@
       }
     }
   },
-  "Email already used": "Email déjà utilisé",
-  "Bad credentials": "Identifiants incorrects"
+  "errors": {
+    "internalServerError": {
+      "message": "Une erreur interne du serveur s'est produite. Veuillez réessayer plus tard."
+    },
+    "validation": {
+      "message": "Certaines données fournies sont invalides."
+    },
+    "notFound": {
+      "message": "La ressource demandée est introuvable."
+    },
+    "unauthorized": {
+      "message": "Vous n'êtes pas autorisé à accéder à cette ressource."
+    }
+  }
 }

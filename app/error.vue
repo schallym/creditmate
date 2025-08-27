@@ -1,23 +1,19 @@
 <script setup lang="ts">
-interface ErrorProps {
-  error: {
-    statusCode: number;
-    statusMessage: string;
-    message?: string;
-  };
-}
+import type { NuxtError } from '#app';
 
-const props = defineProps<ErrorProps>();
+const props = defineProps({
+  error: Object as () => NuxtError
+});
 </script>
 
 <template>
   <div class="min-h-screen flex items-center justify-center">
     <div class="text-center px-4">
       <h1 class="text-2xl font-bold text-gray-700 dark:text-gray-300 mb-3">
-        {{ props.error.statusCode }}
+        {{ props.error?.statusCode }}
       </h1>
-      <p class="text-xl text-gray-600 mb-6">
-        {{ props.error.statusMessage }}
+      <p class="text-xl text-gray-600 dark:text-gray-400 mb-6">
+        {{ props.error?.message }}
       </p>
       <UButton
         to="/"

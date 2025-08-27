@@ -32,7 +32,7 @@ async function onSubmit() {
   } catch (error: any) { // eslint-disable-line @typescript-eslint/no-explicit-any
     useToast().add({
       title: t('auth.signup.toast.error.title'),
-      description: t(error.statusMessage),
+      description: t(error.data.message),
       color: 'error'
     });
   } finally {

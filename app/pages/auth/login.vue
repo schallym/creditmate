@@ -29,7 +29,7 @@ async function onSubmit() {
   } catch (error: any) { // eslint-disable-line @typescript-eslint/no-explicit-any
     useToast().add({
       title: $t('auth.login.toast.error.title'),
-      description: $t(error.statusMessage) || $t('auth.login.toast.error.description'),
+      description: $t(error.data.message) || $t('auth.login.toast.error.description'),
       color: 'error'
     });
   } finally {

@@ -9,7 +9,8 @@ const { data: loan, error } = await useFetch<LoanWithCalculations>(`/api/loan/${
 if (error.value) {
   throw createError({
     statusCode: error.value.statusCode || 404,
-    statusMessage: error.value.statusMessage || 'Loan not found'
+    statusMessage: error.value.statusMessage || 'Loan not found',
+    message: error.value.data.message || 'Loan not found'
   });
 }
 

@@ -5,6 +5,8 @@ import { signupValidationSchema } from '~~/server/services';
 import AuthService from '~~/server/services/auth.service';
 
 export default defineEventHandler(async (event) => {
+  const t = await useTranslation(event);
+
   const body = await readBody(event);
   const parsed = signupValidationSchema.safeParse(body);
   if (!parsed.success)
@@ -18,12 +20,12 @@ export default defineEventHandler(async (event) => {
     if (error instanceof Error && error.message.includes('Email already exists')) {
       throw createError({
         statusCode: 409,
-        statusMessage: 'Email already used'
+        message: t('auth.signup.validation.emailExists.message')
       });
     }
     throw createError({
       statusCode: 500,
-      statusMessage: 'Internal server error'
+      message: t('errors.internalServerError.message')
     });
   }
 });

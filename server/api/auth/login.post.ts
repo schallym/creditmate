@@ -7,13 +7,16 @@ const bodySchema = z.object({
 });
 
 export default defineEventHandler(async (event) => {
+  const t = await useTranslation(event);
+  const badCredentialsMessage = t('auth.login.badCredentials.message');
+
   const { email, password } = await readValidatedBody(event, bodySchema.parse);
 
   const user = await AuthService.getUserByEmail(email);
-  if (!user) throw createError({ statusCode: 401, message: 'Bad credentials', statusMessage: 'Bad credentials' });
+  if (!user) throw createError({ statusCode: 401, message: badCredentialsMessage });
 
   if (!(await AuthService.checkPassword(password, user)))
-    throw createError({ statusCode: 401, message: 'Bad credentials', statusMessage: 'Bad credentials' });
+    throw createError({ statusCode: 401, message: badCredentialsMessage });
 
   await setUserSession(event, {
     user: {

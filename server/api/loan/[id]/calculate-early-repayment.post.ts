@@ -13,9 +13,10 @@ export default defineEventHandler(async (event) => {
   } catch (error) {
     // Handle other errors
     console.error('Early repayment calculation error:', error);
+    const t = await useTranslation(event);
     throw createError({
       statusCode: 500,
-      statusMessage: 'Internal Server Error'
+      message: t('errors.internalServerError.message')
     });
   }
 });

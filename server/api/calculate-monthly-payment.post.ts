@@ -12,9 +12,10 @@ export default defineEventHandler(async (event) => {
   } catch (error) {
     // Handle other errors
     console.error('Monthly payment calculation error:', error);
+    const t = await useTranslation(event);
     throw createError({
       statusCode: 500,
-      statusMessage: 'Internal Server Error'
+      message: t('errors.internalServerError.message')
     });
   }
 });

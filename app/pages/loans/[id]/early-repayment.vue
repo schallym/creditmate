@@ -3,7 +3,16 @@ import type { LoanWithCalculations } from '~~/server/types';
 
 const route = useRoute();
 
-const { data: loan } = await useFetch<LoanWithCalculations>(`/api/loan/${route.params.id}`);
+const { data: loan, error } = await useFetch<LoanWithCalculations>(`/api/loan/${route.params.id}`);
+
+// Handle case where loan is not found
+if (error.value) {
+  throw createError({
+    statusCode: error.value.statusCode || 404,
+    statusMessage: error.value.statusMessage || 'Loan not found',
+    message: error.value.data.message || 'Loan not found'
+  });
+}
 </script>
 
 <template>
