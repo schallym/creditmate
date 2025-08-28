@@ -5,7 +5,11 @@ import type { LoanType, Loan } from '~~/server/types';
 const { t } = useI18n();
 const loanValidationSchema = computed(() => createLoanValidationSchema(t));
 
-const props = defineProps<{ modelValue?: Loan | null | undefined }>();
+const props = defineProps<{
+  modelValue?: Loan | null | undefined;
+  buttonText?: string;
+  hideCancelButton?: boolean;
+}>();
 const emit = defineEmits<{
   (e: 'update:modelValue', value: Loan): void;
 }>();
@@ -43,6 +47,27 @@ const onSubmit = async () => {
       loan.monthlyPayment = res.monthlyPayment;
     }
 
+    const isEdit = !!props.modelValue?.id;
+
+    if (isEdit) {
+      loan.id = props.modelValue?.id;
+      const res = await $fetch(`/api/loan/${props.modelValue?.id}`, {
+        method: 'PATCH',
+        body: { ...loan }
+      });
+
+      emit('update:modelValue', loan);
+
+      useToast().add({
+        title: $t('loan.edit.toast.updateSuccess.title'),
+        description: $t('loan.edit.toast.updateSuccess.description'),
+        color: 'success'
+      });
+
+      navigateTo(`/loans/${res.data.id}`);
+      return;
+    }
+
     const res = await $fetch('/api/loan', {
       method: 'POST',
       body: { ...loan }
@@ -51,17 +76,17 @@ const onSubmit = async () => {
     emit('update:modelValue', loan);
 
     useToast().add({
-      title: 'Loan Added Successfully',
-      description: 'Your loan has been added to your dashboard.',
+      title: $t('loan.add.toast.createSuccess.title'),
+      description: $t('loan.add.toast.createSuccess.title'),
       color: 'success'
     });
 
     navigateTo(`/loans/${res.data.id}`);
-  } catch (error) {
+  } catch (error: any) { // eslint-disable-line @typescript-eslint/no-explicit-any
     console.error(error);
     useToast().add({
-      title: 'Error',
-      description: 'Failed to add loan. Please try again.',
+      title: $t('errors.title'),
+      description: error.data.message ?? 'Failed to add loan. Please try again.',
       color: 'error'
     });
   } finally {
@@ -232,9 +257,10 @@ const onSubmit = async () => {
         variant="solid"
         class="w-full justify-center"
       >
-        {{ $t('loan.form.action.addLoan') }}
+        {{ props.buttonText ?? $t('loan.form.action.addLoan') }}
       </UButton>
       <UButton
+        v-if="!props.hideCancelButton"
         size="lg"
         :loading="loading"
         color="neutral"

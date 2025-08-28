@@ -1,7 +1,8 @@
 <script setup lang="ts">
-import { LoanStatus, LoanType, type LoanWithCalculations } from '~~/server/types';
+import { LoanStatus, type LoanWithCalculations } from '~~/server/types';
 
 const route = useRoute();
+const { loggedIn } = useUserSession();
 
 const { data: loan, error } = await useFetch<LoanWithCalculations>(`/api/loan/${route.params.id}`);
 
@@ -13,23 +14,6 @@ if (error.value) {
     message: error.value.data.message || 'Loan not found'
   });
 }
-
-const loanTypeIcon = computed(() => {
-  switch (loan.value?.type) {
-    case LoanType.MORTGAGE:
-      return 'i-lucide-house';
-    case LoanType.AUTO:
-      return 'i-lucide-car';
-    case LoanType.PERSONAL:
-      return 'i-lucide-credit-card';
-    case LoanType.STUDENT:
-      return 'i-lucide-book';
-    case LoanType.BUSINESS:
-      return 'i-lucide-building-2';
-    default:
-      return '';
-  }
-});
 </script>
 
 <template>
@@ -41,7 +25,10 @@ const loanTypeIcon = computed(() => {
       <div class="flex items-center gap-4">
         <div>
           <h1 class="text-3xl font-bold text-gray-900 dark:text-white">
-            {{ $t(`loan.type.${loan.type}`) }} <span class="text-sm font-normal text-gray-500 dark:text-gray-400"> {{ $t('common.with') }} {{ loan.lenderName }} </span>
+            {{ $t(`loan.type.${loan.type}`) }}
+            <span class="text-sm font-normal text-gray-500 dark:text-gray-400">
+              {{ $t('common.with') }} {{ loan.lenderName }}
+            </span>
           </h1>
           <p
             v-if="loan.description"
@@ -52,16 +39,19 @@ const loanTypeIcon = computed(() => {
         </div>
       </div>
       <div class="flex gap-2">
-        <UBadge
-          :label="$t(`loan.type.${loan.type}`)"
-          variant="subtle"
+        <UButton
+          v-if="loan.status === LoanStatus.ACTIVE && loggedIn"
           color="primary"
-          size="lg"
-          :icon="loanTypeIcon"
-        />
+          variant="solid"
+          leading-icon="i-heroicons-pencil"
+          :to="`/loans/${loan.id}/edit`"
+        >
+          {{ $t('loan.view.edit.button') }}
+        </UButton>
         <UButton
           v-if="loan.status === LoanStatus.ACTIVE"
-          color="primary"
+          leading-icon="i-heroicons-calculator"
+          color="secondary"
           variant="solid"
           :to="`/loans/${loan.id}/early-repayment`"
         >

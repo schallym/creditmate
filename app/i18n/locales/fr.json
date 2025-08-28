@@ -74,7 +74,13 @@
     },
     "add": {
       "title": "Ajouter un Prêt",
-      "description": "Saisissez les détails de votre prêt pour commencer à suivre votre parcours financier avec CreditMate."
+      "description": "Saisissez les détails de votre prêt pour commencer à suivre votre parcours financier avec CreditMate.",
+      "toast": {
+        "createSuccess": {
+          "title": "Prêt ajouté avec succès",
+          "description": "Votre prêt a été ajouté. Vous pouvez maintenant suivre vos remboursements et simuler des paiements anticipés."
+        }
+      }
     },
     "view": {
       "earlyRepaymentCalculator": {
@@ -141,11 +147,25 @@
         "description": "Visualisez comment vos paiements sont répartis entre le capital et les intérêts",
         "amount": "Montant",
         "interest": "Intérêt"
+      },
+      "edit": {
+        "button": "Modifier le Prêt"
+      }
+    },
+    "edit": {
+      "title": "Modifier le Prêt",
+      "description": "Mettez à jour les informations de votre prêt ci-dessous.",
+      "button": "Enregistrer les Modifications",
+      "toast": {
+        "updateSuccess": {
+          "title": "Prêt mis à jour avec succès",
+          "description": "Les informations de votre prêt ont été mises à jour."
+        }
       }
     },
     "form": {
       "title": "Informations sur le prêt",
-      "description": "Renseignez les informations ci-dessous pour ajouter votre prêt au tableau de bord.",
+      "description": "Renseignez les informations ci-dessous.",
       "fields": {
         "amount": {
           "label": "Montant",
@@ -446,6 +466,7 @@
     }
   },
   "errors": {
+    "title": "Une erreur est survenue",
     "internalServerError": {
       "message": "Une erreur interne du serveur s'est produite. Veuillez réessayer plus tard."
     },

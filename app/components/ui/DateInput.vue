@@ -1,12 +1,17 @@
 <script setup lang="ts">
 import { getLocalTimeZone, today, parseDate } from '@internationalized/date';
 
-const props = defineProps<{ modelValue?: Date | null }>();
+const props = defineProps<{ modelValue?: Date | null | string }>();
 const emit = defineEmits<{
   (e: 'update:modelValue', value: Date): void;
 }>();
 
-const selectedDate = shallowRef(props.modelValue ? parseDate(props.modelValue.toISOString().substring(0, 10)) : today(getLocalTimeZone()));
+const date = ref<Date | null>(null);
+if (props.modelValue && typeof props.modelValue === 'string') {
+  date.value = new Date(props.modelValue);
+}
+
+const selectedDate = shallowRef(date.value ? parseDate(date.value.toISOString().substring(0, 10)) : today(getLocalTimeZone()));
 const inputDate = computed({
   get: () => selectedDate.value?.toString(),
   set: (val: string) => {

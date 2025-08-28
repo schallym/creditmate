@@ -26,7 +26,7 @@ export default defineEventHandler(async (event: H3Event) => {
         throw createError({
           statusCode: 403,
           statusMessage: 'Forbidden',
-          message: t('errors.notFound.message')
+          message: t('errors.unauthorized.message')
         });
       }
     }

@@ -1,6 +1,6 @@
 import { z } from 'zod';
 import { type EarlyRepaymentData, type Loan, LoanStatus, LoanType, type LoanWithCalculations } from '~~/server/types';
-import type { CreateLoanDto } from '~~/server/dtos';
+import type { CreateLoanDto, UpdateLoanDto } from '~~/server/dtos';
 import { PrismaClient } from '@prisma/client';
 import type { Loan as PrismaLoan } from '@prisma/client';
 import { useFormatters, useTranslations } from '~~/server/utils';
@@ -47,6 +47,13 @@ class LoanService {
 
   async createLoan(data: CreateLoanDto): Promise<PrismaLoan> {
     return this.prisma.loan.create({ data });
+  }
+
+  async updateLoan(id: number, data: UpdateLoanDto): Promise<PrismaLoan> {
+    return this.prisma.loan.update({
+      where: { id: id },
+      data
+    });
   }
 
   async listLoansByUserId(userId: number): Promise<Loan[]> {

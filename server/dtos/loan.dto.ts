@@ -8,6 +8,8 @@ export type CalculateMonthlyPaymentDto = {
 
 export type CreateLoanDto = Omit<Loan, 'id' | 'createdAt' | 'updatedAt'>;
 
+export type UpdateLoanDto = Omit<Loan, 'createdAt' | 'updatedAt'>;
+
 export type CalculateEarlyRepaymentDto = {
   additionalMonthlyPayment?: number;
   oneTimePayment?: number;
