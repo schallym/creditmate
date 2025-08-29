@@ -14,6 +14,11 @@ if (error.value) {
     message: error.value.data.message || 'Loan not found'
   });
 }
+
+const handleDelete = async () => {
+  await $fetch(`/api/loan/${route.params.id}`, { method: 'DELETE' });
+  await navigateTo('/loans');
+};
 </script>
 
 <template>
@@ -23,6 +28,18 @@ if (error.value) {
   >
     <div class="flex items-center justify-between">
       <div class="flex items-center gap-4">
+        <UButton
+          v-if="loggedIn"
+          size="lg"
+          square
+          color="neutral"
+          to="/loans"
+        >
+          <UIcon
+            name="i-heroicons-arrow-left"
+            class="w-5 h-5"
+          />
+        </UButton>
         <div>
           <h1 class="text-3xl font-bold text-gray-900 dark:text-white">
             {{ $t(`loan.type.${loan.type}`) }}
@@ -39,6 +56,12 @@ if (error.value) {
         </div>
       </div>
       <div class="flex gap-2">
+        <DeleteButton
+          v-if="loggedIn"
+          :item="{ id: 1, name: 'Sample Item' }"
+          :button-label="$t('common.action.delete')"
+          @delete="handleDelete"
+        />
         <UButton
           v-if="loan.status === LoanStatus.ACTIVE && loggedIn"
           color="primary"

@@ -4,8 +4,8 @@ export type User = {
   email: string;
   passwordHash: string;
   salt: string;
-  createdAt?: Date;
-  updatedAt?: Date;
+  createdAt?: Date | string;
+  updatedAt?: Date | string;
 };
 
 export type FilteredUser = Omit<User, 'passwordHash' | 'salt'>;

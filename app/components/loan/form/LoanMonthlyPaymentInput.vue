@@ -12,7 +12,7 @@ const emit = defineEmits<{
 const monthlyPayment = ref<number>(props.modelValue || 0);
 
 watch(() => props.modelValue, (newValue) => {
-  if (newValue !== undefined && newValue !== monthlyPayment.value) {
+  if (newValue && newValue !== monthlyPayment.value) {
     monthlyPayment.value = newValue;
   }
 }, { immediate: true });
@@ -58,6 +58,7 @@ const calculatePayment = async () => {
     placeholder="0"
     size="lg"
     class="w-full"
+    disabled
   >
     <template #trailing>
       <span class="text-gray-500 text-sm me-1">€</span>

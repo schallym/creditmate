@@ -8,7 +8,30 @@
     "action": {
       "search": "Rechercher",
       "cancel": "Annuler",
-      "calculate": "Calculer"
+      "calculate": "Calculer",
+      "delete": "Supprimer"
+    }
+  },
+  "ui": {
+    "deleteConfirmation": {
+      "title": "Confirmer la suppression",
+      "question": "Êtes-vous sûr de vouloir supprimer cet élément ?",
+      "message": "Cette action est irréversible. L'élément sera définitivement supprimé.",
+      "confirmationInput": {
+        "confirmationText": "SUPPRIMER",
+        "label": "Tapez '{confirmationText}' pour confirmer",
+        "placeholder": "Entrez '{confirmationText}'"
+      },
+      "buttonLabel": "Supprimer l'élément",
+      "toast": {
+        "success": {
+          "title": "Élément supprimé"
+        },
+        "error": {
+          "title": "Erreur lors de la suppression",
+          "description": "Une erreur s'est produite lors de la tentative de suppression. Veuillez réessayer."
+        }
+      }
     }
   },
   "language": {
@@ -414,6 +437,9 @@
     "logout": {
       "title": "Se déconnecter"
     },
+    "editProfile": {
+      "title": "Modifier le Profil"
+    },
     "property": {
       "email": {
         "label": "Email",
@@ -461,6 +487,84 @@
         },
         "validation": {
           "accept": "Vous devez accepter les Conditions Générales d'Utilisation (CGU) pour continuer"
+        }
+      }
+    },
+    "profile": {
+      "title": "Mon Profil",
+      "description": "Gérez les informations de votre compte",
+      "stats": {
+        "title": "Statistiques",
+        "activeLoans": {
+          "label": "Prêts Actifs"
+        },
+        "memberSince": {
+          "label": "Membre depuis"
+        }
+      },
+      "personalInfo": {
+        "title": "Informations Personnelles",
+        "description": "Mettez à jour vos informations personnelles ci-dessous.",
+        "button": "Enregistrer les Modifications",
+        "toast": {
+          "updateSuccess": {
+            "title": "Profil mis à jour avec succès",
+            "description": "Les informations de votre profil ont été mises à jour."
+          }
+        }
+      },
+      "changePassword": {
+        "title": "Changer le Mot de Passe",
+        "description": "Mettez à jour votre mot de passe pour sécuriser votre compte.",
+        "button": "Mettre à jour le mot de passe",
+        "form": {
+          "currentPassword": {
+            "label": "Mot de passe actuel",
+            "input": {
+              "placeholder": "Veuillez entrer votre mot de passe actuel"
+            },
+            "validation": {
+              "required": "Le mot de passe actuel est requis",
+              "incorrect": "Le mot de passe actuel est incorrect"
+            }
+          },
+          "newPassword": {
+            "label": "Nouveau mot de passe",
+            "input": {
+              "placeholder": "Veuillez entrer un nouveau mot de passe"
+            }
+          },
+          "confirmNewPassword": {
+            "label": "Confirmer le nouveau mot de passe",
+            "input": {
+              "placeholder": "Veuillez confirmer votre nouveau mot de passe"
+            }
+          }
+        },
+        "toast": {
+          "updateSuccess": {
+            "title": "Mot de passe mis à jour avec succès",
+            "description": "Votre mot de passe a été changé."
+          }
+        }
+      },
+      "dangerZone": {
+        "title": "Zone de Danger",
+        "description": "Actions irréversibles sur votre compte",
+        "deleteAccount": {
+          "title": "Supprimer le Compte",
+          "description": "Supprimez définitivement votre compte et toutes vos données associées. Cette action est irréversible.",
+          "button": "Supprimer mon compte",
+          "confirmation": {
+            "question": "Êtes-vous sûr de vouloir supprimer votre compte ?",
+            "message": "Cette action est irréversible. Toutes vos données seront définitivement supprimées."
+          },
+          "toast": {
+            "deleteSuccess": {
+              "title": "Compte supprimé avec succès",
+              "description": "Votre compte a été supprimé. Nous sommes désolés de vous voir partir."
+            }
+          }
         }
       }
     }

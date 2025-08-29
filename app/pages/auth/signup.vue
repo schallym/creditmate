@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { reactive, ref } from 'vue';
 import { createSignupValidationSchema } from '~~/server/services';
+import PasswordInput from '~/components/ui/PasswordInput.vue';
 
 const { t } = useI18n();
 const schema = computed(() => createSignupValidationSchema(t));
@@ -12,8 +13,6 @@ const user = reactive({
   confirmPassword: '',
   terms: false
 });
-const showPassword = ref(false);
-const showConfirm = ref(false);
 const loading = ref(false);
 
 async function onSubmit() {
@@ -104,65 +103,19 @@ async function onSubmit() {
           />
         </UFormField>
 
-        <UFormField
+        <PasswordInput
+          v-model="user.password"
           :label="$t('auth.property.password.label')"
           name="password"
-          class="mt-4"
-          required
-          size="xl"
-        >
-          <UInput
-            v-model="user.password"
-            :type="showPassword ? 'text' : 'password'"
-            :placeholder="$t('auth.property.password.input.placeholder')"
-            class="w-full"
-            size="xl"
-          >
-            <template #trailing>
-              <button
-                type="button"
-                class="text-gray-500 hover:text-gray-700 cursor-pointer"
-                :aria-label="$t('auth.property.password.input.display')"
-                @click="showPassword = !showPassword"
-              >
-                <UIcon
-                  :name="showPassword ? 'i-heroicons-eye-slash' : 'i-heroicons-eye'"
-                  class="h-5 w-5"
-                />
-              </button>
-            </template>
-          </UInput>
-        </UFormField>
+          :placeholder="$t('auth.property.password.input.placeholder')"
+        />
 
-        <UFormField
+        <PasswordInput
+          v-model="user.confirmPassword"
           :label="$t('auth.property.confirmPassword.label')"
           name="confirmPassword"
-          class="mt-4"
-          required
-          size="xl"
-        >
-          <UInput
-            v-model="user.confirmPassword"
-            :type="showConfirm ? 'text' : 'password'"
-            :placeholder="$t('auth.property.confirmPassword.input.placeholder')"
-            class="w-full"
-            size="xl"
-          >
-            <template #trailing>
-              <button
-                type="button"
-                class="text-gray-500 hover:text-gray-700 cursor-pointer"
-                :aria-label="$t('auth.property.confirmPassword.input.display')"
-                @click="showConfirm = !showConfirm"
-              >
-                <UIcon
-                  :name="showConfirm ? 'i-heroicons-eye-slash' : 'i-heroicons-eye'"
-                  class="h-5 w-5"
-                />
-              </button>
-            </template>
-          </UInput>
-        </UFormField>
+          :placeholder="$t('auth.property.confirmPassword.input.placeholder')"
+        />
 
         <UFormField
           name="terms"

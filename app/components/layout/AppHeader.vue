@@ -25,6 +25,11 @@ const userMenuItems = computed(() => [
   ],
   [
     {
+      label: $t('auth.editProfile.title'),
+      icon: 'i-lucide-pencil',
+      to: '/profile'
+    },
+    {
       label: $t('auth.logout.title'),
       icon: 'i-heroicons-arrow-right-on-rectangle',
       class: 'cursor-pointer',

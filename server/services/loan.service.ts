@@ -56,6 +56,12 @@ class LoanService {
     });
   }
 
+  async deleteLoan(id: number): Promise<void> {
+    console.log('deleting loan with id:', id);
+    await this.prisma.loan.delete({ where: { id: id } });
+    console.log('deleted loan with id:', id);
+  }
+
   async listLoansByUserId(userId: number): Promise<Loan[]> {
     return this.prisma.loan.findMany({
       where: { userId },
