@@ -82,6 +82,14 @@ const handleDelete = async () => {
         </UButton>
       </div>
     </div>
+    <UAlert
+      :title="$t('common.notice')"
+      icon="i-lucide-info"
+      variant="subtle"
+      :description="$t('loan.view.notice')"
+      color="primary"
+      class="mb-4"
+    />
     <LoanViewTopCards :loan="loan" />
 
     <div class="grid grid-cols-1 lg:grid-cols-2 gap-4">

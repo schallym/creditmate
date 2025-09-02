@@ -5,6 +5,7 @@
     "missingInformation": "Informations manquantes",
     "welcomeOn": "Bienvenue sur",
     "month": "mois",
+    "notice": "Notice",
     "action": {
       "search": "Rechercher",
       "cancel": "Annuler",
@@ -174,7 +175,9 @@
       },
       "edit": {
         "button": "Modifier le Prêt"
-      }
+      },
+      "notice": "Les calculs sont basés sur un modèle standard de prêt à taux fixe. Les paiements réels peuvent varier en fonction des conditions spécifiques de votre prêt. Les calculs n'incluent pas les frais, l'assurance, les pénalités ou les variations de taux d'intérêt. Veuillez consulter votre contrat de prêt pour des informations précises."
+
     },
     "edit": {
       "title": "Modifier le Prêt",

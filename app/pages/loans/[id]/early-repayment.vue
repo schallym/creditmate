@@ -39,6 +39,14 @@ if (error.value) {
           </p>
         </div>
       </div>
+      <UAlert
+        :title="$t('common.notice')"
+        icon="i-lucide-info"
+        variant="subtle"
+        :description="$t('loan.view.notice')"
+        color="primary"
+        class="mb-4"
+      />
     </div>
 
     <EarlyRepaymentForm
