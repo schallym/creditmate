@@ -9,7 +9,8 @@
       "search": "Rechercher",
       "cancel": "Annuler",
       "calculate": "Calculer",
-      "delete": "Supprimer"
+      "delete": "Supprimer",
+      "clear": "Effacer"
     }
   },
   "ui": {
@@ -566,6 +567,93 @@
             }
           }
         }
+      }
+    }
+  },
+  "review": {
+    "title": "Laisser un avis",
+    "description": "Votre avis compte ! Aidez-nous à améliorer CreditMate en partageant votre expérience.",
+    "submitButton": "Soumettre votre avis",
+    "layoutButton": {
+      "label": "Laisser un avis",
+      "description": "Aidez-nous à améliorer CreditMate en partageant votre expérience."
+    },
+    "form": {
+      "fields": {
+        "rating": {
+          "label": "Note Globale",
+          "description": "Comment évalueriez-vous votre expérience avec CreditMate ?",
+          "validation": {
+            "required": "Veuillez fournir une note"
+          }
+        },
+        "type": {
+          "label": "Type d'Avis",
+          "description": "Quel type d'avis souhaitez-vous partager ?",
+          "types": {
+            "general": "Avis Général",
+            "feature": "Demande de Fonctionnalité",
+            "bug": "Rapport de Bug",
+            "compliment": "Compliment"
+          },
+          "validation": {
+            "required": "Veuillez sélectionner un type d'avis",
+            "invalid": "Type d'avis invalide"
+          }
+        },
+        "categories": {
+          "label": "Catégories",
+          "description": "Veuillez sélectionnez les catégories qui s'appliquent à votre avis.",
+          "categories": {
+            "userInterface": "Interface Utilisateur",
+            "calculations": "Calculs",
+            "performance": "Performance",
+            "navigation": "Navigation",
+            "content": "Contenu",
+            "mobileExperience": "Expérience Mobile",
+            "accessibility": "Accessibilité",
+            "other": "Autre"
+          },
+          "validation": {
+            "required": "Veuillez sélectionner au moins une catégorie"
+          }
+        },
+        "feedback": {
+          "label": "Votre Avis",
+          "description": "Partagez vos pensées, suggestions ou problèmes rencontrés.",
+          "placeholder": "Écrivez votre avis ici...",
+          "validation": {
+            "required": "Veuillez fournir votre avis",
+            "maxLength": "Votre avis ne peut pas dépasser {max} caractères"
+          }
+        },
+        "suggestions": {
+          "label": "Vos Suggestions",
+          "description": "Avez-vous des suggestions spécifiques pour ce type d'avis ?",
+          "placeholder": "Écrivez vos suggestions ici...",
+          "validation": {
+            "required": "Veuillez fournir vos suggestions pour ce type d'avis",
+            "maxLength": "Vos suggestions ne peuvent pas dépasser {max} caractères"
+          }
+        },
+        "email": {
+          "label": "Contact",
+          "description": "Laissez votre email si vous souhaitez être contacté pour un suivi (optionnel).",
+          "inputLabel": "Email",
+          "placeholder": "Veuillez entrer votre email",
+          "validation": {
+            "invalid": "Email invalide"
+          }
+        }
+      }
+    },
+    "toast": {
+      "success": {
+        "title": "Merci pour votre avis !",
+        "description": "Nous apprécions votre retour et nous nous efforçons d'améliorer CreditMate."
+      },
+      "error": {
+        "title": "Erreur lors de la soumission de l'avis"
       }
     }
   },

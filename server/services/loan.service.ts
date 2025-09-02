@@ -50,6 +50,8 @@ class LoanService {
   }
 
   async updateLoan(id: number, data: UpdateLoanDto): Promise<PrismaLoan> {
+    data.monthlyPayment = this.calculateMonthlyPayment(data.amount, data.interestRate, data.termMonths);
+
     return this.prisma.loan.update({
       where: { id: id },
       data

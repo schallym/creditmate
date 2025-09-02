@@ -1,4 +1,4 @@
-import type { UpdatePasswordDto, UpdateProfileDto } from '~~/server/dtos';
+import type { UpdateProfileDto } from '~~/server/dtos';
 import { PrismaClient } from '@prisma/client';
 import type { User } from '~~/server/types';
 import bcryptjs from 'bcryptjs';

@@ -18,6 +18,15 @@ export default defineNuxtConfig({
     // @ts-ignore
     session: {
       maxAge: 60 * 60 * 24 // 1 day
+    },
+    // Server-side only (secure)
+    smtp: {
+      host: process.env.SMTP_HOST,
+      port: process.env.SMTP_PORT ? parseInt(process.env.SMTP_PORT) : undefined,
+      auth: {
+        user: process.env.SMTP_USER,
+        pass: process.env.SMTP_PASSWORD
+      }
     }
   },
   srcDir: 'app',

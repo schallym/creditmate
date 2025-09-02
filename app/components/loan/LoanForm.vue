@@ -86,7 +86,7 @@ const onSubmit = async () => {
     console.error(error);
     useToast().add({
       title: $t('errors.title'),
-      description: error.data.message ?? 'Failed to add loan. Please try again.',
+      description: error.data.message ?? $t('errors.internalServerError.message'),
       color: 'error'
     });
   } finally {
