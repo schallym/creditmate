@@ -1,9 +1,9 @@
 <script setup lang="ts">
-import { createLoanValidationSchema } from '~~/server/services';
 import type { LoanType, Loan } from '~~/server/types';
+import LoanService from '~~/server/services/loan.service';
 
 const { t } = useI18n();
-const loanValidationSchema = computed(() => createLoanValidationSchema(t));
+const loanValidationSchema = computed(() => LoanService.createLoanValidationSchema(t));
 
 const props = defineProps<{
   modelValue?: Loan | null | undefined;

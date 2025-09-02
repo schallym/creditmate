@@ -1,6 +1,13 @@
 <script setup lang="ts">
 import { type Loan, LoanType } from '~~/server/types';
 
+useHead({
+  title: $t('meta.addLoan.title'),
+  meta: [
+    { name: 'description', content: $t('meta.addLoan.description') }
+  ]
+});
+
 const loan = ref<Loan>({
   type: LoanType.MORTGAGE,
   lenderName: '',

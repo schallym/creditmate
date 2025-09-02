@@ -177,7 +177,6 @@
         "button": "Modifier le Prêt"
       },
       "notice": "Les calculs sont basés sur un modèle standard de prêt à taux fixe. Les paiements réels peuvent varier en fonction des conditions spécifiques de votre prêt. Les calculs n'incluent pas les frais, l'assurance, les pénalités ou les variations de taux d'intérêt. Veuillez consulter votre contrat de prêt pour des informations précises."
-
     },
     "edit": {
       "title": "Modifier le Prêt",
@@ -658,6 +657,60 @@
       "error": {
         "title": "Erreur lors de la soumission de l'avis"
       }
+    }
+  },
+  "meta": {
+    "homepage": {
+      "title": "CreditMate - Votre Coach Financier Personnel",
+      "description": "Prenez le contrôle de vos prêts avec CreditMate. Visualisez votre parcours de remboursement, simulez des paiements anticipés et découvrez des opportunités d'économies en temps réel."
+    },
+    "profile": {
+      "title": "CreditMate - Mon Profil - Gestion du compte",
+      "description": "Gérez les informations de votre compte et suivez vos prêts avec CreditMate."
+    },
+    "review": {
+      "title": "CreditMate - Laisser un avis - Partagez votre expérience",
+      "description": "Votre avis compte ! Aidez-nous à améliorer CreditMate en partageant votre expérience."
+    },
+    "login": {
+      "title": "CreditMate - Se connecter",
+      "description": "Connectez-vous pour accéder à votre tableau de bord financier et gérer vos prêts avec CreditMate."
+    },
+    "signup": {
+      "title": "CreditMate - S'inscrire",
+      "description": "Créez un compte gratuit pour commencer à suivre vos prêts et économies avec CreditMate."
+    },
+    "legalNotice": {
+      "title": "CreditMate - Mentions légales",
+      "description": "Consultez les mentions légales de CreditMate pour comprendre les conditions d'utilisation et la politique de confidentialité."
+    },
+    "privacy": {
+      "title": "CreditMate - Politique de confidentialité",
+      "description": "Lisez la politique de confidentialité de CreditMate pour comprendre comment nous protégeons vos données."
+    },
+    "terms": {
+      "title": "CreditMate - Conditions Générales d'Utilisation (CGU)",
+      "description": "Lisez les Conditions Générales d'Utilisation (CGU) de CreditMate pour comprendre vos droits et responsabilités."
+    },
+    "loans": {
+      "title": "CreditMate - Mes Prêts - Suivi et gestion des prêts",
+      "description": "Gérez tous vos prêts en un seul endroit avec CreditMate. Suivez vos remboursements, calculez vos économies et planifiez vos paiements."
+    },
+    "addLoan": {
+      "title": "CreditMate - Ajouter un Prêt - Suivi des prêts",
+      "description": "Ajoutez les détails de votre prêt pour commencer à suivre votre parcours financier avec CreditMate."
+    },
+    "viewLoan": {
+      "title": "CreditMate - Détails du Prêt - Suivi et gestion des prêts",
+      "description": "Visualisez les détails de votre prêt, suivez vos remboursements et simulez des paiements anticipés avec CreditMate."
+    },
+    "editLoan": {
+      "title": "CreditMate - Modifier le Prêt - Gestion des prêts",
+      "description": "Mettez à jour les informations de votre prêt et continuez à suivre votre parcours financier avec CreditMate."
+    },
+    "earlyRepayment": {
+      "title": "CreditMate - Calculateur de Remboursement Anticipé - Économies sur les prêts",
+      "description": "Découvrez comment un paiement anticipé peut accélérer votre remboursement et réduire les intérêts avec le calculateur de remboursement anticipé de CreditMate."
     }
   },
   "errors": {

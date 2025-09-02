@@ -2,6 +2,14 @@
 import type { ListLoansResponse } from '~~/server/api/loans';
 
 const { loggedIn } = useUserSession();
+
+useHead({
+  title: $t('meta.loans.title'),
+  meta: [
+    { name: 'description', content: $t('meta.loans.description') }
+  ]
+});
+
 const { data: loansData } = await useFetch<ListLoansResponse>(`/api/loans`);
 </script>
 

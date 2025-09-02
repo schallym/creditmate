@@ -1,6 +1,5 @@
 import { z } from 'zod';
 import { PrismaClient } from '@prisma/client';
-import { loanValidationSchema } from '~~/server/services';
 import loanService from '~~/server/services/loan.service';
 import type { CreateLoanDto } from '~~/server/dtos';
 import type { Loan, User } from '~~/server/types';
@@ -10,7 +9,7 @@ const prisma = new PrismaClient();
 export default defineEventHandler(async (event) => {
   try {
     const body = await readBody<CreateLoanDto>(event);
-    const validatedData: Loan = loanValidationSchema.parse(body);
+    const validatedData: Loan = loanService.loanValidationSchema.parse(body);
 
     const { user } = await getUserSession(event);
     if (user) {

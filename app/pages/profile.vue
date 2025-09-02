@@ -3,9 +3,9 @@ import type { User } from '~~/server/types';
 import UserProfileCard from '~/components/profile/UserProfileCard.vue';
 
 useHead({
-  title: 'Mon Profil - Gestion du compte',
+  title: $t('meta.profile.title'),
   meta: [
-    { name: 'description', content: 'Gérez vos informations personnelles et préférences de compte' }
+    { name: 'description', content: $t('meta.profile.description') }
   ]
 });
 

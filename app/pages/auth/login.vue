@@ -2,6 +2,13 @@
 import { reactive, ref } from 'vue';
 import { z } from 'zod';
 
+useHead({
+  title: $t('meta.login.title'),
+  meta: [
+    { name: 'description', content: $t('meta.login.description') }
+  ]
+});
+
 const { fetch: refreshSession } = useUserSession();
 const schema = z.object({
   email: z.email($t('auth.property.email.validation.invalid')),

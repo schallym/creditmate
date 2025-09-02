@@ -1,10 +1,17 @@
 <script setup lang="ts">
 import { reactive, ref } from 'vue';
-import { createSignupValidationSchema } from '~~/server/services';
-import PasswordInput from '~/components/ui/PasswordInput.vue';
+import AuthService from '~~/server/services/auth.service';
 
 const { t } = useI18n();
-const schema = computed(() => createSignupValidationSchema(t));
+
+useHead({
+  title: $t('meta.signup.title'),
+  meta: [
+    { name: 'description', content: $t('meta.signup.description') }
+  ]
+});
+
+const schema = computed(() => AuthService.createSignupValidationSchema(t));
 
 const user = reactive({
   fullName: '',

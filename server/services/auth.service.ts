@@ -1,32 +1,21 @@
 import { z } from 'zod';
 import bcryptjs from 'bcryptjs';
 import type { SignupDto } from '~~/server/dtos';
-import { useTranslations } from '~~/server/utils';
 import type { FilteredUser, User } from '~~/server/types';
 import { PrismaClient } from '@prisma/client';
 
-export const createSignupValidationSchema = (t: (key: string) => string) => {
-  return z.object({
-    fullName: z.string().min(1, t('auth.property.fullName.validation.required')),
-    email: z.email(t('auth.property.email.validation.invalid')),
-    password: z.string().min(1, t('auth.property.password.validation.required'))
-      .min(16, t('auth.property.password.validation.minLength'))
-      .regex(new RegExp('^(?=.*[A-Z])(?=.*[a-z])(?=.*\\d)(?=.*[^\\w\\s]).{16,}$'), t('auth.property.password.validation.pattern')),
-    confirmPassword: z.string(),
-    terms: z.boolean().refine((v: boolean) => v, { message: t('auth.property.terms.validation.accept') })
-  }).refine(
-    (data: SignupDto) => data.password === data.confirmPassword,
-    { path: ['confirmPassword'], message: t('auth.property.confirmPassword.validation.match') }
-  );
-};
-
-// Default schema using English translations from locale file
-export const signupValidationSchema = createSignupValidationSchema((key: string) => {
-  return useTranslations(key);
-});
-
 class AuthService {
   prisma = new PrismaClient();
+
+  createSignupValidationSchema = (t: (key: string) => string) => {
+    return z.object({
+      fullName: z.string().min(1, t('auth.property.fullName.validation.required'))
+    });
+  };
+
+  signupValidationSchema = this.createSignupValidationSchema((key: string) => {
+    return 'useTranslations(key)';
+  });
 
   async createUser(signupDto: SignupDto): Promise<FilteredUser> {
     const salt = await bcryptjs.genSalt(12);

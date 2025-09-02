@@ -6,6 +6,13 @@ const { loggedIn, user } = useUserSession();
 const toast = useToast();
 const router = useRouter();
 
+useHead({
+  title: $t('meta.review.title'),
+  meta: [
+    { name: 'description', content: $t('meta.review.description') }
+  ]
+});
+
 const loading = ref(false);
 const state = reactive({
   rating: 0,

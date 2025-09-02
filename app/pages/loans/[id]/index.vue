@@ -4,6 +4,13 @@ import { LoanStatus, type LoanWithCalculations } from '~~/server/types';
 const route = useRoute();
 const { loggedIn } = useUserSession();
 
+useHead({
+  title: $t('meta.viewLoan.title'),
+  meta: [
+    { name: 'description', content: $t('meta.viewLoan.description') }
+  ]
+});
+
 const { data: loan, error } = await useFetch<LoanWithCalculations>(`/api/loan/${route.params.id}`);
 
 // Handle case where loan is not found

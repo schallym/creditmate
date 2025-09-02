@@ -5,30 +5,29 @@ import { PrismaClient } from '@prisma/client';
 import type { Loan as PrismaLoan } from '@prisma/client';
 import { useFormatters, useTranslations } from '~~/server/utils';
 
-export const createLoanValidationSchema = (t: (key: string) => string) => {
-  return z.object({
-    type: z.enum(LoanType, { message: t('loan.form.fields.type.validation.required') }),
-    lenderName: z.string().min(1, { message: t('loan.form.fields.lenderName.validation.required') }),
-    amount: z.number({ message: t('loan.form.fields.amount.validation.required') })
-      .gt(0, { message: t('loan.form.fields.amount.validation.mustBePositive') }),
-    interestRate: z.number({ message: t('loan.form.fields.interestRate.validation.required') })
-      .gt(0, { message: t('loan.form.fields.interestRate.validation.mustBePositive') })
-      .max(100, { message: t('loan.form.fields.interestRate.validation.maxValue') }),
-    termMonths: z.number({ message: t('loan.form.fields.term.validation.required') })
-      .min(1, { message: t('loan.form.fields.term.validation.minValue') }),
-    monthlyPayment: z.number().optional(),
-    startDate: z.coerce.date({ message: t('loan.form.fields.startDate.validation.required') }),
-    description: z.string().optional()
-  });
-};
-
-// Default schema using English translations from locale file
-export const loanValidationSchema = createLoanValidationSchema((key: string) => {
-  return useTranslations(key);
-});
-
 class LoanService {
   prisma = new PrismaClient();
+
+  createLoanValidationSchema = (t: (key: string) => string) => {
+    return z.object({
+      type: z.enum(LoanType, { message: t('loan.form.fields.type.validation.required') }),
+      lenderName: z.string().min(1, { message: t('loan.form.fields.lenderName.validation.required') }),
+      amount: z.number({ message: t('loan.form.fields.amount.validation.required') })
+        .gt(0, { message: t('loan.form.fields.amount.validation.mustBePositive') }),
+      interestRate: z.number({ message: t('loan.form.fields.interestRate.validation.required') })
+        .gt(0, { message: t('loan.form.fields.interestRate.validation.mustBePositive') })
+        .max(100, { message: t('loan.form.fields.interestRate.validation.maxValue') }),
+      termMonths: z.number({ message: t('loan.form.fields.term.validation.required') })
+        .min(1, { message: t('loan.form.fields.term.validation.minValue') }),
+      monthlyPayment: z.number().optional(),
+      startDate: z.coerce.date({ message: t('loan.form.fields.startDate.validation.required') }),
+      description: z.string().optional()
+    });
+  };
+
+  loanValidationSchema = this.createLoanValidationSchema((key: string) => {
+    return useTranslations(key);
+  });
 
   calculateMonthlyPayment(
     amount: number,

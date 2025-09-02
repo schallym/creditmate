@@ -1,14 +1,13 @@
 import { readBody, createError } from 'h3';
 import { z } from 'zod';
 import type { SignupDto } from '~~/server/dtos';
-import { signupValidationSchema } from '~~/server/services';
 import AuthService from '~~/server/services/auth.service';
 
 export default defineEventHandler(async (event) => {
   const t = await useTranslation(event);
 
   const body = await readBody(event);
-  const parsed = signupValidationSchema.safeParse(body);
+  const parsed = AuthService.signupValidationSchema.safeParse(body);
   if (!parsed.success)
     throw createError({ statusCode: 400, statusMessage: 'Validation error', data: z.treeifyError(parsed.error) });
 

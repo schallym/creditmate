@@ -12,6 +12,17 @@ export default defineNuxtConfig({
     { path: '~/components', pathPrefix: false }
   ],
   devtools: { enabled: true },
+  app: {
+    head: {
+      title: 'CreditMate',
+      htmlAttrs: {
+        lang: 'en'
+      },
+      link: [
+        { rel: 'icon', type: 'image/x-icon', href: '/favicon.svg' }
+      ]
+    }
+  },
   css: ['@/assets/css/main.css'],
   runtimeConfig: {
     // eslint-disable-next-line @typescript-eslint/ban-ts-comment

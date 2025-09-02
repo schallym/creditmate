@@ -3,6 +3,13 @@ import type { LoanWithCalculations } from '~~/server/types';
 
 const route = useRoute();
 
+useHead({
+  title: $t('meta.earlyRepayment.title'),
+  meta: [
+    { name: 'description', content: $t('meta.earlyRepayment.description') }
+  ]
+});
+
 const { data: loan, error } = await useFetch<LoanWithCalculations>(`/api/loan/${route.params.id}`);
 
 // Handle case where loan is not found

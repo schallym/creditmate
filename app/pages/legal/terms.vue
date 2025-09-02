@@ -1,5 +1,12 @@
 <script setup lang="ts">
 const { locale } = useI18n();
+
+useHead({
+  title: $t('meta.terms.title'),
+  meta: [
+    { name: 'description', content: $t('meta.terms.description') }
+  ]
+});
 </script>
 
 <template>
