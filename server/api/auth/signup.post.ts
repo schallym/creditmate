@@ -7,7 +7,7 @@ export default defineEventHandler(async (event) => {
   const t = await useTranslation(event);
 
   const body = await readBody(event);
-  const parsed = AuthService.signupValidationSchema.safeParse(body);
+  const parsed = AuthService.createSignupValidationSchema(t).safeParse(body);
   if (!parsed.success)
     throw createError({ statusCode: 400, statusMessage: 'Validation error', data: z.treeifyError(parsed.error) });
 
@@ -16,6 +16,7 @@ export default defineEventHandler(async (event) => {
 
     return { user };
   } catch (error) {
+    console.error(error);
     if (error instanceof Error && error.message.includes('Email already exists')) {
       throw createError({
         statusCode: 409,

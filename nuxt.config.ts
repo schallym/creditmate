@@ -38,6 +38,10 @@ export default defineNuxtConfig({
         user: process.env.SMTP_USER,
         pass: process.env.SMTP_PASSWORD
       }
+    },
+    jwtSecret: process.env.JWT_SECRET || 'secret',
+    public: {
+      appUrl: process.env.NUXT_PUBLIC_APP_URL || 'http://localhost:3000'
     }
   },
   srcDir: 'app',

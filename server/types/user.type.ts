@@ -6,6 +6,7 @@ export type User = {
   salt: string;
   createdAt?: Date | string;
   updatedAt?: Date | string;
+  passwordResetToken?: string | null;
 };
 
-export type FilteredUser = Omit<User, 'passwordHash' | 'salt'>;
+export type FilteredUser = Omit<User, 'passwordHash' | 'salt' | 'passwordResetToken'>;

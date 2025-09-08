@@ -1,8 +1,6 @@
 <script setup lang="ts">
 import { reactive, ref } from 'vue';
-import AuthService from '~~/server/services/auth.service';
-
-const { t } = useI18n();
+import { z } from 'zod';
 
 useHead({
   title: $t('meta.signup.title'),
@@ -11,7 +9,19 @@ useHead({
   ]
 });
 
-const schema = computed(() => AuthService.createSignupValidationSchema(t));
+const schema = computed(() => z.object({
+  fullName: z.string().min(1, $t('auth.property.fullName.validation.required')),
+  email: z.email($t('auth.property.email.validation.invalid')),
+  password: z.string().min(16, $t('auth.property.password.validation.minLength'))
+    .regex(new RegExp('^(?=.*[A-Z])(?=.*[a-z])(?=.*\\d)(?=.*[^\\w\\s]).{16,}$'), $t('auth.property.password.validation.pattern')),
+  confirmPassword: z.string(),
+  terms: z.boolean().refine(val => val, {
+    message: $t('auth.property.terms.validation.accept')
+  })
+}).refine(
+  data => data.password === data.confirmPassword,
+  { path: ['confirmPassword'], message: $t('auth.property.confirmPassword.validation.match') }
+));
 
 const user = reactive({
   fullName: '',
@@ -30,15 +40,15 @@ async function onSubmit() {
       body: { ...user }
     });
     useToast().add({
-      title: t('auth.signup.toast.success.title'),
-      description: t('auth.signup.toast.success.description'),
+      title: $t('auth.signup.toast.success.title'),
+      description: $t('auth.signup.toast.success.description'),
       color: 'success'
     });
     await navigateTo('/auth/login');
   } catch (error: any) { // eslint-disable-line @typescript-eslint/no-explicit-any
     useToast().add({
-      title: t('auth.signup.toast.error.title'),
-      description: t(error.data.message),
+      title: $t('auth.signup.toast.error.title'),
+      description: $t(error.data.message),
       color: 'error'
     });
   } finally {

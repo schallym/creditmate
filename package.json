@@ -25,6 +25,7 @@
     "@unovis/vue": "^1.5.2",
     "bcryptjs": "^3.0.2",
     "eslint": "^9.31.0",
+    "jsonwebtoken": "^9.0.2",
     "lodash": "^4.17.21",
     "nodemailer": "^7.0.6",
     "nuxt": "^4.0.1",
@@ -35,6 +36,8 @@
     "zod": "^4.0.10"
   },
   "devDependencies": {
+    "@iconify-json/heroicons": "^1.2.2",
+    "@types/jsonwebtoken": "^9.0.10",
     "@types/lodash": "^4.17.20",
     "@types/nodemailer": "^7.0.1",
     "eslint-plugin-vue": "^10.3.0",

@@ -16,7 +16,6 @@ const schema = z.object({
 });
 
 const state = reactive({ email: '', password: '' });
-const showPassword = ref(false);
 const loading = ref(false);
 
 async function onSubmit() {
@@ -93,35 +92,25 @@ async function onSubmit() {
           />
         </UFormField>
 
-        <UFormField
+        <PasswordInput
+          v-model="state.password"
           :label="$t('auth.property.password.label')"
-          name="password"
-          class="mt-4"
-          required
+          name="confirmPassword"
+          :placeholder="$t('auth.property.password.input.placeholder')"
           size="xl"
-        >
-          <UInput
-            v-model="state.password"
-            :type="showPassword ? 'text' : 'password'"
-            :placeholder="$t('auth.property.password.input.placeholder')"
-            class="w-full"
-            size="xl"
+        />
+
+        <div class="flex justify-end">
+          <UButton
+            variant="link"
+            color="primary"
+            size="sm"
+            class="text-xs px-0"
+            to="/auth/forgot-password"
           >
-            <template #trailing>
-              <button
-                type="button"
-                class="text-gray-500 hover:text-gray-700 cursor-pointer"
-                :aria-label="$t('auth.property.password.input.display')"
-                @click="showPassword = !showPassword"
-              >
-                <UIcon
-                  :name="showPassword ? 'i-heroicons-eye-slash' : 'i-heroicons-eye'"
-                  class="h-5 w-5"
-                />
-              </button>
-            </template>
-          </UInput>
-        </UFormField>
+            {{ $t('auth.login.forgotPassword.link') }}
+          </UButton>
+        </div>
 
         <UButton
           type="submit"
