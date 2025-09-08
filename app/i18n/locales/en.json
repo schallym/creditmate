@@ -3,10 +3,37 @@
     "optional": "optional",
     "with": "with",
     "missingInformation": "Missing information",
+    "welcomeOn": "Welcome to",
+    "month": "month",
+    "notice": "Notice",
     "action": {
       "search": "Search",
       "cancel": "Cancel",
-      "calculate": "Calculate"
+      "calculate": "Calculate",
+      "delete": "Delete",
+      "clear": "Clear"
+    }
+  },
+  "ui": {
+    "deleteConfirmation": {
+      "title": "Confirm deletion",
+      "question": "Are you sure you want to delete this item?",
+      "message": "This action is irreversible. The item will be permanently deleted.",
+      "confirmationInput": {
+        "confirmationText": "DELETE",
+        "label": "Type '{confirmationText}' to confirm",
+        "placeholder": "Enter '{confirmationText}'"
+      },
+      "buttonLabel": "Delete item",
+      "toast": {
+        "success": {
+          "title": "Item deleted"
+        },
+        "error": {
+          "title": "Error deleting",
+          "description": "An error occurred while trying to delete. Please try again."
+        }
+      }
     }
   },
   "language": {
@@ -16,7 +43,7 @@
   "footer": {
     "allRightReserved": "All rights reserved",
     "privacy": "Privacy Policy",
-    "terms": "Terms of Services",
+    "terms": "Terms of Service",
     "legalNotice": "Legal Notice"
   },
   "header": {
@@ -33,15 +60,17 @@
         "text": "Your {highlight} {break} Financial Coach",
         "highlighted": "Personal"
       },
-      "subtitle": "Take control of your loans with Credit Mate. Visualize your repayment journey, simulate early payments, and discover savings opportunities in real-time.",
+      "subtitle": "Take control of your loans with CreditMate. Visualize your repayment journey, simulate early payments, and discover savings opportunities in real-time.",
       "cta": {
         "startTracking": "Start Tracking",
-        "addYourFirstLoan": "Add Your First Loan"
+        "addYourFirstLoan": "Add Your First Loan",
+        "addLoan": "Add Loan",
+        "seeLoans": "See My Loans"
       }
     },
     "features": {
       "title": "Everything you need to master your loans",
-      "subtitle": "From visualization to simulation, Credit Mate provides all the tools to make informed financial decisions.",
+      "subtitle": "From visualization to simulation, CreditMate provides all the tools to make informed financial decisions.",
       "items": {
         "interactiveTimeline": {
           "title": "Interactive Timeline",
@@ -70,7 +99,14 @@
     },
     "add": {
       "title": "Add a Loan",
-      "description": "Enter your loan details to start tracking your financial journey with CreditMate."
+      "description": "Enter your loan details to start tracking your financial journey with CreditMate.",
+      "anonymousNotice": "The loan will be anonymous and publicly visible. Create a free account to track your loans securely.",
+      "toast": {
+        "createSuccess": {
+          "title": "Loan added successfully",
+          "description": "Your loan has been added. You can now track your repayments and simulate early payments."
+        }
+      }
     },
     "view": {
       "earlyRepaymentCalculator": {
@@ -106,7 +142,7 @@
           "label": "Total Paid"
         },
         "totalInterest": {
-          "label": "Total Interest Paid"
+          "label": "Total Interest"
         },
         "totalInterestPaid": {
           "label": "Total Interest Paid"
@@ -133,10 +169,25 @@
         }
       },
       "paymentBreakdown": {
-        "title": "Global Payment Breakdown",
-        "description": "Global breakdown of your payments",
+        "title": "Payment Breakdown",
+        "description": "Visualize how your payments are split between principal and interest",
         "amount": "Amount",
         "interest": "Interest"
+      },
+      "edit": {
+        "button": "Edit Loan"
+      },
+      "notice": "Calculations are based on a standard fixed-rate loan model. Actual payments may vary based on your specific loan terms. Calculations do not include fees, insurance, penalties, or interest rate variations. Please consult your loan agreement for accurate information."
+    },
+    "edit": {
+      "title": "Edit Loan",
+      "description": "Update your loan information below.",
+      "button": "Save Changes",
+      "toast": {
+        "updateSuccess": {
+          "title": "Loan updated successfully",
+          "description": "Your loan information has been updated."
+        }
       }
     },
     "form": {
@@ -190,7 +241,7 @@
             "missingFieldsMessage": "Please fill in all the amount, interest rate and loan term to calculate the monthly payment.",
             "success": {
               "title": "Monthly payment calculated",
-              "message": "Monthly payment: ${amount}"
+              "message": "Monthly payment: {amount}"
             }
           }
         },
@@ -205,12 +256,551 @@
           "label": "Description",
           "placeholder": "Car loan, student loan, etc...",
           "help": "Add an optional description for this loan to help you identify it"
+        },
+        "termsAccepted": {
+          "label": "I accept the",
+          "link": "Terms of Service",
+          "validation": {
+            "accept": "You must accept the Terms of Service to continue"
+          }
         }
       },
       "action": {
         "addLoan": "Add Loan",
         "cancel": "Cancel"
       }
+    },
+    "anonym": {
+      "title": {
+        "highlight": "Access your loans",
+        "text": "securely"
+      },
+      "description": "Create your free account to manage all your loans, track your repayments and discover personalized savings opportunities.",
+      "cta": {
+        "signup": "Create my free account",
+        "login": "I already have an account"
+      }
+    },
+    "list": {
+      "noLoans": {
+        "description": "Congratulations! Your account is now active. It's time to start managing your loans smarter.",
+        "featureOne": {
+          "title": "Calculate your savings",
+          "description": "Discover how much you could save with early repayment."
+        },
+        "featureTwo": {
+          "title": "Track your progress",
+          "description": "Visualize your repayment evolution and progress."
+        },
+        "featureThree": {
+          "title": "Plan your payments",
+          "description": "Never miss a payment."
+        },
+        "cta": {
+          "addFirstLoan": "Add my first loan"
+        },
+        "footer": {
+          "text": "It only takes 2 minutes and is completely secure"
+        }
+      },
+      "dashboard": {
+        "title": "All My Loans",
+        "description": "Manage all your loans in one place",
+        "cta": {
+          "addLoan": "Add Loan"
+        },
+        "activeLoans": {
+          "title": "Active Loans",
+          "description": "Total number of loans being repaid"
+        },
+        "totalRemainingBalance": {
+          "title": "Total Remaining",
+          "description": "Total balance to be repaid"
+        },
+        "totalMonthlyPayment": {
+          "title": "Total Monthly Payments",
+          "description": "Combined monthly payments"
+        },
+        "card": {
+          "status": {
+            "active": "Active",
+            "completed": "Paid Off"
+          },
+          "remainingBalance": {
+            "title": "Remaining Balance"
+          },
+          "monthlyPayment": {
+            "title": "Monthly Payment"
+          },
+          "rate": {
+            "title": "Rate"
+          },
+          "remainingMonthNumber": {
+            "title": "Months Left"
+          },
+          "cta": {
+            "viewDetails": "View Details",
+            "calculate": "Calculate"
+          }
+        }
+      }
+    },
+    "earlyRepaymentCalculator": {
+      "title": "Early Repayment Calculator",
+      "description": "Discover how early payment can accelerate your repayment and reduce interest",
+      "parameters": {
+        "title": "Payment Parameters",
+        "description": "Adjust the parameters below to see the impact of early payment on your loan",
+        "summary": {
+          "title": "Current Loan",
+          "remainingBalance": "Remaining balance",
+          "monthlyPayment": "Monthly payment",
+          "remainingMonths": "Months remaining"
+        },
+        "fields": {
+          "monthlyExtraPayment": {
+            "label": "Additional Monthly Payment",
+            "perMonth": "/ month",
+            "help": "Enter an additional amount you can pay each month."
+          },
+          "oneTimeExtraPayment": {
+            "label": "One-time Additional Payment",
+            "help": "Enter a one-time amount you can pay immediately.",
+            "remaining": "remaining"
+          }
+        }
+      },
+      "impact": {
+        "title": "Potential Savings",
+        "description": "Impact of your additional payments",
+        "calculating": "Calculating...",
+        "savedInterests": {
+          "title": "Interest Saved",
+          "description": "Over the total loan term"
+        },
+        "savedTime": {
+          "title": "Time Saved",
+          "description": "Fewer months of repayment"
+        },
+        "progression": {
+          "title": "Progress Comparison",
+          "actual": "With current payments",
+          "withExtraPayments": "With additional payments"
+        },
+        "newPaymentDate": {
+          "title": "New Payment Date"
+        }
+      }
+    }
+  },
+  "auth": {
+    "header": {
+      "loggedInAs": "Logged in as {name}"
+    },
+    "login": {
+      "title": "Login",
+      "description": "Log in to access your financial dashboard",
+      "button": {
+        "submit": "Login"
+      },
+      "signup": {
+        "text": "Don't have an account?",
+        "link": "Sign up"
+      },
+      "toast": {
+        "error": {
+          "title": "Login error"
+        },
+        "success": {
+          "title": "Login successful",
+          "description": "Welcome to CreditMate! You are now logged in."
+        }
+      },
+      "badCredentials": {
+        "message": "Incorrect email or password"
+      },
+      "forgotPassword": {
+        "link": "Forgot password?"
+      }
+    },
+    "signup": {
+      "title": "Create account",
+      "description": "Start tracking your loans and savings today",
+      "button": {
+        "submit": "Create account"
+      },
+      "login": {
+        "text": "Already have an account?",
+        "link": "Login"
+      },
+      "toast": {
+        "error": {
+          "title": "Account creation error"
+        },
+        "success": {
+          "title": "Account created successfully",
+          "description": "Welcome to CreditMate! You can now log in."
+        }
+      },
+      "validation": {
+        "emailExists": {
+          "message": "An account with this email already exists"
+        }
+      }
+    },
+    "logout": {
+      "title": "Logout"
+    },
+    "editProfile": {
+      "title": "Edit Profile"
+    },
+    "property": {
+      "email": {
+        "label": "Email",
+        "validation": {
+          "invalid": "Invalid email"
+        },
+        "input": {
+          "placeholder": "Please enter your email"
+        }
+      },
+      "password": {
+        "label": "Password",
+        "validation": {
+          "required": "Password is required",
+          "minLength": "Password must be at least 16 characters long",
+          "pattern": "Password must contain at least one uppercase letter, one lowercase letter, one number and one special character"
+        },
+        "input": {
+          "placeholder": "Please enter your password",
+          "display": "Show password"
+        }
+      },
+      "fullName": {
+        "label": "Full Name",
+        "validation": {
+          "required": "Full name is required"
+        },
+        "input": {
+          "placeholder": "Please enter your full name"
+        }
+      },
+      "confirmPassword": {
+        "label": "Confirm password",
+        "validation": {
+          "match": "Passwords do not match"
+        },
+        "input": {
+          "placeholder": "Please confirm your password"
+        }
+      },
+      "terms": {
+        "label": {
+          "prefix": "I accept the",
+          "link": "Terms of Service"
+        },
+        "validation": {
+          "accept": "You must accept the Terms of Service to continue"
+        }
+      }
+    },
+    "profile": {
+      "title": "My Profile",
+      "description": "Manage your account information",
+      "stats": {
+        "title": "Statistics",
+        "activeLoans": {
+          "label": "Active Loans"
+        },
+        "memberSince": {
+          "label": "Member since"
+        }
+      },
+      "personalInfo": {
+        "title": "Personal Information",
+        "description": "Update your personal information below.",
+        "button": "Save Changes",
+        "toast": {
+          "updateSuccess": {
+            "title": "Profile updated successfully",
+            "description": "Your profile information has been updated."
+          }
+        }
+      },
+      "changePassword": {
+        "title": "Change Password",
+        "description": "Update your password to secure your account.",
+        "button": "Update password",
+        "form": {
+          "currentPassword": {
+            "label": "Current password",
+            "input": {
+              "placeholder": "Please enter your current password"
+            },
+            "validation": {
+              "required": "Current password is required",
+              "incorrect": "Current password is incorrect"
+            }
+          },
+          "newPassword": {
+            "label": "New password",
+            "input": {
+              "placeholder": "Please enter a new password"
+            }
+          },
+          "confirmNewPassword": {
+            "label": "Confirm new password",
+            "input": {
+              "placeholder": "Please confirm your new password"
+            }
+          }
+        },
+        "toast": {
+          "updateSuccess": {
+            "title": "Password updated successfully",
+            "description": "Your password has been changed."
+          }
+        }
+      },
+      "dangerZone": {
+        "title": "Danger Zone",
+        "description": "Irreversible actions on your account",
+        "deleteAccount": {
+          "title": "Delete Account",
+          "description": "Permanently delete your account and all associated data. This action is irreversible.",
+          "button": "Delete my account",
+          "confirmation": {
+            "question": "Are you sure you want to delete your account?",
+            "message": "This action is irreversible. All your data will be permanently deleted."
+          },
+          "toast": {
+            "deleteSuccess": {
+              "title": "Account deleted successfully",
+              "description": "Your account has been deleted. We're sorry to see you go."
+            }
+          }
+        }
+      }
+    },
+    "forgotPassword": {
+      "title": "Reset password",
+      "description": "Enter your email address and we'll send you a link to reset your password.",
+      "button": {
+        "submit": "Send reset link"
+      },
+      "backToLogin": "Back to login",
+      "submitted": {
+        "title": "Check your email",
+        "description": "We've sent a reset link to your email address.",
+        "checkEmail": "Click the link in the email to reset your password."
+      },
+      "toast": {
+        "success": {
+          "title": "Reset link sent",
+          "description": "Check your email for the reset link."
+        },
+        "error": {
+          "title": "Error sending link",
+          "description": "An error occurred. Please try again."
+        }
+      }
+    },
+    "resetPassword": {
+      "title": "Reset password",
+      "description": "Enter your new password below.",
+      "verifying": "Verifying reset link...",
+      "invalidTokenTitle": "Invalid reset link",
+      "invalidTokenMessage": "This reset link is invalid or has expired.",
+      "invalidToken": "Invalid or expired reset link",
+      "requestNewLink": "Request new link",
+      "backToLogin": "Back to login",
+      "form": {
+        "newPassword": {
+          "label": "New password",
+          "placeholder": "Enter your new password"
+        },
+        "confirmPassword": {
+          "label": "Confirm new password",
+          "placeholder": "Confirm your new password"
+        }
+      },
+      "button": {
+        "submit": "Reset password"
+      },
+      "toast": {
+        "success": {
+          "title": "Password reset successfully",
+          "description": "Your password has been reset. You can now log in with your new password."
+        },
+        "error": {
+          "title": "Reset failed",
+          "description": "An error occurred while resetting your password. Please try again."
+        }
+      }
+    }
+  },
+  "review": {
+    "title": "Leave a review",
+    "description": "Your feedback matters! Help us improve CreditMate by sharing your experience.",
+    "submitButton": "Submit your review",
+    "layoutButton": {
+      "label": "Leave a review",
+      "description": "Help us improve CreditMate by sharing your experience."
+    },
+    "form": {
+      "fields": {
+        "rating": {
+          "label": "Overall Rating",
+          "description": "How would you rate your experience with CreditMate?",
+          "validation": {
+            "required": "Please provide a rating"
+          }
+        },
+        "type": {
+          "label": "Review Type",
+          "description": "What type of review would you like to share?",
+          "types": {
+            "general": "General Review",
+            "feature": "Feature Request",
+            "bug": "Bug Report",
+            "compliment": "Compliment"
+          },
+          "validation": {
+            "required": "Please select a review type",
+            "invalid": "Invalid review type"
+          }
+        },
+        "categories": {
+          "label": "Categories",
+          "description": "Please select the categories that apply to your review.",
+          "categories": {
+            "userInterface": "User Interface",
+            "calculations": "Calculations",
+            "performance": "Performance",
+            "navigation": "Navigation",
+            "content": "Content",
+            "mobileExperience": "Mobile Experience",
+            "accessibility": "Accessibility",
+            "other": "Other"
+          },
+          "validation": {
+            "required": "Please select at least one category"
+          }
+        },
+        "feedback": {
+          "label": "Your Review",
+          "description": "Share your thoughts, suggestions or issues encountered.",
+          "placeholder": "Write your review here...",
+          "validation": {
+            "required": "Please provide your feedback",
+            "maxLength": "Your feedback cannot exceed {max} characters"
+          }
+        },
+        "suggestions": {
+          "label": "Your Suggestions",
+          "description": "Do you have specific suggestions for this type of review?",
+          "placeholder": "Write your suggestions here...",
+          "validation": {
+            "required": "Please provide your suggestions for this review type",
+            "maxLength": "Your suggestions cannot exceed {max} characters"
+          }
+        },
+        "email": {
+          "label": "Contact",
+          "description": "Leave your email if you would like to be contacted for follow-up (optional).",
+          "inputLabel": "Email",
+          "placeholder": "Please enter your email",
+          "validation": {
+            "invalid": "Invalid email"
+          }
+        }
+      }
+    },
+    "toast": {
+      "success": {
+        "title": "Thank you for your review!",
+        "description": "We appreciate your feedback and strive to improve CreditMate."
+      },
+      "error": {
+        "title": "Error submitting review"
+      }
+    }
+  },
+  "meta": {
+    "homepage": {
+      "title": "CreditMate - Your Personal Financial Coach",
+      "description": "Take control of your loans with CreditMate. Visualize your repayment journey, simulate early payments, and discover savings opportunities in real-time."
+    },
+    "profile": {
+      "title": "CreditMate - My Profile - Account Management",
+      "description": "Manage your account information and track your loans with CreditMate."
+    },
+    "review": {
+      "title": "CreditMate - Leave a review - Share your experience",
+      "description": "Your feedback matters! Help us improve CreditMate by sharing your experience."
+    },
+    "login": {
+      "title": "CreditMate - Login",
+      "description": "Log in to access your financial dashboard and manage your loans with CreditMate."
+    },
+    "signup": {
+      "title": "CreditMate - Sign up",
+      "description": "Create a free account to start tracking your loans and savings with CreditMate."
+    },
+    "legalNotice": {
+      "title": "CreditMate - Legal Notice",
+      "description": "Review CreditMate's legal notice to understand terms of use and privacy policy."
+    },
+    "privacy": {
+      "title": "CreditMate - Privacy Policy",
+      "description": "Read CreditMate's privacy policy to understand how we protect your data."
+    },
+    "terms": {
+      "title": "CreditMate - Terms of Service",
+      "description": "Read CreditMate's Terms of Service to understand your rights and responsibilities."
+    },
+    "loans": {
+      "title": "CreditMate - My Loans - Loan tracking and management",
+      "description": "Manage all your loans in one place with CreditMate. Track your repayments, calculate your savings and plan your payments."
+    },
+    "addLoan": {
+      "title": "CreditMate - Add a Loan - Loan tracking",
+      "description": "Add your loan details to start tracking your financial journey with CreditMate."
+    },
+    "viewLoan": {
+      "title": "CreditMate - Loan Details - Loan tracking and management",
+      "description": "View your loan details, track your repayments and simulate early payments with CreditMate."
+    },
+    "editLoan": {
+      "title": "CreditMate - Edit Loan - Loan management",
+      "description": "Update your loan information and continue tracking your financial journey with CreditMate."
+    },
+    "earlyRepayment": {
+      "title": "CreditMate - Early Repayment Calculator - Loan savings",
+      "description": "Discover how early payment can accelerate your repayment and reduce interest with CreditMate's early repayment calculator."
+    },
+    "forgotPassword": {
+      "title": "CreditMate - Reset password",
+      "description": "Reset your CreditMate account password"
+    },
+    "resetPassword": {
+      "title": "CreditMate - Reset password",
+      "description": "Reset your CreditMate account password"
+    }
+  },
+  "errors": {
+    "title": "An error occurred",
+    "internalServerError": {
+      "message": "An internal server error occurred. Please try again later."
+    },
+    "validation": {
+      "message": "Some provided data is invalid."
+    },
+    "notFound": {
+      "message": "The requested resource could not be found."
+    },
+    "unauthorized": {
+      "message": "You are not authorized to access this resource."
     }
   }
 }
