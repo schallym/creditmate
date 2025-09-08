@@ -61,7 +61,7 @@ const onSubmit = async () => {
       description: $t('review.toast.success.description'),
       color: 'success'
     });
-    router.push('/');
+    await router.push('/');
   } catch (error: any) { // eslint-disable-line @typescript-eslint/no-explicit-any
     console.error(error);
     useToast().add({

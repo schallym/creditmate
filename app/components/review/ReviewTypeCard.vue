@@ -43,13 +43,13 @@ watch(selectedType, (newValue) => {
     <div class="flex items-center gap-3 mb-2">
       <UIcon
         name="i-lucide-book-marked"
-        class="w-6 h-6 text-blue-600"
+        class="w-6 h-6 text-blue-600 dark:text-blue-400"
       />
-      <h2 class="text-xl font-semibold text-gray-900">
+      <h2 class="text-xl font-semibold text-gray-900 dark:text-gray-100">
         {{ $t('review.form.fields.type.label') }}
       </h2>
     </div>
-    <p class="text-gray-600 mb-8">
+    <p class="text-gray-600 dark:text-gray-400 mb-8">
       {{ $t('review.form.fields.type.description') }}
     </p>
 
