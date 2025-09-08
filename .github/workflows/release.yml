@@ -30,9 +30,8 @@ jobs:
       - name: Install deps
         run: npm ci
 
-      # Optional: type-check & unit tests
-      - name: Type check
-        run: npm run type-check || npm tsc --noEmit
+      - name: Lint
+        run: npm run lint
 
       - name: Test
         run: npm test --if-present
