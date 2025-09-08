@@ -79,7 +79,7 @@ const onSubmit = async () => {
   <div class="min-h-screen py-12 px-4">
     <div class="max-w-4xl mx-auto">
       <div class="text-center mb-8">
-        <div class="w-16 h-16 bg-blue-100 rounded-4xl flex items-center justify-center mx-auto mb-6">
+        <div class="w-16 h-16 bg-blue-100 dark:bg-transparent rounded-4xl flex items-center justify-center mx-auto mb-6">
           <UIcon
             name="i-lucide-message-circle"
             class="w-8 h-8"

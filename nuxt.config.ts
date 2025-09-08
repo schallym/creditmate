@@ -47,6 +47,12 @@ export default defineNuxtConfig({
   srcDir: 'app',
   serverDir: 'server',
   compatibilityDate: '2025-07-24',
+  nitro: {
+    serverAssets: [{
+      baseName: 'templates',
+      dir: './templates'
+    }]
+  },
   eslint: {
     config: {
       stylistic: {
