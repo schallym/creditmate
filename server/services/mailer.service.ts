@@ -1,6 +1,5 @@
 import nodemailer from 'nodemailer';
-import hbs from 'nodemailer-express-handlebars';
-import path from 'path';
+import hbs from 'handlebars';
 
 class MailerService {
   async sendMail(to: string, subject: string, body: string, from: string = 'noreply@resend.dev'): Promise<void> {
@@ -47,22 +46,17 @@ class MailerService {
         }
       });
 
-      transporter.use('compile', hbs({
-        viewEngine: {
-          extname: '.hbs',
-          partialsDir: path.join(process.cwd(), 'server', 'templates', 'emails', locale),
-          defaultLayout: false
-        },
-        viewPath: path.join(process.cwd(), 'server', 'templates', 'emails', locale),
-        extName: '.hbs'
-      }));
+      const templateSrc = await useStorage('assets:templates').getItem(`emails/${locale}/${template}.hbs`);
+      console.log('Loaded template source:', templateSrc);
+      const compiledTemplate = hbs.compile(templateSrc, { });
+
+      console.log(compiledTemplate(enrichedContext));
 
       await transporter.sendMail({
         from: from,
         to: to,
         subject: subject,
-        template: template,
-        context: enrichedContext
+        html: compiledTemplate(enrichedContext)
       } as any); // eslint-disable-line @typescript-eslint/no-explicit-any
     } catch (error: any) { // eslint-disable-line @typescript-eslint/no-explicit-any
       console.error('Error sending email:', error);
