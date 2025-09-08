@@ -50,10 +50,10 @@ class MailerService {
       transporter.use('compile', hbs({
         viewEngine: {
           extname: '.hbs',
-          partialsDir: path.resolve(`./server/templates/emails/${locale}/`),
+          partialsDir: path.join(process.cwd(), 'templates', 'emails', locale),
           defaultLayout: false
         },
-        viewPath: path.resolve(`./server/templates/emails/${locale}/`),
+        viewPath: path.join(process.cwd(), 'templates', 'emails', locale),
         extName: '.hbs'
       }));
 
