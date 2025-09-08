@@ -100,6 +100,7 @@
     "add": {
       "title": "Ajouter un Prêt",
       "description": "Saisissez les détails de votre prêt pour commencer à suivre votre parcours financier avec CreditMate.",
+      "anonymousNotice": "Le prêt sera anonyme et publiquement visible. Créez un compte gratuit pour suivre vos prêts en toute sécurité.",
       "toast": {
         "createSuccess": {
           "title": "Prêt ajouté avec succès",
@@ -255,6 +256,13 @@
           "label": "Description",
           "placeholder": "Prêt pour la voiture, prêt étudiant, etc...",
           "help": "Ajoutez une description facultative pour ce prêt pour vous aider à l'identifier"
+        },
+        "termsAccepted": {
+          "label": "J'accepte les",
+          "link": "Conditions Générales d'Utilisation (CGU)",
+          "validation": {
+            "accept": "Vous devez accepter les Conditions Générales d'Utilisation (CGU) pour continuer"
+          }
         }
       },
       "action": {

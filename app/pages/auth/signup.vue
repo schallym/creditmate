@@ -15,7 +15,7 @@ const schema = computed(() => z.object({
   password: z.string().min(16, $t('auth.property.password.validation.minLength'))
     .regex(new RegExp('^(?=.*[A-Z])(?=.*[a-z])(?=.*\\d)(?=.*[^\\w\\s]).{16,}$'), $t('auth.property.password.validation.pattern')),
   confirmPassword: z.string(),
-  terms: z.boolean().refine(val => val, {
+  terms: z.boolean().refine(val => val === true, {
     message: $t('auth.property.terms.validation.accept')
   })
 }).refine(

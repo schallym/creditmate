@@ -1,9 +1,26 @@
 <script setup lang="ts">
-import type { LoanType, Loan } from '~~/server/types';
-import LoanService from '~~/server/services/loan.service';
+import { LoanType, type Loan } from '~~/server/types';
+import { z } from 'zod';
 
-const { t } = useI18n();
-const loanValidationSchema = computed(() => LoanService.createLoanValidationSchema(t));
+const { loggedIn } = useUserSession();
+
+const schema = computed(() => z.object({
+  type: z.enum(LoanType, { message: $t('loan.form.fields.type.validation.required') }),
+  lenderName: z.string().min(1, { message: $t('loan.form.fields.lenderName.validation.required') }),
+  amount: z.number({ message: $t('loan.form.fields.amount.validation.required') })
+    .gt(0, { message: $t('loan.form.fields.amount.validation.mustBePositive') }),
+  interestRate: z.number({ message: $t('loan.form.fields.interestRate.validation.required') })
+    .gt(0, { message: $t('loan.form.fields.interestRate.validation.mustBePositive') })
+    .max(100, { message: $t('loan.form.fields.interestRate.validation.maxValue') }),
+  termMonths: z.number({ message: $t('loan.form.fields.term.validation.required') })
+    .min(1, { message: $t('loan.form.fields.term.validation.minValue') }),
+  monthlyPayment: z.number().optional(),
+  startDate: z.coerce.date({ message: $t('loan.form.fields.startDate.validation.required') }),
+  description: z.string().optional(),
+  termsAccepted: z.boolean().refine(val => loggedIn.value || val === true, {
+    message: $t('loan.form.fields.termsAccepted.validation.accept')
+  })
+}));
 
 const props = defineProps<{
   modelValue?: Loan | null | undefined;
@@ -14,7 +31,7 @@ const emit = defineEmits<{
   (e: 'update:modelValue', value: Loan): void;
 }>();
 
-const loan = reactive<Loan>({
+const loan = reactive<Loan & { termsAccepted: boolean }>({
   type: props.modelValue?.type ?? '' as LoanType,
   lenderName: props.modelValue?.lenderName ?? '',
   amount: props.modelValue?.amount ?? 0,
@@ -22,7 +39,8 @@ const loan = reactive<Loan>({
   termMonths: props.modelValue?.termMonths ?? 0,
   monthlyPayment: props.modelValue?.monthlyPayment ?? 0,
   startDate: props.modelValue?.startDate ?? new Date(),
-  description: props.modelValue?.description ?? ''
+  description: props.modelValue?.description ?? '',
+  termsAccepted: false
 });
 const loading = ref(false);
 
@@ -70,7 +88,7 @@ const onSubmit = async () => {
 
     const res = await $fetch('/api/loan', {
       method: 'POST',
-      body: { ...loan }
+      body: { ...loan as Loan }
     });
 
     emit('update:modelValue', loan);
@@ -97,7 +115,7 @@ const onSubmit = async () => {
 
 <template>
   <UForm
-    :schema="loanValidationSchema"
+    :schema="schema"
     :state="loan as any"
     @submit="onSubmit"
   >
@@ -246,6 +264,39 @@ const onSubmit = async () => {
         </template>
       </UFormField>
     </div>
+
+    <UFormField
+      name="termsAccepted"
+      class="mt-4"
+      required
+      size="xl"
+    >
+      <UCheckbox
+        v-if="!loggedIn"
+        v-model="loan.termsAccepted"
+      >
+        <template #label>
+          <span>
+            {{ $t('loan.form.fields.termsAccepted.label') }}
+            <NuxtLink
+              to="/legal/terms"
+              class="text-primary-600 hover:underline"
+            >
+              {{ $t('loan.form.fields.termsAccepted.link') }}
+            </NuxtLink>
+          </span>
+        </template>
+      </UCheckbox>
+    </UFormField>
+    <UAlert
+      v-if="!loggedIn"
+      :title="$t('common.notice')"
+      icon="i-lucide-info"
+      variant="subtle"
+      :description="$t('loan.add.anonymousNotice')"
+      color="primary"
+      class="mt-4"
+    />
 
     <!-- Form Actions -->
     <div class="flex justify-end space-x-3 mt-8 pt-6">

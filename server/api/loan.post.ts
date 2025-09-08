@@ -7,9 +7,10 @@ import type { Loan, User } from '~~/server/types';
 const prisma = new PrismaClient();
 
 export default defineEventHandler(async (event) => {
+  const t = await useTranslation(event);
   try {
     const body = await readBody<CreateLoanDto>(event);
-    const validatedData: Loan = loanService.loanValidationSchema.parse(body);
+    const validatedData: Loan = loanService.createLoanValidationSchema(t).parse(body);
 
     const { user } = await getUserSession(event);
     if (user) {
@@ -22,7 +23,6 @@ export default defineEventHandler(async (event) => {
 
     return { data: loan };
   } catch (error: any) { // eslint-disable-line @typescript-eslint/no-explicit-any
-    const t = await useTranslation(event);
     if (error instanceof z.ZodError) {
       throw createError({
         statusCode: 400,

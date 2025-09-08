@@ -3,7 +3,7 @@ import { type EarlyRepaymentData, type Loan, LoanStatus, LoanType, type LoanWith
 import type { CreateLoanDto, UpdateLoanDto } from '~~/server/dtos';
 import { PrismaClient } from '@prisma/client';
 import type { Loan as PrismaLoan } from '@prisma/client';
-import { useFormatters, useTranslations } from '~~/server/utils';
+import { useFormatters } from '~~/server/utils';
 
 class LoanService {
   prisma = new PrismaClient();
@@ -24,10 +24,6 @@ class LoanService {
       description: z.string().optional()
     });
   };
-
-  loanValidationSchema = this.createLoanValidationSchema((key: string) => {
-    return useTranslations(key);
-  });
 
   calculateMonthlyPayment(
     amount: number,

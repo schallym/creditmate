@@ -11,7 +11,7 @@ export default defineEventHandler(async (event) => {
 
   try {
     const data = await readBody<UpdateLoanDto>(event);
-    const validatedData: Loan = loanService.loanValidationSchema.parse(data);
+    const validatedData: Loan = loanService.createLoanValidationSchema(t).parse(data);
 
     const loan = await prisma.loan.findUnique({ where: { id: data.id } });
 
