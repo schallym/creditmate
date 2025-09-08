@@ -603,6 +603,9 @@
           "title": "Error sending link",
           "description": "An error occurred. Please try again."
         }
+      },
+      "email": {
+        "subject": "Reset your CreditMate password"
       }
     },
     "resetPassword": {

@@ -1,5 +1,7 @@
 import type { H3Event } from 'h3';
 
+export type TFunction = Awaited<ReturnType<typeof useTranslation>>;
+
 export const useLocale = (event: H3Event, options?: {
   defaultLocale?: string;
   cookieName?: string;

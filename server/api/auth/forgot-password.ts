@@ -7,11 +7,12 @@ const bodySchema = z.object({
 
 export default defineEventHandler(async (event) => {
   const t = await useTranslation(event);
+  const { locale } = useLocale(event);
 
   try {
     const { email } = await readValidatedBody(event, bodySchema.parse);
 
-    const result = await AuthService.createPasswordResetToken(email);
+    const result = await AuthService.createPasswordResetToken(email, t, locale);
 
     if (result.success) {
       return { success: true, message: t('auth.forgotPassword.toast.success.description') };

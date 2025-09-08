@@ -603,6 +603,9 @@
           "title": "Erreur lors de l'envoi du lien",
           "description": "Une erreur s'est produite. Veuillez réessayer."
         }
+      },
+      "email": {
+        "subject": "Réinitialisation de votre mot de passe CreditMate"
       }
     },
     "resetPassword": {

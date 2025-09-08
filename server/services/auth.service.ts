@@ -5,6 +5,7 @@ import type { FilteredUser, User } from '~~/server/types';
 import { PrismaClient } from '@prisma/client';
 import jwt from 'jsonwebtoken';
 import { mailer } from '~~/server/services/mailer.service';
+import type { TFunction } from '~~/server/utils';
 
 class AuthService {
   prisma = new PrismaClient();
@@ -70,7 +71,7 @@ class AuthService {
     return hashedPassword === user.passwordHash;
   }
 
-  async createPasswordResetToken(email: string): Promise<{ success: boolean; message?: string }> {
+  async createPasswordResetToken(email: string, t: TFunction, locale: string): Promise<{ success: boolean; message?: string }> {
     try {
       const user = await this.prisma.user.findUnique({
         where: { email }
@@ -99,7 +100,7 @@ class AuthService {
       const config = useRuntimeConfig();
       const resetUrl = `${config.public.appUrl}/auth/reset-password?token=${token}`;
 
-      await this.sendPasswordResetEmail(user.email, user.fullName, resetUrl);
+      await this.sendPasswordResetEmail(user.email, resetUrl, t, locale);
 
       return { success: true };
     } catch (error) {
@@ -180,18 +181,10 @@ class AuthService {
     });
   }
 
-  private async sendPasswordResetEmail(email: string, fullName: string, resetUrl: string): Promise<void> {
-    const subject = 'CreditMate - Réinitialiser votre mot de passe';
-    const body = `Bonjour ${fullName},
-      Vous avez demandé la réinitialisation de votre mot de passe pour votre compte CreditMate.
+  private async sendPasswordResetEmail(email: string, resetUrl: string, t: TFunction, locale: string = 'fr'): Promise<void> {
+    const subject = t('auth.forgotPassword.email.subject');
 
-      Cliquez sur le lien suivant pour réinitialiser votre mot de passe : ${resetUrl}
-      Ce lien expire dans 1 heure pour des raisons de sécurité.
-      Si vous n'avez pas demandé cette réinitialisation, vous pouvez ignorer cet email en toute sécurité.
-      Cordialement, 
-      L'équipe CreditMate`;
-
-    await mailer.sendMail(email, subject, body);
+    await mailer.sendLocalizedTemplatedMail(email, subject, locale, 'reset-password', { resetUrl: resetUrl });
   }
 
   private verifyResetToken(token: string): { userId: number; email: string } | null {
