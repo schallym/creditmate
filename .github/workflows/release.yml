@@ -1,0 +1,71 @@
+name: Release
+
+on:
+  push:
+    branches:
+      - main
+
+permissions:
+  contents: write
+  issues: write
+  pull-requests: write
+
+concurrency:
+  group: release-${{ github.ref }}
+  cancel-in-progress: false
+
+jobs:
+  test:
+    name: Build & Test
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Use Node 20
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - name: Install deps
+        run: npm ci
+
+      # Optional: type-check & unit tests
+      - name: Type check
+        run: npm run type-check || npm tsc --noEmit
+
+      - name: Test
+        run: npm test --if-present
+
+      - name: Build (Nuxt)
+        run: npm build --if-present
+
+      - name: Upload dist (cache between jobs)
+        uses: actions/upload-artifact@v4
+        with:
+          name: dist
+          path: .nuxt
+          if-no-files-found: ignore
+
+  release:
+    name: Semantic Release
+    needs: test
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout (full history for tags)
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Use Node 20
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - name: Install deps
+        run: npm ci
+
+      - name: Release
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: npx semantic-release
