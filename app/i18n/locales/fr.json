@@ -465,7 +465,7 @@
         }
       },
       "password": {
-        "label": "Password",
+        "label": "Mot de passe",
         "validation": {
           "required": "Le mot de passe est requis",
           "minLength": "Le mot de passe doit comporter au moins 16 caractères",
