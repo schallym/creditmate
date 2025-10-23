@@ -2,6 +2,7 @@
 @import "@nuxt/ui";
 
 body {
+  font-family: 'Inter', 'Manrope', 'Plus Jakarta Sans', sans-serif;
   @apply bg-gray-100 dark:bg-gray-900;
 }
 
