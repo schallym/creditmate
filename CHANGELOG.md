@@ -1,5 +1,18 @@
 # Changelog
 
+## 1.1.0 (2025-10-23)
+
+* fix(CD): fix template generation issue ([0f46362](https://github.com/schallym/creditmate/commit/0f46362))
+* fix(CI): fix deployment issue ([85f63d3](https://github.com/schallym/creditmate/commit/85f63d3))
+* fix(dark mode): fix dark mode issue on review page ([65839dd](https://github.com/schallym/creditmate/commit/65839dd))
+* fix(database): fix prisma issue ([3e44dae](https://github.com/schallym/creditmate/commit/3e44dae))
+* fix(deployment): fix template generation issue ([1c39ec3](https://github.com/schallym/creditmate/commit/1c39ec3))
+* fix(templating): fix email templating issue ([9d56fbb](https://github.com/schallym/creditmate/commit/9d56fbb))
+* fix(templating): fix email templating issue ([0dbe4c9](https://github.com/schallym/creditmate/commit/0dbe4c9))
+* fix(translation): fix signup translation ([b7cfde1](https://github.com/schallym/creditmate/commit/b7cfde1))
+* feat(database): add prisma migrations ([81fe86d](https://github.com/schallym/creditmate/commit/81fe86d))
+* feat(database): add prisma migrations ([2850493](https://github.com/schallym/creditmate/commit/2850493))
+
 ## 1.0.0 (2025-09-08)
 
 * feat(CD): add deploy action ([a6ee556](https://github.com/schallym/creditmate/commit/a6ee556))
