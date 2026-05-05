@@ -42,6 +42,13 @@ export default defineEventHandler(async (event: H3Event) => {
     });
   }
 
+  if (!fullUser.passwordHash) {
+    throw createError({
+      statusCode: 400,
+      message: t('auth.profile.changePassword.oauthOnly.message')
+    });
+  }
+
   if (!(await AuthService.checkPassword(data.currentPassword, fullUser))) {
     throw createError({
       statusCode: 400,

@@ -2,8 +2,9 @@ export type User = {
   id?: number;
   fullName: string;
   email: string;
-  passwordHash: string;
-  salt: string;
+  passwordHash?: string | null;
+  salt?: string | null;
+  authProvider?: string;
   createdAt?: Date | string;
   updatedAt?: Date | string;
   passwordResetToken?: string | null;

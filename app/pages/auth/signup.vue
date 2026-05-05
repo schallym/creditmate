@@ -167,30 +167,30 @@ async function onSubmit() {
           {{ $t('auth.signup.button.submit') }}
         </UButton>
 
-        <!--        <div class="relative my-8"> -->
-        <!--          <div class="border-t border-gray-200 dark:border-gray-700" /> -->
-        <!--          <span -->
-        <!--            class="absolute -top-3 left-1/2 -translate-x-1/2 select-none -->
-        <!--           bg-white dark:bg-gray-900 px-3 py-1 -->
-        <!--           text-[11px] font-medium tracking-wide uppercase -->
-        <!--           text-gray-400" -->
-        <!--          > -->
-        <!--            OU CONTINUER AVEC -->
-        <!--          </span> -->
-        <!--        </div> -->
+        <div class="relative my-8">
+          <div class="border-t border-gray-200 dark:border-gray-700" />
+          <span
+            class="absolute -top-3 left-1/2 -translate-x-1/2 select-none
+           bg-white dark:bg-gray-900 px-3 py-1
+           text-[11px] font-medium tracking-wide uppercase
+           text-gray-400"
+          >
+            {{ $t('auth.oauth.separator') }}
+          </span>
+        </div>
 
-        <!--        <div> -->
-        <!--          <UButton -->
-        <!--            variant="outline" -->
-        <!--            icon="i-logos-google-icon" -->
-        <!--            class="w-full justify-center" -->
-        <!--            size="lg" -->
-        <!--            color="neutral" -->
-        <!--            @click="signInWithProvider('google')" -->
-        <!--          > -->
-        <!--            Google -->
-        <!--          </UButton> -->
-        <!--        </div> -->
+        <div>
+          <UButton
+            variant="outline"
+            icon="i-logos-google-icon"
+            class="w-full justify-center"
+            size="lg"
+            color="neutral"
+            @click="navigateTo('/api/auth/google', { external: true })"
+          >
+            Google
+          </UButton>
+        </div>
       </UForm>
 
       <template #footer>

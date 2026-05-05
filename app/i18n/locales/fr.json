@@ -394,6 +394,13 @@
     }
   },
   "auth": {
+    "oauth": {
+      "separator": "OU CONTINUER AVEC",
+      "error": {
+        "title": "Erreur de connexion",
+        "description": "La connexion avec Google a échoué. Veuillez réessayer."
+      }
+    },
     "header": {
       "loggedInAs": "Connecté en tant que {name}"
     },
@@ -530,6 +537,9 @@
       "changePassword": {
         "title": "Changer le Mot de Passe",
         "description": "Mettez à jour votre mot de passe pour sécuriser votre compte.",
+        "oauthOnly": {
+          "message": "Votre compte utilise la connexion Google et n'a pas de mot de passe."
+        },
         "button": "Mettre à jour le mot de passe",
         "form": {
           "currentPassword": {

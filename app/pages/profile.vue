@@ -51,7 +51,7 @@ if (!loggedIn.value) {
 
         <div class="lg:col-span-2 space-y-6">
           <UserProfilePersonalDataFormCard :user="user as User" />
-          <UserProfilePasswordFormCard />
+          <UserProfilePasswordFormCard v-if="user?.authProvider !== 'google'" />
           <UserProfileDangerZone />
         </div>
       </div>

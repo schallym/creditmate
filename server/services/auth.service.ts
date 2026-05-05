@@ -66,9 +66,42 @@ class AuthService {
     password: string,
     user: Pick<User, 'passwordHash' | 'salt'>
   ): Promise<boolean> {
+    if (!user.passwordHash || !user.salt) return false;
     const hashedPassword = await bcryptjs.hash(password, user.salt);
 
     return hashedPassword === user.passwordHash;
+  }
+
+  async findOrCreateOAuthUser(profile: { email: string; fullName: string; provider: string }): Promise<FilteredUser> {
+    const existing = await this.prisma.user.findUnique({ where: { email: profile.email } });
+
+    if (existing) {
+      return {
+        id: existing.id,
+        fullName: existing.fullName,
+        email: existing.email,
+        authProvider: existing.authProvider,
+        createdAt: existing.createdAt,
+        updatedAt: existing.updatedAt
+      };
+    }
+
+    const user = await this.prisma.user.create({
+      data: {
+        email: profile.email,
+        fullName: profile.fullName,
+        authProvider: profile.provider
+      }
+    });
+
+    return {
+      id: user.id,
+      fullName: user.fullName,
+      email: user.email,
+      authProvider: user.authProvider,
+      createdAt: user.createdAt,
+      updatedAt: user.updatedAt
+    };
   }
 
   async createPasswordResetToken(email: string, t: TFunction, locale: string): Promise<{ success: boolean; message?: string }> {

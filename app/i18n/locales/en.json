@@ -394,6 +394,13 @@
     }
   },
   "auth": {
+    "oauth": {
+      "separator": "OR CONTINUE WITH",
+      "error": {
+        "title": "Login error",
+        "description": "Google sign-in failed. Please try again."
+      }
+    },
     "header": {
       "loggedInAs": "Logged in as {name}"
     },
@@ -530,6 +537,9 @@
       "changePassword": {
         "title": "Change Password",
         "description": "Update your password to secure your account.",
+        "oauthOnly": {
+          "message": "Your account uses Google sign-in and does not have a password."
+        },
         "button": "Update password",
         "form": {
           "currentPassword": {

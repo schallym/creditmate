@@ -23,6 +23,7 @@ export default defineEventHandler(async (event) => {
       fullName: user.fullName,
       email: user.email,
       id: user.id,
+      authProvider: user.authProvider,
       createdAt: user.createdAt,
       updatedAt: user.updatedAt
     }
