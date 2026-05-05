@@ -1,5 +1,9 @@
 # Changelog
 
+## 1.2.0 (2026-05-05)
+
+* feat(auth): implement Google OAuth support and update user model ([268c47c](https://github.com/schallym/creditmate/commit/268c47c))
+
 ## 1.1.0 (2025-10-23)
 
 * fix(CD): fix template generation issue ([0f46362](https://github.com/schallym/creditmate/commit/0f46362))
