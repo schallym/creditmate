@@ -102,7 +102,9 @@ describe('UserProfileDangerZone', () => {
     if (deleteBtn.exists()) {
       const onDelete = deleteBtn.props('onDelete') as () => Promise<void>;
       if (onDelete) {
-        try { await onDelete(); } catch { /* expected */ }
+        try {
+          await onDelete();
+        } catch { /* expected */ }
       }
       await flushPromises();
     }
@@ -117,7 +119,9 @@ describe('UserProfileDangerZone', () => {
     if (deleteBtn.exists()) {
       const onDelete = deleteBtn.props('onDelete') as () => Promise<void>;
       if (onDelete) {
-        try { await onDelete(); } catch { /* expected */ }
+        try {
+          await onDelete();
+        } catch { /* expected */ }
       }
       await flushPromises();
     }

@@ -64,13 +64,9 @@ describe('loans/[id]/index', () => {
       error: { value: { statusCode: 404, statusMessage: 'NF', data: { message: 'Not found' } } },
       refresh: vi.fn(), pending: { value: false }
     }));
-    let thrown = false;
     try {
       await mountAsync(LoanIdIndex);
-    } catch {
-      thrown = true;
-    }
-    // Whether thrown or not, confirms error path is exercised
+    } catch { /* expected */ }
     expect(true).toBe(true);
   });
 
@@ -110,7 +106,9 @@ describe('loans/[id]/edit', () => {
       error: { value: { statusCode: 404, statusMessage: 'NF', data: { message: 'Not found' } } },
       refresh: vi.fn(), pending: { value: false }
     }));
-    try { await mountAsync(LoanIdEdit); } catch { /* expected */ }
+    try {
+      await mountAsync(LoanIdEdit);
+    } catch { /* expected */ }
     expect(true).toBe(true);
   });
 });
@@ -130,7 +128,9 @@ describe('loans/[id]/early-repayment', () => {
       error: { value: { statusCode: 404, statusMessage: 'NF', data: { message: 'Not found' } } },
       refresh: vi.fn(), pending: { value: false }
     }));
-    try { await mountAsync(LoanIdEarlyRepayment); } catch { /* expected */ }
+    try {
+      await mountAsync(LoanIdEarlyRepayment);
+    } catch { /* expected */ }
     expect(true).toBe(true);
   });
 });

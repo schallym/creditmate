@@ -1,6 +1,8 @@
 import { describe, it, expect, vi, beforeEach, afterEach } from 'vitest';
 import { LoanType, LoanStatus, type Loan, type LoanWithCalculations } from '~~/server/types';
 
+import LoanService from '~~/server/services/loan.service';
+
 const { mockLoanCreate, mockLoanUpdate, mockLoanDelete, mockLoanFindMany, mockLoanFindUnique } = vi.hoisted(() => ({
   mockLoanCreate: vi.fn(),
   mockLoanUpdate: vi.fn(),
@@ -20,8 +22,6 @@ vi.mock('@prisma/client', () => ({
     }
   }))
 }));
-
-import LoanService from '~~/server/services/loan.service';
 
 beforeEach(() => {
   vi.clearAllMocks();

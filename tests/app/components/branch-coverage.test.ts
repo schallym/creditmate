@@ -61,7 +61,9 @@ describe('Dynamic loan pages error fallback branches', () => {
       refresh: vi.fn(), pending: { value: false }
     }));
     (globalThis as Record<string, unknown>).useRoute = () => ({ params: { id: '1' }, query: {}, path: '/', name: 'r' });
-    try { await mountAsync(LoanIdIndex); } catch { /* expected */ }
+    try {
+      await mountAsync(LoanIdIndex);
+    } catch { /* expected */ }
     expect(true).toBe(true);
   });
 
@@ -72,7 +74,9 @@ describe('Dynamic loan pages error fallback branches', () => {
       refresh: vi.fn(), pending: { value: false }
     }));
     (globalThis as Record<string, unknown>).useRoute = () => ({ params: { id: '1' }, query: {}, path: '/', name: 'r' });
-    try { await mountAsync(LoanIdEdit); } catch { /* expected */ }
+    try {
+      await mountAsync(LoanIdEdit);
+    } catch { /* expected */ }
     expect(true).toBe(true);
   });
 
@@ -83,7 +87,9 @@ describe('Dynamic loan pages error fallback branches', () => {
       refresh: vi.fn(), pending: { value: false }
     }));
     (globalThis as Record<string, unknown>).useRoute = () => ({ params: { id: '1' }, query: {}, path: '/', name: 'r' });
-    try { await mountAsync(LoanIdEarlyRepayment); } catch { /* expected */ }
+    try {
+      await mountAsync(LoanIdEarlyRepayment);
+    } catch { /* expected */ }
     expect(true).toBe(true);
   });
 });

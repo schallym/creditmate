@@ -1,5 +1,5 @@
 import { describe, it, expect, beforeEach, vi } from 'vitest';
-import { z } from 'zod';
+import type { z } from 'zod';
 import { mountWithStubs, setupNuxtMocks } from '../vue-test-helper';
 
 import LoanForm from '~/components/loan/LoanForm.vue';

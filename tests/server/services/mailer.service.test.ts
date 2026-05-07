@@ -1,5 +1,7 @@
 import { describe, it, expect, vi, beforeEach } from 'vitest';
 
+import { mailer } from '~~/server/services/mailer.service';
+
 const { mockSendMail, mockCreateTransport, mockGetItem, mockHbsCompile } = vi.hoisted(() => ({
   mockSendMail: vi.fn(),
   mockCreateTransport: vi.fn(),
@@ -18,8 +20,6 @@ vi.mock('handlebars', () => ({
 (globalThis as unknown as { useStorage: typeof vi.fn }).useStorage = vi.fn(() => ({
   getItem: mockGetItem
 }));
-
-import { mailer } from '~~/server/services/mailer.service';
 
 beforeEach(() => {
   vi.clearAllMocks();

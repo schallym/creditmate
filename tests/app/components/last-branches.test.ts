@@ -104,7 +104,7 @@ describe('Review page refine branch when type is non-general/feature', () => {
         stubs: {
           ...stubs,
           ReviewOverallRatingCard: ReviewStub(5),
-          ReviewTypeCard: ReviewStub('bug'),  // non general/feature
+          ReviewTypeCard: ReviewStub('bug'), // non general/feature
           ReviewCategoryCard: ReviewStub(['c']),
           ReviewFeedbackCard: ReviewStub('feedback'),
           ReviewContactCard: ReviewStub('a@b.com')
@@ -130,7 +130,9 @@ describe('Dynamic loan pages error cases with statusCode set', () => {
       refresh: vi.fn(), pending: { value: false }
     }));
     (globalThis as Record<string, unknown>).useRoute = () => ({ params: { id: '1' }, query: {}, path: '/', name: 'r' });
-    try { await mountAsync(LoanIdIndex); } catch { /* expected */ }
+    try {
+      await mountAsync(LoanIdIndex);
+    } catch { /* expected */ }
     expect(true).toBe(true);
   });
 
@@ -141,7 +143,9 @@ describe('Dynamic loan pages error cases with statusCode set', () => {
       refresh: vi.fn(), pending: { value: false }
     }));
     (globalThis as Record<string, unknown>).useRoute = () => ({ params: { id: '1' }, query: {}, path: '/', name: 'r' });
-    try { await mountAsync(LoanIdEdit); } catch { /* expected */ }
+    try {
+      await mountAsync(LoanIdEdit);
+    } catch { /* expected */ }
     expect(true).toBe(true);
   });
 

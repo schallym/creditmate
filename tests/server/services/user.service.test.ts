@@ -1,5 +1,7 @@
 import { describe, it, expect, vi, beforeEach } from 'vitest';
 
+import UserService from '~~/server/services/user.service';
+
 const { mockUserFindUnique, mockUserUpdate, mockUserDelete, mockLoanDeleteMany, mockHash, mockGenSalt } = vi.hoisted(() => ({
   mockUserFindUnique: vi.fn(),
   mockUserUpdate: vi.fn(),
@@ -19,8 +21,6 @@ vi.mock('@prisma/client', () => ({
 vi.mock('bcryptjs', () => ({
   default: { hash: mockHash, genSalt: mockGenSalt }
 }));
-
-import UserService from '~~/server/services/user.service';
 
 beforeEach(() => vi.clearAllMocks());
 

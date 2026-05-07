@@ -163,12 +163,7 @@ describe('POST /api/auth/reset-password schema refine triggers', () => {
     // Use real readValidatedBody to actually run schema refine
     const handler = (await import('~~/server/api/auth/reset-password.post')).default;
     (globalThis.readValidatedBody as ReturnType<typeof vi.fn>).mockImplementation(async (_event, parser) => {
-      // Call the parser with mismatched passwords to trigger refine
-      try {
-        return parser({ token: 't', password: 'Aaaaaaaaaaaaaaa1!', confirmPassword: 'Differs1234567890' });
-      } catch (e) {
-        throw e;
-      }
+      return parser({ token: 't', password: 'Aaaaaaaaaaaaaaa1!', confirmPassword: 'Differs1234567890' });
     });
     await expect(handler(event)).rejects.toBeTruthy();
   });

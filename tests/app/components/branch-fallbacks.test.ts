@@ -10,7 +10,6 @@ import HomeHero from '~/components/home/HomeHero.vue';
 import ReviewCategoryCard from '~/components/review/ReviewCategoryCard.vue';
 import LoanForm from '~/components/loan/LoanForm.vue';
 import ReviewPage from '~/pages/review.vue';
-import LoanIdIndex from '~/pages/loans/[id]/index.vue';
 
 const tFn = (key: string) => key;
 

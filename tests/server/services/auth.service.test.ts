@@ -1,5 +1,7 @@
 import { describe, it, expect, vi, beforeEach } from 'vitest';
 
+import AuthService from '~~/server/services/auth.service';
+
 const {
   mockUserFindUnique, mockUserCreate, mockUserUpdate,
   mockHash, mockGenSalt,
@@ -37,8 +39,6 @@ vi.mock('jsonwebtoken', () => ({
 vi.mock('~~/server/services/mailer.service', () => ({
   mailer: { sendLocalizedTemplatedMail: mockSendLocalizedTemplatedMail }
 }));
-
-import AuthService from '~~/server/services/auth.service';
 
 beforeEach(() => {
   vi.clearAllMocks();
@@ -305,7 +305,9 @@ describe('AuthService.createPasswordResetToken', () => {
 
 describe('AuthService.verifyPasswordResetToken', () => {
   it('returns invalid when JWT verify throws', async () => {
-    mockJwtVerify.mockImplementation(() => { throw new Error('bad'); });
+    mockJwtVerify.mockImplementation(() => {
+      throw new Error('bad');
+    });
     expect(await AuthService.verifyPasswordResetToken('bad-token')).toEqual({ valid: false });
   });
 
@@ -335,7 +337,9 @@ describe('AuthService.verifyPasswordResetToken', () => {
 
 describe('AuthService.resetPassword', () => {
   it('returns failure on invalid token', async () => {
-    mockJwtVerify.mockImplementation(() => { throw new Error('bad'); });
+    mockJwtVerify.mockImplementation(() => {
+      throw new Error('bad');
+    });
     const result = await AuthService.resetPassword('bad', 'newPwd');
     expect(result.success).toBe(false);
     expect(result.message).toBe('Invalid or expired token');

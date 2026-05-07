@@ -1,12 +1,12 @@
 import { describe, it, expect, vi, beforeEach } from 'vitest';
 
+import ReviewService from '~~/server/services/review.service';
+
 const { mockSendMail } = vi.hoisted(() => ({ mockSendMail: vi.fn() }));
 
 vi.mock('~~/server/services/mailer.service', () => ({
   mailer: { sendMail: mockSendMail }
 }));
-
-import ReviewService from '~~/server/services/review.service';
 
 beforeEach(() => vi.clearAllMocks());
 
