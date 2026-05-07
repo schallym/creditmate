@@ -1,5 +1,14 @@
 # Changelog
 
+## 1.3.0 (2026-05-07)
+
+* chore(deps): update dependencies ([1b98e8e](https://github.com/schallym/creditmate/commit/1b98e8e))
+* chore(deps): update dependencies ([3caedba](https://github.com/schallym/creditmate/commit/3caedba))
+* chore(deps): update dependencies ([a1bcf33](https://github.com/schallym/creditmate/commit/a1bcf33))
+* chore(deps): update dependencies ([7c98c4a](https://github.com/schallym/creditmate/commit/7c98c4a))
+* chore(quality): fix lint issues ([70c7c43](https://github.com/schallym/creditmate/commit/70c7c43))
+* feat(tests): add unit tests ([9412a81](https://github.com/schallym/creditmate/commit/9412a81))
+
 ## 1.2.0 (2026-05-05)
 
 * feat(auth): implement Google OAuth support and update user model ([268c47c](https://github.com/schallym/creditmate/commit/268c47c))
