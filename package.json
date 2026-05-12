@@ -12,6 +12,7 @@
     "db:push": "prisma db push",
     "db:migrate": "prisma migrate dev",
     "lint": "eslint --ext .js,.ts,.vue .",
+    "lint:fix": "eslint --ext .js,.ts,.vue . --fix",
     "test": "vitest run",
     "test:watch": "vitest",
     "test:coverage": "vitest run --coverage",
