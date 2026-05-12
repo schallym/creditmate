@@ -13,6 +13,11 @@ const navItems = computed<NavigationMenuItem[]>(() => [
     label: $t('header.links.loans'),
     to: '/loans',
     active: route.path.startsWith('/loans')
+  },
+  {
+    label: $t('header.links.simulationCenter'),
+    to: '/simulation',
+    active: route.path.startsWith('/simulation')
   }
 ]);
 
