@@ -1,5 +1,10 @@
 # Changelog
 
+## <small>1.3.1 (2026-05-12)</small>
+
+* chore(quality): fix lint issues ([6f0d496](https://github.com/schallym/creditmate/commit/6f0d496))
+* Merge pull request #1 from schallym/claude/pensive-bassi-4f1eb9 ([5671b1e](https://github.com/schallym/creditmate/commit/5671b1e)), closes [#1](https://github.com/schallym/creditmate/issues/1)
+
 ## 1.3.0 (2026-05-07)
 
 * chore(deps): update dependencies ([1b98e8e](https://github.com/schallym/creditmate/commit/1b98e8e))
