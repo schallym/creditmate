@@ -393,6 +393,21 @@
       }
     }
   },
+  "simulation": {
+    "title": "Loan Simulation Center",
+    "description": "Simulate a consumer loan and view the full summary: monthly payments, interest, term, and repayment projection.",
+    "form": {
+      "title": "Loan Parameters",
+      "description": "Enter the details of the loan you want to simulate.",
+      "action": {
+        "simulate": "Simulate Loan"
+      }
+    },
+    "results": {
+      "title": "Simulation Summary",
+      "description": "Here is the complete breakdown of your loan simulation"
+    }
+  },
   "auth": {
     "oauth": {
       "separator": "OR CONTINUE WITH",
@@ -799,6 +814,10 @@
     "resetPassword": {
       "title": "CreditMate - Reset password",
       "description": "Reset your CreditMate account password"
+    },
+    "simulation": {
+      "title": "CreditMate - Loan Simulation Center",
+      "description": "Simulate a consumer loan and view the full summary with CreditMate."
     }
   },
   "errors": {

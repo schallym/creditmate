@@ -393,6 +393,21 @@
       }
     }
   },
+  "simulation": {
+    "title": "Centre de Simulation",
+    "description": "Simulez un prêt à la consommation et visualisez le récapitulatif complet : mensualités, intérêts, durée et projection de remboursement.",
+    "form": {
+      "title": "Paramètres du Prêt",
+      "description": "Renseignez les informations du prêt que vous souhaitez simuler.",
+      "action": {
+        "simulate": "Simuler le Prêt"
+      }
+    },
+    "results": {
+      "title": "Récapitulatif de la Simulation",
+      "description": "Voici le détail complet de votre simulation de prêt"
+    }
+  },
   "auth": {
     "oauth": {
       "separator": "OU CONTINUER AVEC",
@@ -799,6 +814,10 @@
     "resetPassword": {
       "title": "CreditMate - Réinitialiser le mot de passe",
       "description": "Réinitialisez le mot de passe de votre compte CreditMate"
+    },
+    "simulation": {
+      "title": "CreditMate - Centre de Simulation de Prêt",
+      "description": "Simulez un prêt à la consommation et visualisez le récapitulatif complet avec CreditMate."
     }
   },
   "errors": {
